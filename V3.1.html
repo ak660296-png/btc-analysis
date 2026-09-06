@@ -1,0 +1,3265 @@
+<!doctype html>
+
+<html lang="zh-Hant">
+
+<head>
+
+<meta charset="utf-8">
+
+<meta name="viewport"
+
+content="width=device-width,initial-scale=1,maximum-scale=1">
+
+<title>₿ BTC 多空分析 V3.1</title>
+
+<style>
+
+*{
+
+box-sizing:border-box
+
+}
+
+body{
+
+margin:0;
+
+background:#f3f4f6;
+
+color:#202124;
+
+font-family:-apple-system,BlinkMacSystemFont,
+
+"PingFang TC","Noto Sans TC",Arial,sans-serif
+
+}
+
+.wrap{
+
+max-width:850px;
+
+margin:auto;
+
+padding:14px
+
+}
+
+.card{
+
+background:#fff;
+
+border-radius:20px;
+
+padding:18px;
+
+margin-bottom:15px;
+
+box-shadow:0 3px 14px rgba(0,0,0,.06)
+
+}
+
+h1{
+
+font-size:27px;
+
+margin:0 0 6px
+
+}
+
+h2{
+
+font-size:21px;
+
+margin:0 0 15px
+
+}
+
+.sub{
+
+color:#6b7280;
+
+font-size:14px
+
+}
+
+.price{
+
+font-size:40px;
+
+font-weight:800;
+
+margin:17px 0 6px
+
+}
+
+.update{
+
+color:#25803b;
+
+font-size:14px
+
+}
+
+.grid{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:9px
+
+}
+
+.box{
+
+background:#f7f7f8;
+
+border-radius:17px;
+
+padding:13px
+
+}
+
+.label{
+
+color:#777;
+
+font-size:13px
+
+}
+
+.val{
+
+font-size:22px;
+
+font-weight:800;
+
+margin-top:5px
+
+}
+
+.signal{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+border-radius:16px;
+
+padding:14px;
+
+margin-top:14px;
+
+font-size:21px;
+
+font-weight:800
+
+}
+
+.long{
+
+background:#e8f7ed;
+
+color:#16733b
+
+}
+
+.short{
+
+background:#fdecec;
+
+color:#b42318
+
+}
+
+.wait{
+
+background:#f1f1f1;
+
+color:#555
+
+}
+
+.row{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:12px 0;
+
+border-bottom:1px solid #eee;
+
+font-size:16px
+
+}
+
+.row:last-child{
+
+border-bottom:0
+
+}
+
+.good{
+
+color:#17803d;
+
+font-weight:800
+
+}
+
+.bad{
+
+color:#c5221f;
+
+font-weight:800
+
+}
+
+.neutral{
+
+color:#777;
+
+font-weight:800
+
+}
+
+.small{
+
+font-size:13px;
+
+color:#777;
+
+line-height:1.65
+
+}
+
+/* =========================
+
+   圖表
+
+========================= */
+
+.chartBox{
+
+width:100%;
+
+height:450px;
+
+background:#111827;
+
+border-radius:16px;
+
+overflow:hidden;
+
+position:relative
+
+}
+
+#chart{
+
+width:100%;
+
+height:100%;
+
+display:block
+
+}
+
+.chartInfo{
+
+display:flex;
+
+justify-content:space-between;
+
+margin-top:9px;
+
+font-size:12px;
+
+color:#777
+
+}
+
+.green{
+
+color:#17803d;
+
+font-weight:800
+
+}
+
+.red{
+
+color:#c5221f;
+
+font-weight:800
+
+}
+
+/* =========================
+
+   交易計畫
+
+========================= */
+
+.plan{
+
+border-radius:16px;
+
+padding:14px;
+
+background:#f7f7f8;
+
+margin-top:10px
+
+}
+
+.planTitle{
+
+font-weight:800;
+
+font-size:17px;
+
+margin-bottom:8px
+
+}
+
+.planRow{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:8px 0;
+
+font-size:15px
+
+}
+
+.warning{
+
+background:#fff8e6;
+
+border-radius:14px;
+
+padding:12px;
+
+margin-top:12px;
+
+font-size:13px;
+
+line-height:1.6
+
+}
+
+button{
+
+width:100%;
+
+border:0;
+
+border-radius:14px;
+
+padding:14px;
+
+background:#202124;
+
+color:#fff;
+
+font-size:17px;
+
+font-weight:700
+
+}
+
+@media(max-width:520px){
+
+.price{
+
+font-size:34px
+
+}
+
+.grid{
+
+gap:6px
+
+}
+
+.val{
+
+font-size:19px
+
+}
+
+.chartBox{
+
+height:410px
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="wrap">
+
+<!-- =========================
+
+     標題
+
+========================= -->
+
+<div class="card">
+
+<h1>₿ BTC 多空分析 V3.1</h1>
+
+<div class="sub">
+
+15M / 1H / 4H｜線圖＋量能＋多空訊號
+
+</div>
+
+<div id="price" class="price">
+
+讀取中…
+
+</div>
+
+<div id="update" class="update">
+
+正在取得 Binance BTC/USDT 資料
+
+</div>
+
+</div>
+
+<!-- =========================
+
+     核心訊號
+
+========================= -->
+
+<div class="card">
+
+<div class="grid">
+
+<div class="box">
+
+<div class="label">
+
+多頭分數
+
+</div>
+
+<div id="bull" class="val">
+
+—
+
+</div>
+
+</div>
+
+<div class="box">
+
+<div class="label">
+
+空頭分數
+
+</div>
+
+<div id="bear" class="val">
+
+—
+
+</div>
+
+</div>
+
+<div class="box">
+
+<div class="label">
+
+RSI 1H
+
+</div>
+
+<div id="rsi" class="val">
+
+—
+
+</div>
+
+</div>
+
+</div>
+
+<div id="signal"
+
+class="signal wait">
+
+分析中…
+
+</div>
+
+<div id="reason"
+
+class="small"
+
+style="margin-top:12px">
+
+等待市場資料。
+
+</div>
+
+</div>
+
+<!-- =========================
+
+     線圖
+
+========================= -->
+
+<div class="card">
+
+<h2>📈 BTC 1H 價格＋量能</h2>
+
+<div class="chartBox">
+
+<canvas id="chart"></canvas>
+
+</div>
+
+<div class="chartInfo">
+
+<span class="green">
+
+▲ 綠色＝做多訊號
+
+</span>
+
+<span>
+
+白線＝BTC價格
+
+</span>
+
+<span class="red">
+
+▼ 紅色＝做空訊號
+
+</span>
+
+</div>
+
+<div class="small"
+
+style="margin-top:10px">
+
+圖表顯示最近 80 根 1H K 線。
+
+下方柱狀圖為成交量。
+
+只有符合趨勢、RSI、EMA、量能等條件才會標記訊號。
+
+</div>
+
+</div>
+
+<!-- =========================
+
+     交易計畫
+
+========================= -->
+
+<div class="card">
+
+<h2>🎯 建議交易計畫</h2>
+
+<div class="row">
+
+<span>
+
+目前方向
+
+</span>
+
+<b id="tradeDirection"
+
+class="neutral">
+
+觀望
+
+</b>
+
+</div>
+
+<div class="plan">
+
+<div class="planTitle">
+
+🟢 做多計畫
+
+</div>
+
+<div class="planRow">
+
+<span>
+
+參考進場
+
+</span>
+
+<b id="longEntry">
+
+—
+
+</b>
+
+</div>
+
+<div class="planRow">
+
+<span>
+
+停損
+
+</span>
+
+<b id="longStop">
+
+—
+
+</b>
+
+</div>
+
+<div class="planRow">
+
+<span>
+
+TP1
+
+</span>
+
+<b id="longTP1">
+
+—
+
+</b>
+
+</div>
+
+<div class="planRow">
+
+<span>
+
+TP2
+
+</span>
+
+<b id="longTP2">
+
+—
+
+</b>
+
+</div>
+
+</div>
+
+<div class="plan">
+
+<div class="planTitle">
+
+🔴 做空計畫
+
+</div>
+
+<div class="planRow">
+
+<span>
+
+參考進場
+
+</span>
+
+<b id="shortEntry">
+
+—
+
+</b>
+
+</div>
+
+<div class="planRow">
+
+<span>
+
+停損
+
+</span>
+
+<b id="shortStop">
+
+—
+
+</b>
+
+</div>
+
+<div class="planRow">
+
+<span>
+
+TP1
+
+</span>
+
+<b id="shortTP1">
+
+—
+
+</b>
+
+</div>
+
+<div class="planRow">
+
+<span>
+
+TP2
+
+</span>
+
+<b id="shortTP2">
+
+—
+
+</b>
+
+</div>
+
+</div>
+
+<div class="warning">
+
+⚠️ 以上價格是依技術指標計算的「參考位置」，
+
+不是保證獲利，也不是叫你一定進場。
+
+實際操作仍應考慮市場波動、槓桿及風險。
+
+</div>
+
+</div>
+
+<!-- =========================
+
+     量能
+
+========================= -->
+
+<div class="card">
+
+<h2>📊 量能分析</h2>
+
+<div class="row">
+
+<span>
+
+目前成交量
+
+</span>
+
+<b id="volume">
+
+—
+
+</b>
+
+</div>
+
+<div class="row">
+
+<span>
+
+平均成交量
+
+</span>
+
+<b id="avgVolume">
+
+—
+
+</b>
+
+</div>
+
+<div class="row">
+
+<span>
+
+量能倍率
+
+</span>
+
+<b id="volumeRatio">
+
+—
+
+</b>
+
+</div>
+
+<div class="row">
+
+<span>
+
+量能狀態
+
+</span>
+
+<b id="volumeState"
+
+class="neutral">
+
+—
+
+</b>
+
+</div>
+
+<div class="row">
+
+<span>
+
+量價關係
+
+</span>
+
+<b id="volumePrice"
+
+class="neutral">
+
+—
+
+</b>
+
+</div>
+
+</div>
+
+<!-- =========================
+
+     多週期
+
+========================= -->
+
+<div class="card">
+
+<h2>📊 多週期趨勢</h2>
+
+<div class="row">
+
+<span>
+
+15M
+
+</span>
+
+<b id="s15">
+
+—
+
+</b>
+
+</div>
+
+<div class="row">
+
+<span>
+
+1H
+
+</span>
+
+<b id="s1">
+
+—
+
+</b>
+
+</div>
+
+<div class="row">
+
+<span>
+
+4H
+
+</span>
+
+<b id="s4">
+
+—
+
+</b>
+
+</div>
+
+<div class="row">
+
+<span>
+
+EMA 12 / 26（1H）
+
+</span>
+
+<b id="ema">
+
+—
+
+</b>
+
+</div>
+
+<div class="row">
+
+<span>
+
+MACD（1H）
+
+</span>
+
+<b id="macd">
+
+—
+
+</b>
+
+</div>
+
+<div class="row">
+
+<span>
+
+RSI（1H）
+
+</span>
+
+<b id="rsi2">
+
+—
+
+</b>
+
+</div>
+
+</div>
+
+<!-- =========================
+
+     多空條件
+
+========================= -->
+
+<div class="card">
+
+<h2>🧭 多空條件</h2>
+
+<div class="row">
+
+<span>
+
+做多條件
+
+</span>
+
+<b id="longHint"
+
+class="neutral">
+
+等待
+
+</b>
+
+</div>
+
+<div class="row">
+
+<span>
+
+做空條件
+
+</span>
+
+<b id="shortHint"
+
+class="neutral">
+
+等待
+
+</b>
+
+</div>
+
+<div class="row">
+
+<span>
+
+目前策略
+
+</span>
+
+<b id="strategy"
+
+class="neutral">
+
+觀望
+
+</b>
+
+</div>
+
+<div class="small"
+
+style="margin-top:12px">
+
+V3.1 主要使用：
+
+<br>
+
+① 15M / 1H / 4H 趨勢
+
+<br>
+
+② EMA12 / EMA26
+
+<br>
+
+③ RSI
+
+<br>
+
+④ MACD
+
+<br>
+
+⑤ 成交量
+
+<br>
+
+⑥ 價格位置
+
+<br>
+
+⑦ 多週期一致性
+
+</div>
+
+</div>
+
+<!-- =========================
+
+     關鍵價位
+
+========================= -->
+
+<div class="card">
+
+<h2>🔑 關鍵價位</h2>
+
+<div class="row">
+
+<span>
+
+目前價格
+
+</span>
+
+<b id="currentPrice">
+
+—
+
+</b>
+
+</div>
+
+<div class="row">
+
+<span>
+
+1H EMA12
+
+</span>
+
+<b id="e12">
+
+—
+
+</b>
+
+</div>
+
+<div class="row">
+
+<span>
+
+1H EMA26
+
+</span>
+
+<b id="e26">
+
+—
+
+</b>
+
+</div>
+
+<div class="row">
+
+<span>
+
+1H 48H 高點
+
+</span>
+
+<b id="hi">
+
+—
+
+</b>
+
+</div>
+
+<div class="row">
+
+<span>
+
+1H 48H 低點
+
+</span>
+
+<b id="lo">
+
+—
+
+</b>
+
+</div>
+
+</div>
+
+<!-- =========================
+
+     更新
+
+========================= -->
+
+<div class="card">
+
+<button onclick="loadAll()">
+
+🔄 立即更新
+
+</button>
+
+<p class="small"
+
+style="margin-bottom:0">
+
+資料來源：Binance 公開 BTC/USDT K線 API。
+
+<br>
+
+系統每 60 秒自動更新一次。
+
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+/* ==================================================
+
+   Binance API
+
+================================================== */
+
+const API =
+
+"https://api.binance.com/api/v3/klines";
+
+/* ==================================================
+
+   數字格式
+
+================================================== */
+
+function fmt(n){
+
+return Number(n).toLocaleString(
+
+"en-US",
+
+{
+
+minimumFractionDigits:2,
+
+maximumFractionDigits:2
+
+}
+
+);
+
+}
+
+/* ==================================================
+
+   EMA
+
+================================================== */
+
+function ema(a,p){
+
+if(!a.length)
+
+return 0;
+
+const k=2/(p+1);
+
+let e=a[0];
+
+for(let i=1;i<a.length;i++){
+
+e=a[i]*k+e*(1-k);
+
+}
+
+return e;
+
+}
+
+/* ==================================================
+
+   RSI
+
+================================================== */
+
+function rsi(a,p=14){
+
+if(a.length<=p)
+
+return 50;
+
+let gain=0;
+
+let loss=0;
+
+for(let i=a.length-p;i<a.length;i++){
+
+const d=a[i]-a[i-1];
+
+if(d>0)
+
+gain+=d;
+
+else
+
+loss-=d;
+
+}
+
+if(loss===0)
+
+return 100;
+
+const rs=
+
+(gain/p)/(loss/p);
+
+return 100-(100/(1+rs));
+
+}
+
+/* ==================================================
+
+   MACD
+
+================================================== */
+
+function macd(a){
+
+const e12=ema(a,12);
+
+const e26=ema(a,26);
+
+return {
+
+m:e12-e26,
+
+e12:e12,
+
+e26:e26
+
+};
+
+}
+
+/* ==================================================
+
+   取得 K 線
+
+================================================== */
+
+async function candles(
+
+interval,
+
+limit=200
+
+){
+
+const r=await fetch(
+
+`${API}?symbol=BTCUSDT&interval=${interval}&limit=${limit}`,
+
+{
+
+cache:"no-store"
+
+}
+
+);
+
+if(!r.ok)
+
+throw Error("Binance API error");
+
+const d=await r.json();
+
+return d.map(x=>({
+
+time:+x[0],
+
+o:+x[1],
+
+h:+x[2],
+
+l:+x[3],
+
+c:+x[4],
+
+v:+x[5]
+
+}));
+
+}
+
+/* ==================================================
+
+   趨勢分析
+
+================================================== */
+
+function trend(c){
+
+const a=c.map(x=>x.c);
+
+const e12=ema(a,12);
+
+const e26=ema(a,26);
+
+const rr=rsi(a,14);
+
+const mc=macd(a);
+
+const last=a.at(-1);
+
+let score=0;
+
+/* EMA */
+
+if(e12>e26)
+
+score+=2;
+
+else
+
+score-=2;
+
+/* 價格 */
+
+if(last>e12)
+
+score+=1;
+
+else
+
+score-=1;
+
+/* RSI */
+
+if(rr>50)
+
+score+=1;
+
+else
+
+score-=1;
+
+/* MACD */
+
+if(mc.m>0)
+
+score+=1;
+
+else
+
+score-=1;
+
+return {
+
+score:score,
+
+e12:e12,
+
+e26:e26,
+
+rsi:rr,
+
+last:last,
+
+macd:mc.m,
+
+high:Math.max(
+
+...c.slice(-48).map(x=>x.h)
+
+),
+
+low:Math.min(
+
+...c.slice(-48).map(x=>x.l)
+
+)
+
+};
+
+}
+
+/* ==================================================
+
+   量能
+
+================================================== */
+
+function volumeInfo(c){
+
+const current=
+
+c.at(-1).v;
+
+const arr=
+
+c.slice(-21,-1)
+
+.map(x=>x.v);
+
+const avg=
+
+arr.reduce(
+
+(a,b)=>a+b,
+
+0
+
+)/arr.length;
+
+return {
+
+current:current,
+
+avg:avg,
+
+ratio:current/avg
+
+};
+
+}
+
+/* ==================================================
+
+   趨勢文字
+
+================================================== */
+
+function label(score){
+
+if(score>=3)
+
+return ["偏多","good"];
+
+if(score<=-3)
+
+return ["偏空","bad"];
+
+return ["震盪","neutral"];
+
+}
+
+/* ==================================================
+
+   設定文字
+
+================================================== */
+
+function set(
+
+id,
+
+text,
+
+cls
+
+){
+
+const e=
+
+document.getElementById(id);
+
+e.textContent=text;
+
+e.className=cls;
+
+}
+
+/* ==================================================
+
+   畫圖
+
+================================================== */
+
+function drawChart(c){
+
+const canvas=
+
+document.getElementById("chart");
+
+const box=
+
+canvas.parentElement;
+
+const dpr=
+
+window.devicePixelRatio||1;
+
+const W=
+
+box.clientWidth;
+
+const H=
+
+box.clientHeight;
+
+canvas.width=
+
+W*dpr;
+
+canvas.height=
+
+H*dpr;
+
+const ctx=
+
+canvas.getContext("2d");
+
+ctx.scale(dpr,dpr);
+
+/* 清除 */
+
+ctx.clearRect(
+
+0,
+
+0,
+
+W,
+
+H
+
+);
+
+/* 最近80根 */
+
+const data=
+
+c.slice(-80);
+
+if(data.length<2)
+
+return;
+
+/* 價格 */
+
+const prices=
+
+data.map(x=>x.c);
+
+const maxP=
+
+Math.max(...prices);
+
+const minP=
+
+Math.min(...prices);
+
+/* 成交量 */
+
+const vols=
+
+data.map(x=>x.v);
+
+const maxV=
+
+Math.max(...vols);
+
+/* 圖表區域 */
+
+const left=48;
+
+const right=12;
+
+const top=20;
+
+const priceBottom=
+
+H*0.67;
+
+const volumeTop=
+
+H*0.75;
+
+const volumeBottom=
+
+H-27;
+
+/* 背景 */
+
+ctx.fillStyle="#111827";
+
+ctx.fillRect(
+
+0,
+
+0,
+
+W,
+
+H
+
+);
+
+/* 網格 */
+
+ctx.strokeStyle=
+
+"rgba(255,255,255,.10)";
+
+ctx.lineWidth=1;
+
+for(let i=0;i<5;i++){
+
+const y=
+
+top+
+
+(priceBottom-top)*i/4;
+
+ctx.beginPath();
+
+ctx.moveTo(
+
+left,
+
+y
+
+);
+
+ctx.lineTo(
+
+W-right,
+
+y
+
+);
+
+ctx.stroke();
+
+}
+
+/* 價格標籤 */
+
+ctx.fillStyle="#9ca3af";
+
+ctx.font="10px Arial";
+
+for(let i=0;i<5;i++){
+
+const p=
+
+maxP-
+
+(maxP-minP)*i/4;
+
+const y=
+
+top+
+
+(priceBottom-top)*i/4;
+
+ctx.fillText(
+
+"$"+fmt(p),
+
+4,
+
+y+4
+
+);
+
+}
+
+/* 價格線 */
+
+ctx.beginPath();
+
+data.forEach(
+
+(x,i)=>{
+
+const px=
+
+left+
+
+(W-left-right)*
+
+i/(data.length-1);
+
+const py=
+
+priceBottom-
+
+((x.c-minP)/
+
+(maxP-minP||1))*
+
+(priceBottom-top);
+
+if(i===0)
+
+ctx.moveTo(px,py);
+
+else
+
+ctx.lineTo(px,py);
+
+}
+
+);
+
+ctx.strokeStyle="#ffffff";
+
+ctx.lineWidth=2;
+
+ctx.stroke();
+
+/* 最新價格 */
+
+const last=
+
+data.at(-1).c;
+
+const ly=
+
+priceBottom-
+
+((last-minP)/
+
+(maxP-minP||1))*
+
+(priceBottom-top);
+
+ctx.setLineDash(
+
+[5,5]
+
+);
+
+ctx.strokeStyle=
+
+"rgba(255,255,255,.45)";
+
+ctx.beginPath();
+
+ctx.moveTo(
+
+left,
+
+ly
+
+);
+
+ctx.lineTo(
+
+W-right,
+
+ly
+
+);
+
+ctx.stroke();
+
+ctx.setLineDash([]);
+
+/* ==================================================
+
+   成交量柱
+
+================================================== */
+
+data.forEach(
+
+(x,i)=>{
+
+const px=
+
+left+
+
+(W-left-right)*
+
+i/(data.length-1);
+
+const bw=
+
+Math.max(
+
+2,
+
+(W-left-right)/
+
+data.length-2
+
+);
+
+const vh=
+
+(x.v/maxV)*
+
+(volumeBottom-volumeTop);
+
+ctx.fillStyle=
+
+x.c>=x.o
+
+?
+
+"rgba(23,128,61,.65)"
+
+:
+
+"rgba(197,34,31,.65)";
+
+ctx.fillRect(
+
+px-bw/2,
+
+volumeBottom-vh,
+
+bw,
+
+vh
+
+);
+
+}
+
+);
+
+/* ==================================================
+
+   訊號
+
+================================================== */
+
+for(let i=25;i<data.length;i++){
+
+const current=
+
+data[i];
+
+const history=
+
+data
+
+.slice(
+
+Math.max(0,i-30),
+
+i+1
+
+);
+
+const closes=
+
+history.map(x=>x.c);
+
+const e12=
+
+ema(closes,12);
+
+const e26=
+
+ema(closes,26);
+
+const rr=
+
+rsi(closes,14);
+
+const volumeArray=
+
+data
+
+.slice(
+
+Math.max(0,i-20),
+
+i
+
+)
+
+.map(x=>x.v);
+
+const avgVol=
+
+volumeArray.length
+
+?
+
+volumeArray.reduce(
+
+(a,b)=>a+b,
+
+0
+
+)/volumeArray.length
+
+:1;
+
+const volRatio=
+
+current.v/avgVol;
+
+/* 趨勢 */
+
+const bullish=
+
+e12>e26 &&
+
+current.c>e12;
+
+const bearish=
+
+e12<e26 &&
+
+current.c<e12;
+
+/* 做多 */
+
+const longSignal=
+
+bullish &&
+
+rr>=52 &&
+
+rr<=70 &&
+
+volRatio>=1.05;
+
+/* 做空 */
+
+const shortSignal=
+
+bearish &&
+
+rr<=48 &&
+
+rr>=30 &&
+
+volRatio>=1.05;
+
+/* 座標 */
+
+const px=
+
+left+
+
+(W-left-right)*
+
+i/(data.length-1);
+
+const py=
+
+priceBottom-
+
+((current.c-minP)/
+
+(maxP-minP||1))*
+
+(priceBottom-top);
+
+/* 做多 */
+
+if(longSignal){
+
+ctx.fillStyle="#39d353";
+
+ctx.beginPath();
+
+ctx.moveTo(
+
+px,
+
+py-5
+
+);
+
+ctx.lineTo(
+
+px-6,
+
+py+7
+
+);
+
+ctx.lineTo(
+
+px+6,
+
+py+7
+
+);
+
+ctx.closePath();
+
+ctx.fill();
+
+ctx.font=
+
+"bold 10px Arial";
+
+ctx.fillText(
+
+"多",
+
+px-6,
+
+py-10
+
+);
+
+}
+
+/* 做空 */
+
+if(shortSignal){
+
+ctx.fillStyle="#ff4d4d";
+
+ctx.beginPath();
+
+ctx.moveTo(
+
+px,
+
+py+5
+
+);
+
+ctx.lineTo(
+
+px-6,
+
+py-7
+
+);
+
+ctx.lineTo(
+
+px+6,
+
+py-7
+
+);
+
+ctx.closePath();
+
+ctx.fill();
+
+ctx.font=
+
+"bold 10px Arial";
+
+ctx.fillText(
+
+"空",
+
+px-6,
+
+py+20
+
+);
+
+}
+
+}
+
+/* X軸日期 */
+
+ctx.fillStyle="#9ca3af";
+
+ctx.font="10px Arial";
+
+const step=
+
+Math.max(
+
+1,
+
+Math.floor(data.length/5)
+
+);
+
+for(
+
+let i=0;
+
+i<data.length;
+
+i+=step
+
+){
+
+const d=
+
+new Date(data[i].time);
+
+const text=
+
+(d.getMonth()+1)+"/"+
+
+d.getDate();
+
+const px=
+
+left+
+
+(W-left-right)*
+
+i/(data.length-1);
+
+ctx.fillText(
+
+text,
+
+px-10,
+
+H-7
+
+);
+
+}
+
+}
+
+/* ==================================================
+
+   主程式
+
+================================================== */
+
+async function loadAll(){
+
+try{
+
+document.getElementById(
+
+"update"
+
+).textContent=
+
+"更新中…";
+
+/* 取得三週期 */
+
+const [
+
+c15,
+
+c1,
+
+c4
+
+]=await Promise.all([
+
+candles("15m"),
+
+candles("1h"),
+
+candles("4h")
+
+]);
+
+/* 分析 */
+
+const a=
+
+trend(c15);
+
+const b=
+
+trend(c1);
+
+const c=
+
+trend(c4);
+
+const vol=
+
+volumeInfo(c1);
+
+const price=
+
+b.last;
+
+/* ==================================================
+
+   基本資料
+
+================================================== */
+
+document.getElementById(
+
+"price"
+
+).textContent=
+
+"$"+fmt(price);
+
+document.getElementById(
+
+"currentPrice"
+
+).textContent=
+
+"$"+fmt(price);
+
+document.getElementById(
+
+"update"
+
+).textContent=
+
+"最後更新："+
+
+new Date()
+
+.toLocaleString(
+
+"zh-TW"
+
+);
+
+/* ==================================================
+
+   分數
+
+================================================== */
+
+const bull=
+
+Math.max(0,a.score)+
+
+Math.max(0,b.score)+
+
+Math.max(0,c.score);
+
+const bear=
+
+Math.max(0,-a.score)+
+
+Math.max(0,-b.score)+
+
+Math.max(0,-c.score);
+
+document.getElementById(
+
+"bull"
+
+).textContent=
+
+bull;
+
+document.getElementById(
+
+"bear"
+
+).textContent=
+
+bear;
+
+document.getElementById(
+
+"rsi"
+
+).textContent=
+
+b.rsi.toFixed(1);
+
+document.getElementById(
+
+"rsi2"
+
+).textContent=
+
+b.rsi.toFixed(1);
+
+/* ==================================================
+
+   多週期
+
+================================================== */
+
+const [
+
+l15,
+
+cl15
+
+]=label(a.score);
+
+const [
+
+l1,
+
+cl1
+
+]=label(b.score);
+
+const [
+
+l4,
+
+cl4
+
+]=label(c.score);
+
+set(
+
+"s15",
+
+l15,
+
+cl15
+
+);
+
+set(
+
+"s1",
+
+l1,
+
+cl1
+
+);
+
+set(
+
+"s4",
+
+l4,
+
+cl4
+
+);
+
+/* ==================================================
+
+   EMA MACD
+
+================================================== */
+
+document.getElementById(
+
+"ema"
+
+).textContent=
+
+fmt(b.e12)+
+
+" / "+
+
+fmt(b.e26);
+
+document.getElementById(
+
+"macd"
+
+).textContent=
+
+(b.macd>=0?"+":"")+
+
+b.macd.toFixed(2);
+
+document.getElementById(
+
+"e12"
+
+).textContent=
+
+fmt(b.e12);
+
+document.getElementById(
+
+"e26"
+
+).textContent=
+
+fmt(b.e26);
+
+/* ==================================================
+
+   高低點
+
+================================================== */
+
+document.getElementById(
+
+"hi"
+
+).textContent=
+
+fmt(b.high);
+
+document.getElementById(
+
+"lo"
+
+).textContent=
+
+fmt(b.low);
+
+/* ==================================================
+
+   量能
+
+================================================== */
+
+document.getElementById(
+
+"volume"
+
+).textContent=
+
+Math.round(
+
+vol.current
+
+).toLocaleString();
+
+document.getElementById(
+
+"avgVolume"
+
+).textContent=
+
+Math.round(
+
+vol.avg
+
+).toLocaleString();
+
+document.getElementById(
+
+"volumeRatio"
+
+).textContent=
+
+(vol.ratio*100)
+
+.toFixed(0)+"%";
+
+let volumeText=
+
+"正常";
+
+let volumeClass=
+
+"neutral";
+
+if(vol.ratio>=1.5){
+
+volumeText=
+
+"🔥 強量";
+
+volumeClass=
+
+"good";
+
+}
+
+else if(vol.ratio>=1.15){
+
+volumeText=
+
+"放量";
+
+volumeClass=
+
+"good";
+
+}
+
+else if(vol.ratio<=0.75){
+
+volumeText=
+
+"縮量";
+
+volumeClass=
+
+"neutral";
+
+}
+
+set(
+
+"volumeState",
+
+volumeText,
+
+volumeClass
+
+);
+
+/* 量價 */
+
+let vp=
+
+"中性";
+
+let vpClass=
+
+"neutral";
+
+if(
+
+vol.ratio>=1.15 &&
+
+price>b.e12
+
+){
+
+vp=
+
+"放量上漲";
+
+vpClass=
+
+"good";
+
+}
+
+else if(
+
+vol.ratio>=1.15 &&
+
+price<b.e12
+
+){
+
+vp=
+
+"放量下跌";
+
+vpClass=
+
+"bad";
+
+}
+
+else if(
+
+vol.ratio<0.75
+
+){
+
+vp=
+
+"量能不足";
+
+vpClass=
+
+"neutral";
+
+}
+
+set(
+
+"volumePrice",
+
+vp,
+
+vpClass
+
+);
+
+/* ==================================================
+
+   多空判斷
+
+================================================== */
+
+const strongVolume=
+
+vol.ratio>=1.05;
+
+/* 做多 */
+
+const longOk=
+
+a.score>=2 &&
+
+b.score>=2 &&
+
+c.score>=2 &&
+
+b.rsi<70 &&
+
+strongVolume;
+
+/* 做空 */
+
+const shortOk=
+
+a.score<=-2 &&
+
+b.score<=-2 &&
+
+c.score<=-2 &&
+
+b.rsi>30 &&
+
+strongVolume;
+
+const sig=
+
+document.getElementById(
+
+"signal"
+
+);
+
+/* ==================================================
+
+   做多
+
+================================================== */
+
+if(longOk){
+
+sig.className=
+
+"signal long";
+
+sig.textContent=
+
+"🟢 建議偏向做多";
+
+set(
+
+"tradeDirection",
+
+"🟢 做多",
+
+"good"
+
+);
+
+set(
+
+"strategy",
+
+"等待回踩確認再做多",
+
+"good"
+
+);
+
+/* 做多交易計畫 */
+
+const entry=
+
+Math.max(
+
+b.e12,
+
+b.e26
+
+);
+
+const stop=
+
+Math.min(
+
+b.low,
+
+entry*0.985
+
+);
+
+const risk=
+
+entry-stop;
+
+const tp1=
+
+entry+risk*1.5;
+
+const tp2=
+
+entry+risk*2.5;
+
+document.getElementById(
+
+"longEntry"
+
+).textContent=
+
+"$"+fmt(entry);
+
+document.getElementById(
+
+"longStop"
+
+).textContent=
+
+"$"+fmt(stop);
+
+document.getElementById(
+
+"longTP1"
+
+).textContent=
+
+"$"+fmt(tp1);
+
+document.getElementById(
+
+"longTP2"
+
+).textContent=
+
+"$"+fmt(tp2);
+
+/* 空方計畫仍顯示參考 */
+
+document.getElementById(
+
+"shortEntry"
+
+).textContent=
+
+"等待";
+
+document.getElementById(
+
+"shortStop"
+
+).textContent=
+
+"—";
+
+document.getElementById(
+
+"shortTP1"
+
+).textContent=
+
+"—";
+
+document.getElementById(
+
+"shortTP2"
+
+).textContent=
+
+"—";
+
+}
+
+/* ==================================================
+
+   做空
+
+================================================== */
+
+else if(shortOk){
+
+sig.className=
+
+"signal short";
+
+sig.textContent=
+
+"🔴 建議偏向做空";
+
+set(
+
+"tradeDirection",
+
+"🔴 做空",
+
+"bad"
+
+);
+
+set(
+
+"strategy",
+
+"等待反彈確認再做空",
+
+"bad"
+
+);
+
+/* 做空交易計畫 */
+
+const entry=
+
+Math.min(
+
+b.e12,
+
+b.e26
+
+);
+
+const stop=
+
+Math.max(
+
+b.high,
+
+entry*1.015
+
+);
+
+const risk=
+
+stop-entry;
+
+const tp1=
+
+entry-risk*1.5;
+
+const tp2=
+
+entry-risk*2.5;
+
+document.getElementById(
+
+"shortEntry"
+
+).textContent=
+
+"$"+fmt(entry);
+
+document.getElementById(
+
+"shortStop"
+
+).textContent=
+
+"$"+fmt(stop);
+
+document.getElementById(
+
+"shortTP1"
+
+).textContent=
+
+"$"+fmt(tp1);
+
+document.getElementById(
+
+"shortTP2"
+
+).textContent=
+
+"$"+fmt(tp2);
+
+/* 多方 */
+
+document.getElementById(
+
+"longEntry"
+
+).textContent=
+
+"等待";
+
+document.getElementById(
+
+"longStop"
+
+).textContent=
+
+"—";
+
+document.getElementById(
+
+"longTP1"
+
+).textContent=
+
+"—";
+
+document.getElementById(
+
+"longTP2"
+
+).textContent=
+
+"—";
+
+}
+
+/* ==================================================
+
+   觀望
+
+================================================== */
+
+else{
+
+sig.className=
+
+"signal wait";
+
+sig.textContent=
+
+"🟡 觀望";
+
+set(
+
+"tradeDirection",
+
+"🟡 觀望",
+
+"neutral"
+
+);
+
+set(
+
+"strategy",
+
+"多空尚未完全一致",
+
+"neutral"
+
+);
+
+/* 多空都不顯示進場 */
+
+document.getElementById(
+
+"longEntry"
+
+).textContent=
+
+"等待";
+
+document.getElementById(
+
+"longStop"
+
+).textContent=
+
+"—";
+
+document.getElementById(
+
+"longTP1"
+
+).textContent=
+
+"—";
+
+document.getElementById(
+
+"longTP2"
+
+).textContent=
+
+"—";
+
+document.getElementById(
+
+"shortEntry"
+
+).textContent=
+
+"等待";
+
+document.getElementById(
+
+"shortStop"
+
+).textContent=
+
+"—";
+
+document.getElementById(
+
+"shortTP1"
+
+).textContent=
+
+"—";
+
+document.getElementById(
+
+"shortTP2"
+
+).textContent=
+
+"—";
+
+}
+
+/* ==================================================
+
+   條件提示
+
+================================================== */
+
+const longText=
+
+a.score>=2 &&
+
+b.score>=2 &&
+
+c.score>=2 &&
+
+strongVolume
+
+?
+
+"條件較完整"
+
+:
+
+"尚未全部滿足";
+
+const shortText=
+
+a.score<=-2 &&
+
+b.score<=-2 &&
+
+c.score<=-2 &&
+
+strongVolume
+
+?
+
+"條件較完整"
+
+:
+
+"尚未全部滿足";
+
+set(
+
+"longHint",
+
+longText,
+
+longText==="條件較完整"
+
+?
+
+"good"
+
+:
+
+"neutral"
+
+);
+
+set(
+
+"shortHint",
+
+shortText,
+
+shortText==="條件較完整"
+
+?
+
+"bad"
+
+:
+
+"neutral"
+
+);
+
+/* ==================================================
+
+   分析文字
+
+================================================== */
+
+document.getElementById(
+
+"reason"
+
+).textContent=
+
+`15M ${l15}、1H ${l1}、4H ${l4}；`+
+
+`RSI ${b.rsi.toFixed(1)}；`+
+
+`量能 ${volumeText}。`
+
++
+
+(
+
+longOk
+
+?
+
+" 三週期方向一致偏多，等待價格回踩再考慮做多。"
+
+:
+
+shortOk
+
+?
+
+" 三週期方向一致偏空，等待價格反彈再考慮做空。"
+
+:
+
+" 三週期尚未完全共振，目前以觀望為主，避免追單。"
+
+);
+
+/* ==================================================
+
+   畫圖
+
+================================================== */
+
+drawChart(c1);
+
+}
+
+catch(e){
+
+console.error(e);
+
+document.getElementById(
+
+"update"
+
+).textContent=
+
+"⚠️ 資料取得失敗，請稍後重試";
+
+document.getElementById(
+
+"signal"
+
+).className=
+
+"signal wait";
+
+document.getElementById(
+
+"signal"
+
+).textContent=
+
+"⚠️ 暫時無法分析";
+
+}
+
+}
+
+/* ==================================================
+
+   啟動
+
+================================================== */
+
+loadAll();
+
+/* 每60秒更新 */
+
+setInterval(
+
+loadAll,
+
+60000
+
+);
+
+/* 螢幕尺寸改變 */
+
+window.addEventListener(
+
+"resize",
+
+()=>{
+
+loadAll();
+
+}
+
+);
+
+</script>
+
+</body>
+
+</html>
