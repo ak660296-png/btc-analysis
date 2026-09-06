@@ -22,25 +22,49 @@ body{margin:0;background:#f3f4f6;color:#202124;font-family:-apple-system,BlinkMa
 
 h1{margin:0 0 5px;font-size:28px}.sub{color:#70757d;font-size:14px}
 
-.price{font-size:36px;font-weight:800;margin-top:16px}.status{margin-top:6px;color:#777}.ok{color:#16803c}.err{color:#c62828}
+.price{font-size:36px;font-weight:800;margin-top:16px}
 
-.action{border-radius:18px;padding:18px;margin-top:15px;background:#eee}.action.long{background:#e3f8e8}.action.short{background:#ffe5e5}.action.wait{background:#f1f1f1}
+.status{margin-top:6px;color:#777}.ok{color:#16803c}.err{color:#c62828}
 
-.action-title{font-size:25px;font-weight:900}.confidence{font-size:18px;margin-top:8px}.bar{height:12px;background:#ddd;border-radius:10px;overflow:hidden;margin-top:10px}.bar>div{height:100%;background:#333;width:0}
+.action{border-radius:18px;padding:18px;margin-top:15px;background:#eee}
 
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.box{background:#f7f7f8;border-radius:15px;padding:13px 9px}.label{font-size:13px;color:#777}.value{font-size:21px;font-weight:800;margin-top:5px}
+.action.long{background:#e3f8e8}.action.short{background:#ffe5e5}.action.wait{background:#f1f1f1}
+
+.action-title{font-size:25px;font-weight:900}.confidence{font-size:18px;margin-top:8px}
+
+.bar{height:12px;background:#ddd;border-radius:10px;overflow:hidden;margin-top:10px}
+
+.bar>div{height:100%;background:#333;width:0}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+
+.box{background:#f7f7f8;border-radius:15px;padding:13px 9px}.label{font-size:13px;color:#777}.value{font-size:21px;font-weight:800;margin-top:5px}
 
 .row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #eee}.row:last-child{border:0}
 
-.badge{display:inline-block;padding:7px 12px;border-radius:999px;font-weight:800;background:#eee}.longtxt{color:#08752c}.shorttxt{color:#b42318}
+.badge{display:inline-block;padding:7px 12px;border-radius:999px;font-weight:800;background:#eee}
+
+.longtxt{color:#08752c}.shorttxt{color:#b42318}
+
+.plan{border-radius:15px;padding:14px;margin-top:10px}
+
+.plan.long{background:#eefaf1}.plan.short{background:#fff0f0}.plan.wait{background:#f7f7f7}
+
+.plan h4{margin:0 0 8px;font-size:18px}
+
+.plan .row{padding:8px 0}
+
+.highlight{font-size:18px;font-weight:900}
 
 button{border:0;border-radius:12px;padding:12px 16px;background:#222;color:white;font-size:16px;font-weight:700}
 
 input,select{width:100%;padding:11px;margin:5px 0 10px;border:1px solid #d4d7dc;border-radius:10px;font-size:16px;background:#fff}
 
-table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:9px 5px;border-bottom:1px solid #eee}.note{font-size:13px;color:#666;line-height:1.6}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:9px 5px;border-bottom:1px solid #eee}
 
-.plan-wait{color:#777}.plan-long{color:#08752c}.plan-short{color:#b42318}
+.note{font-size:13px;color:#666;line-height:1.6}
+
+.small{font-size:13px;color:#777}
 
 @media(max-width:520px){.price{font-size:32px}.grid{gap:6px}.box{padding:11px 7px}.value{font-size:19px}}
 
@@ -54,225 +78,175 @@ table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;p
 
 <div class="card">
 
-<h1>₿ BTC 多空分析 V3.1</h1>
+  <h1>₿ BTC 多空分析 V3.1</h1>
 
-<div class="sub">多週期趨勢＋交易條件提示｜15M / 1H / 4H</div>
+  <div class="sub">多週期趨勢＋量能＋交易條件｜15M / 1H / 4H</div>
 
-<div id="price" class="price">載入中…</div>
+  <div id="price" class="price">載入中…</div>
 
-<div id="updated" class="status">正在取得行情…</div>
+  <div id="updated" class="status">正在取得行情…</div>
 
-<div id="action" class="action wait">
+  <div id="action" class="action wait">
 
-<div id="actionTitle" class="action-title">🟡 分析中</div>
+    <div id="actionTitle" class="action-title">🟡 分析中</div>
 
-<div id="confidence" class="confidence">做多：—　做空：—</div>
+    <div id="confidence" class="confidence">做多：—　做空：—</div>
 
-<div class="bar"><div id="strengthBar"></div></div>
+    <div class="bar"><div id="strengthBar"></div></div>
 
-<div id="reason" class="sub" style="margin-top:10px">等待多週期資料</div>
+    <div id="reason" class="sub" style="margin-top:10px">等待多週期資料</div>
 
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>多週期方向</h3>
-
-<div class="grid">
-
-<div class="box">
-
-<div class="label">15M</div>
-
-<div id="tf15" class="value">—</div>
-
-</div>
-
-<div class="box">
-
-<div class="label">1H</div>
-
-<div id="tf1" class="value">—</div>
-
-</div>
-
-<div class="box">
-
-<div class="label">4H</div>
-
-<div id="tf4" class="value">—</div>
-
-</div>
-
-</div>
+  </div>
 
 </div>
 
 <div class="card">
 
-<h3>技術指標</h3>
+  <h3>多週期方向</h3>
 
-<div class="row">
+  <div class="grid">
 
-<span>多頭分數</span>
+    <div class="box"><div class="label">15M</div><div id="tf15" class="value">—</div></div>
 
-<b id="bull">—</b>
+    <div class="box"><div class="label">1H</div><div id="tf1" class="value">—</div></div>
 
-</div>
+    <div class="box"><div class="label">4H</div><div id="tf4" class="value">—</div></div>
 
-<div class="row">
-
-<span>空頭分數</span>
-
-<b id="bear">—</b>
-
-</div>
-
-<div class="row">
-
-<span>RSI 1H</span>
-
-<b id="rsi">—</b>
-
-</div>
-
-<div class="row">
-
-<span>EMA 12 / 26</span>
-
-<b id="ema">—</b>
-
-</div>
-
-<div class="row">
-
-<span>MACD</span>
-
-<b id="macd">—</b>
-
-</div>
-
-<div class="row">
-
-<span>ATR 1H</span>
-
-<b id="atr">—</b>
-
-</div>
+  </div>
 
 </div>
 
 <div class="card">
 
-<h3>🎯 建議交易計畫 V3.1</h3>
+  <h3>技術指標</h3>
 
-<div class="row">
+  <div class="row"><span>多頭分數</span><b id="bull">—</b></div>
 
-<span>交易狀態</span>
+  <div class="row"><span>空頭分數</span><b id="bear">—</b></div>
 
-<b id="planStatus" class="plan-wait">等待訊號</b>
+  <div class="row"><span>RSI 1H</span><b id="rsi">—</b></div>
 
-</div>
+  <div class="row"><span>EMA 12 / 26</span><b id="ema">—</b></div>
 
-<div class="row">
+  <div class="row"><span>MACD</span><b id="macd">—</b></div>
 
-<span>參考進場</span>
-
-<b id="planEntry">等待訊號</b>
-
-</div>
-
-<div class="row">
-
-<span>停損（1.5 ATR）</span>
-
-<b id="stop">—</b>
-
-</div>
-
-<div class="row">
-
-<span>TP1（3 ATR）</span>
-
-<b id="tp1">—</b>
-
-</div>
-
-<div class="row">
-
-<span>TP2（4.5 ATR）</span>
-
-<b id="tp2">—</b>
-
-</div>
-
-<div class="row">
-
-<span>風險報酬比（TP1）</span>
-
-<b id="rr1">—</b>
-
-</div>
-
-<div class="row">
-
-<span>風險報酬比（TP2）</span>
-
-<b id="rr2">—</b>
-
-</div>
-
-<div class="note">
-
-只有在 1H 強訊號成立時才建立交易計畫。
-
-每次重新分析都會用最新 BTC 價格與最新 ATR 重新計算，不會沿用舊價格。
-
-</div>
+  <div class="row"><span>ATR 1H</span><b id="atr">—</b></div>
 
 </div>
 
 <div class="card">
 
-<h3>支撐 / 壓力</h3>
+  <h3>🎯 建議交易計畫 V3.1</h3>
 
-<div class="row">
+  <div class="sub">只有達到強訊號時才啟用；價格會隨最新行情與 ATR 自動重新計算。</div>
 
-<span>近 50 根 1H 支撐</span>
+  <div id="tradePlan" class="plan wait">
 
-<b id="support">—</b>
+    <h4 id="planTitle">🟡 等待訊號</h4>
 
-</div>
+    <div class="row"><span>參考進場</span><b id="planEntry">等待</b></div>
 
-<div class="row">
+    <div class="row"><span>停損（1.5 ATR）</span><b id="planSL">等待</b></div>
 
-<span>近 50 根 1H 壓力</span>
+    <div class="row"><span>TP1（3 ATR）</span><b id="planTP1">等待</b></div>
 
-<b id="resist">—</b>
+    <div class="row"><span>TP2（4.5 ATR）</span><b id="planTP2">等待</b></div>
 
-</div>
+    <div class="row"><span>風險報酬比（TP1）</span><b id="planRR">等待</b></div>
+
+  </div>
+
+  <div class="note" style="margin-top:10px">
+
+    ⚠️ 這是技術分析計算的參考方案，不是保證獲利的買賣指令。實際成交價、滑價與市場波動都可能造成結果不同。
+
+  </div>
 
 </div>
 
 <div class="card">
 
-<button onclick="load()">🔄 重新分析 BTC</button>
+  <h3>支撐 / 壓力</h3>
+
+  <div class="row"><span>近 50 根 1H 支撐</span><b id="support">—</b></div>
+
+  <div class="row"><span>近 50 根 1H 壓力</span><b id="resist">—</b></div>
 
 </div>
 
 <div class="card">
 
-<div class="note">
+  <h3>分析師喊單驗證</h3>
 
-⚠️ 本工具使用 Binance 公開行情計算技術指標。
+  <div class="sub">可輸入別人的喊單，用目前 BTC 價格追蹤是否碰到止損／止盈。</div>
 
-技術分析具有不確定性，請勿把訊號視為保證漲跌。
+  <label>方向</label>
 
-建議搭配自己的停損與資金管理。
+  <select id="side">
+
+    <option value="LONG">多單</option>
+
+    <option value="SHORT">空單</option>
+
+  </select>
+
+  <label>進場價</label>
+
+  <input id="entry" type="number" inputmode="decimal" placeholder="例如 80000">
+
+  <label>止損</label>
+
+  <input id="sl" type="number" inputmode="decimal" placeholder="例如 78500">
+
+  <label>止盈</label>
+
+  <input id="tp" type="number" inputmode="decimal" placeholder="例如 83000">
+
+  <button onclick="addCall()">新增喊單</button>
+
+  <div style="overflow:auto;margin-top:12px">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>方向</th>
+
+          <th>進場</th>
+
+          <th>止損</th>
+
+          <th>止盈</th>
+
+          <th>結果</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody id="calls"></tbody>
+
+    </table>
+
+  </div>
 
 </div>
+
+<div class="card">
+
+  <button onclick="load()">🔄 重新分析 BTC</button>
+
+</div>
+
+<div class="card">
+
+  <div class="note">
+
+    V3.1 更新：交易計畫改為依「最新價格＋1H ATR」動態計算；做多／做空分開顯示。停損 1.5 ATR、TP1 3 ATR、TP2 4.5 ATR。每 60 秒自動更新。
+
+  </div>
 
 </div>
 
@@ -284,861 +258,1135 @@ const API="https://api.binance.com/api/v3";
 
 let data={
 
-price:null
+  price:null
 
 };
 
 function $(id){
 
-return document.getElementById(id);
+  return document.getElementById(id)
 
 }
 
 function fmt(n){
 
-return Number.isFinite(n)
+  return Number.isFinite(n)
 
-? Number(n).toLocaleString("en-US",{maximumFractionDigits:2})
+    ? Number(n).toLocaleString("en-US",{maximumFractionDigits:2})
 
-: "—";
+    : "—";
 
 }
 
 function money(n){
 
-return Number.isFinite(n)
+  return Number.isFinite(n)
 
-? "$"+fmt(n)
+    ?" $".trim()+fmt(n)
 
-: "—";
+    :"—";
 
 }
-
-/* EMA */
 
 function ema(a,n){
 
-if(!a.length)return NaN;
+  if(!a.length)return NaN;
 
-const k=2/(n+1);
+  const k=2/(n+1);
 
-let e=a[0];
+  let e=a[0];
 
-for(let i=1;i<a.length;i++){
+  for(let i=1;i<a.length;i++)
 
-e=a[i]*k+e*(1-k);
+    e=a[i]*k+e*(1-k);
 
-}
-
-return e;
+  return e;
 
 }
-
-/* RSI */
 
 function rsi(a,n=14){
 
-if(a.length<=n)return NaN;
+  if(a.length<=n)return NaN;
 
-let g=0,l=0;
+  let g=0,l=0;
 
-for(let i=1;i<=n;i++){
+  for(let i=1;i<=n;i++){
 
-let d=a[i]-a[i-1];
+    let d=a[i]-a[i-1];
 
-if(d>0)
+    if(d>0)
 
-g+=d;
+      g+=d;
 
-else
+    else
 
-l-=d;
+      l-=d;
+
+  }
+
+  g/=n;
+
+  l/=n;
+
+  for(let i=n+1;i<a.length;i++){
+
+    let d=a[i]-a[i-1];
+
+    g=(g*(n-1)+Math.max(d,0))/n;
+
+    l=(l*(n-1)+Math.max(-d,0))/n;
+
+  }
+
+  return l===0
+
+    ?100
+
+    :100-100/(1+g/l);
 
 }
-
-g/=n;
-
-l/=n;
-
-for(let i=n+1;i<a.length;i++){
-
-let d=a[i]-a[i-1];
-
-g=(g*(n-1)+Math.max(d,0))/n;
-
-l=(l*(n-1)+Math.max(-d,0))/n;
-
-}
-
-return l===0
-
-?100
-
-:100-100/(1+g/l);
-
-}
-
-/* ATR */
 
 function atr(a,n=14){
 
-if(a.length<n+1)return NaN;
+  if(a.length<n+1)return NaN;
 
-const tr=[];
+  const tr=[];
 
-for(let i=1;i<a.length;i++){
+  for(let i=1;i<a.length;i++){
 
-const x=a[i];
+    const x=a[i],
 
-const p=a[i-1];
+          p=a[i-1];
 
-tr.push(
+    tr.push(
 
-Math.max(
+      Math.max(
 
-x.h-x.l,
+        x.h-x.l,
 
-Math.abs(x.h-p.c),
+        Math.abs(x.h-p.c),
 
-Math.abs(x.l-p.c)
+        Math.abs(x.l-p.c)
 
-)
+      )
 
-);
+    );
+
+  }
+
+  return tr
+
+    .slice(-n)
+
+    .reduce((s,x)=>s+x,0)
+
+    /
+
+    Math.min(n,tr.length);
 
 }
-
-return tr
-
-.slice(-n)
-
-.reduce((s,x)=>s+x,0)
-
-/
-
-Math.min(n,tr.length);
-
-}
-
-/* Binance K線 */
 
 async function candles(interval,limit=150){
 
-const res=await fetch(
+  const res=await fetch(
 
-API+
+    API+"/klines?symbol=BTCUSDT&interval="+interval+"&limit="+limit,
 
-"/klines?symbol=BTCUSDT&interval="+
+    {cache:"no-store"}
 
-interval+
+  );
 
-"&limit="+
+  if(!res.ok)
 
-limit,
+    throw new Error("Binance 回應 "+res.status);
 
-{
+  const j=await res.json();
 
-cache:"no-store"
+  if(!Array.isArray(j)||!j.length)
 
-}
+    throw new Error("沒有有效 K 線資料");
 
-);
+  return j.map(x=>({
 
-if(!res.ok)
+    o:+x[1],
 
-throw new Error("Binance 回應 "+res.status);
+    h:+x[2],
 
-const j=await res.json();
+    l:+x[3],
 
-if(!Array.isArray(j)||!j.length)
+    c:+x[4],
 
-throw new Error("沒有有效 K 線資料");
+    v:+x[5]
 
-return j.map(x=>({
-
-o:+x[1],
-
-h:+x[2],
-
-l:+x[3],
-
-c:+x[4],
-
-v:+x[5]
-
-}));
+  }));
 
 }
 
-/* 技術分析 */
+async function tickerPrice(){
+
+  const res=await fetch(
+
+    API+"/ticker/price?symbol=BTCUSDT",
+
+    {cache:"no-store"}
+
+  );
+
+  if(!res.ok)
+
+    throw new Error("BTC 即時價格取得失敗");
+
+  const j=await res.json();
+
+  return +j.price;
+
+}
 
 function analyze(a){
 
-const c=a.map(x=>x.c);
+  const c=a.map(x=>x.c),
 
-const last=a[a.length-1];
+        last=a[a.length-1];
 
-const e12=ema(c,12);
+  const e12=ema(c,12),
 
-const e26=ema(c,26);
+        e26=ema(c,26),
 
-const R=rsi(c);
+        R=rsi(c),
 
-const M=e12-e26;
+        M=e12-e26,
 
-const A=atr(a);
+        A=atr(a);
 
-let b=0;
+  let b=0,
 
-let s=0;
+      s=0;
 
-/* 價格 vs EMA12 */
+  if(last.c>e12)
 
-if(last.c>e12)
+    b+=15;
 
-b+=15;
+  else
 
-else
+    s+=15;
 
-s+=15;
+  if(e12>e26)
 
-/* EMA12 vs EMA26 */
+    b+=15;
 
-if(e12>e26)
+  else
 
-b+=15;
+    s+=15;
 
-else
+  if(R>=50)
 
-s+=15;
+    b+=10;
 
-/* RSI */
+  else
 
-if(R>=50)
+    s+=10;
 
-b+=10;
+  if(R>=60)
 
-else
+    b+=10;
 
-s+=10;
+  if(R<=40)
 
-if(R>=60)
+    s+=10;
 
-b+=10;
+  if(M>0)
 
-if(R<=40)
+    b+=15;
 
-s+=10;
+  else
 
-/* MACD */
+    s+=15;
 
-if(M>0)
+  const recent=c.slice(-10);
 
-b+=15;
+  if(
 
-else
+    recent[recent.length-1]
 
-s+=15;
+    >
 
-/* 最近10根K線方向 */
+    recent[0]
 
-const recent=c.slice(-10);
+  )
 
-if(
+    b+=10;
 
-recent[recent.length-1]
+  else
 
->
+    s+=10;
 
-recent[0]
+  return{
 
-)
+    b,
 
-b+=10;
+    s,
 
-else
+    R,
 
-s+=10;
+    e12,
 
-return{
+    e26,
 
-b,
+    M,
 
-s,
+    A
 
-R,
-
-e12,
-
-e26,
-
-M,
-
-A
-
-};
+  };
 
 }
-
-/* 多空方向 */
 
 function direction(x){
 
-if(x.b>x.s+10)
+  if(x.b>x.s+10)
 
-return "偏多";
+    return "偏多";
 
-if(x.s>x.b+10)
+  if(x.s>x.b+10)
 
-return "偏空";
+    return "偏空";
 
-return "中性";
+  return "中性";
 
 }
-
-/* 顯示多週期 */
 
 function setDirection(id,x){
 
-const el=$(id);
+  const el=$(id),
 
-const d=direction(x);
+        d=direction(x);
 
-el.textContent=d;
+  el.textContent=d;
 
-el.className=
+  el.className=
 
-"value "+
+    "value "+
 
-(
+    (
 
-d==="偏多"
+      d==="偏多"
 
-?"longtxt"
+        ?"longtxt"
 
-:
+        :
 
-d==="偏空"
+      d==="偏空"
 
-?"shorttxt"
+        ?"shorttxt"
 
-:
+        :
 
-""
+        ""
 
-);
-
-}
-
-/* 沒有訊號 */
-
-function planWait(){
-
-$("planStatus").textContent="等待訊號";
-
-$("planStatus").className="plan-wait";
-
-$("planEntry").textContent="等待訊號";
-
-$("stop").textContent="—";
-
-$("tp1").textContent="—";
-
-$("tp2").textContent="—";
-
-$("rr1").textContent="—";
-
-$("rr2").textContent="—";
+    );
 
 }
 
-/* 建立交易計畫 */
+/* =========================
+
+   V3.1 動態交易計畫
+
+   ========================= */
 
 function renderPlan(side,price,A){
 
-if(
+  const plan=$("tradePlan");
 
-!Number.isFinite(price) ||
+  plan.className=
 
-!Number.isFinite(A)
+    "plan "+
 
-){
+    (
 
-planWait();
+      side==="LONG"
 
-return;
+        ?"long"
+
+        :
+
+      side==="SHORT"
+
+        ?"short"
+
+        :
+
+        "wait"
+
+    );
+
+  if(
+
+    side==="WAIT" ||
+
+    !Number.isFinite(price) ||
+
+    !Number.isFinite(A) ||
+
+    A<=0
+
+  ){
+
+    $("planTitle").textContent=
+
+      "🟡 等待訊號";
+
+    $("planEntry").textContent=
+
+      "等待";
+
+    $("planSL").textContent=
+
+      "等待";
+
+    $("planTP1").textContent=
+
+      "等待";
+
+    $("planTP2").textContent=
+
+      "等待";
+
+    $("planRR").textContent=
+
+      "等待";
+
+    return;
+
+  }
+
+  /*
+
+    進場：
+
+    最新 BTC 即時價格
+
+    停損：
+
+    1.5 ATR
+
+    TP1：
+
+    3 ATR
+
+    TP2：
+
+    4.5 ATR
+
+  */
+
+  const entry=price;
+
+  let sl,
+
+      tp1,
+
+      tp2;
+
+  if(side==="LONG"){
+
+    sl=entry-A*1.5;
+
+    tp1=entry+A*3;
+
+    tp2=entry+A*4.5;
+
+    $("planTitle").textContent=
+
+      "🟢 做多交易計畫";
+
+  }else{
+
+    sl=entry+A*1.5;
+
+    tp1=entry-A*3;
+
+    tp2=entry-A*4.5;
+
+    $("planTitle").textContent=
+
+      "🔴 做空交易計畫";
+
+  }
+
+  const risk=
+
+    Math.abs(entry-sl);
+
+  const reward=
+
+    Math.abs(tp1-entry);
+
+  const rr=
+
+    reward/risk;
+
+  $("planEntry").innerHTML=
+
+    '<span class="highlight">'+
+
+    money(entry)+
+
+    '</span>';
+
+  $("planSL").textContent=
+
+    money(sl);
+
+  $("planTP1").textContent=
+
+    money(tp1);
+
+  $("planTP2").textContent=
+
+    money(tp2);
+
+  $("planRR").textContent=
+
+    Number.isFinite(rr)
+
+      ?rr.toFixed(2)+" : 1"
+
+      :"—";
 
 }
 
-/*
+/* =========================
 
-風險：
+   主分析
 
-1.5 ATR
+   ========================= */
 
-第一止盈：
+function render(a15,a1,a4,livePrice){
 
-3 ATR
+  const x15=analyze(a15),
 
-第二止盈：
+        x1=analyze(a1),
 
-4.5 ATR
+        x4=analyze(a4);
 
-*/
+  /*
 
-const risk=A*1.5;
+    15M = 25%
 
-const tp1Dist=A*3;
+    1H  = 45%
 
-const tp2Dist=A*4.5;
+    4H  = 30%
 
-let stop;
+  */
 
-let tp1;
+  const bull=
 
-let tp2;
+    Math.round(
 
-if(side==="LONG"){
+      x15.b*.25+
 
-stop=price-risk;
+      x1.b*.45+
 
-tp1=price+tp1Dist;
+      x4.b*.30
 
-tp2=price+tp2Dist;
+    );
 
-$("planStatus").textContent=
+  const bear=
 
-"🟢 做多計畫";
+    Math.round(
 
-$("planStatus").className=
+      x15.s*.25+
 
-"plan-long";
+      x1.s*.45+
+
+      x4.s*.30
+
+    );
+
+  /*
+
+    使用 Binance 即時價格
+
+    而不是上一根 K 線收盤價
+
+  */
+
+  data.price=
+
+    livePrice;
+
+  $("price").textContent=
+
+    money(data.price);
+
+  if($("current"))
+
+    $("current").textContent=
+
+      money(data.price);
+
+  $("bull").textContent=
+
+    bull;
+
+  $("bear").textContent=
+
+    bear;
+
+  $("rsi").textContent=
+
+    x1.R.toFixed(1);
+
+  $("ema").textContent=
+
+    fmt(x1.e12)+
+
+    " / "+
+
+    fmt(x1.e26);
+
+  $("macd").textContent=
+
+    (x1.M>=0?"+":"")+
+
+    fmt(x1.M);
+
+  $("atr").textContent=
+
+    money(x1.A);
+
+  /* 多週期 */
+
+  setDirection(
+
+    "tf15",
+
+    x15
+
+  );
+
+  setDirection(
+
+    "tf1",
+
+    x1
+
+  );
+
+  setDirection(
+
+    "tf4",
+
+    x4
+
+  );
+
+  /* 多空百分比 */
+
+  const total=
+
+    bull+bear;
+
+  const longPct=
+
+    total
+
+      ?Math.round(bull/total*100)
+
+      :50;
+
+  const shortPct=
+
+    100-longPct;
+
+  $("confidence").textContent=
+
+    "做多："+longPct+
+
+    "%　｜　做空："+shortPct+
+
+    "%";
+
+  $("strengthBar").style.width=
+
+    Math.max(
+
+      longPct,
+
+      shortPct
+
+    )+"%";
+
+  /* 訊號 */
+
+  const action=
+
+    $("action");
+
+  const title=
+
+    $("actionTitle");
+
+  const reason=
+
+    $("reason");
+
+  action.className=
+
+    "action wait";
+
+  let planSide=
+
+    "WAIT";
+
+  /* 做多 */
+
+  if(
+
+    longPct>=68 &&
+
+    direction(x1)==="偏多"
+
+  ){
+
+    action.className=
+
+      "action long";
+
+    title.textContent=
+
+      "🟢 適合尋找做多機會";
+
+    reason.textContent=
+
+      "1H 偏多，且多頭條件達到門檻；交易計畫已依最新價格與 ATR 更新。";
+
+    planSide=
+
+      "LONG";
+
+  }
+
+  /* 做空 */
+
+  else if(
+
+    shortPct>=68 &&
+
+    direction(x1)==="偏空"
+
+  ){
+
+    action.className=
+
+      "action short";
+
+    title.textContent=
+
+      "🔴 適合尋找做空機會";
+
+    reason.textContent=
+
+      "1H 偏空，且空頭條件達到門檻；交易計畫已依最新價格與 ATR 更新。";
+
+    planSide=
+
+      "SHORT";
+
+  }
+
+  /* 觀望 */
+
+  else{
+
+    title.textContent=
+
+      "🟡 觀望";
+
+    reason.textContent=
+
+      "多空條件尚未達到強訊號門檻，暫不建立交易計畫，等待更明確的多週期共振。";
+
+  }
+
+  /*
+
+    每次 render 都重新計算
+
+    所以 BTC 價格變動後，
+
+    進場 / SL / TP 都會跟著變
+
+  */
+
+  renderPlan(
+
+    planSide,
+
+    data.price,
+
+    x1.A
+
+  );
+
+  /* 支撐 / 壓力 */
+
+  const lows=
+
+    a1
+
+      .slice(-50)
+
+      .map(x=>x.l);
+
+  const highs=
+
+    a1
+
+      .slice(-50)
+
+      .map(x=>x.h);
+
+  $("support").textContent=
+
+    money(
+
+      Math.min(...lows)
+
+    );
+
+  $("resist").textContent=
+
+    money(
+
+      Math.max(...highs)
+
+    );
+
+  /* 更新時間 */
+
+  $("updated").textContent=
+
+    "最後更新："+
+
+    new Date().toLocaleTimeString("zh-TW");
+
+  $("updated").className=
+
+    "status ok";
+
+  /* 喊單驗證 */
+
+  renderCalls();
 
 }
 
-else{
+/* =========================
 
-stop=price+risk;
+   取得行情
 
-tp1=price-tp1Dist;
-
-tp2=price-tp2Dist;
-
-$("planStatus").textContent=
-
-"🔴 做空計畫";
-
-$("planStatus").className=
-
-"plan-short";
-
-}
-
-/* 最新價格 */
-
-$("planEntry").textContent=
-
-money(price);
-
-/* 停損 */
-
-$("stop").textContent=
-
-money(stop);
-
-/* TP */
-
-$("tp1").textContent=
-
-money(tp1);
-
-$("tp2").textContent=
-
-money(tp2);
-
-/* R:R */
-
-$("rr1").textContent=
-
-"2.00 : 1";
-
-$("rr2").textContent=
-
-"3.00 : 1";
-
-}
-
-/* 主畫面 */
-
-function render(a15,a1,a4){
-
-const x15=analyze(a15);
-
-const x1=analyze(a1);
-
-const x4=analyze(a4);
-
-/*
-
-15M = 25%
-
-1H = 45%
-
-4H = 30%
-
-*/
-
-const bull=
-
-Math.round(
-
-x15.b*.25+
-
-x1.b*.45+
-
-x4.b*.30
-
-);
-
-const bear=
-
-Math.round(
-
-x15.s*.25+
-
-x1.s*.45+
-
-x4.s*.30
-
-);
-
-/* 最新價格 */
-
-data.price=
-
-a1[a1.length-1].c;
-
-$("price").textContent=
-
-money(data.price);
-
-$("bull").textContent=
-
-bull;
-
-$("bear").textContent=
-
-bear;
-
-$("rsi").textContent=
-
-x1.R.toFixed(1);
-
-$("ema").textContent=
-
-fmt(x1.e12)+
-
-" / "+
-
-fmt(x1.e26);
-
-$("macd").textContent=
-
-(x1.M>=0?"+":"")+
-
-fmt(x1.M);
-
-$("atr").textContent=
-
-money(x1.A);
-
-/* 多週期 */
-
-setDirection(
-
-"tf15",
-
-x15
-
-);
-
-setDirection(
-
-"tf1",
-
-x1
-
-);
-
-setDirection(
-
-"tf4",
-
-x4
-
-);
-
-/* 多空百分比 */
-
-const total=
-
-bull+bear;
-
-const longPct=
-
-Math.round(
-
-bull/total*100
-
-);
-
-const shortPct=
-
-100-longPct;
-
-$("confidence").textContent=
-
-"做多："+longPct+
-
-"%　｜　做空："+shortPct+
-
-"%";
-
-$("strengthBar").style.width=
-
-Math.max(
-
-longPct,
-
-shortPct
-
-)+"%";
-
-/* 訊號 */
-
-const action=
-
-$("action");
-
-const title=
-
-$("actionTitle");
-
-const reason=
-
-$("reason");
-
-action.className=
-
-"action wait";
-
-let side=null;
-
-/* 做多 */
-
-if(
-
-longPct>=68 &&
-
-direction(x1)==="偏多"
-
-){
-
-action.className=
-
-"action long";
-
-title.textContent=
-
-"🟢 適合尋找做多機會";
-
-reason.textContent=
-
-"1H 偏多且多頭條件達到門檻；交易計畫會以本次最新價格＋最新 ATR 即時計算。";
-
-side="LONG";
-
-}
-
-/* 做空 */
-
-else if(
-
-shortPct>=68 &&
-
-direction(x1)==="偏空"
-
-){
-
-action.className=
-
-"action short";
-
-title.textContent=
-
-"🔴 適合尋找做空機會";
-
-reason.textContent=
-
-"1H 偏空且空頭條件達到門檻；交易計畫會以本次最新價格＋最新 ATR 即時計算。";
-
-side="SHORT";
-
-}
-
-/* 觀望 */
-
-else{
-
-title.textContent=
-
-"🟡 觀望";
-
-reason.textContent=
-
-"多空條件尚未達到強訊號門檻，目前不建立交易計畫。";
-
-}
-
-/* 建立或清除交易計畫 */
-
-if(side)
-
-renderPlan(
-
-side,
-
-data.price,
-
-x1.A
-
-);
-
-else
-
-planWait();
-
-/* 支撐壓力 */
-
-const lows=
-
-a1
-
-.slice(-50)
-
-.map(x=>x.l);
-
-const highs=
-
-a1
-
-.slice(-50)
-
-.map(x=>x.h);
-
-$("support").textContent=
-
-money(
-
-Math.min(...lows)
-
-);
-
-$("resist").textContent=
-
-money(
-
-Math.max(...highs)
-
-);
-
-/* 更新時間 */
-
-$("updated").textContent=
-
-"最後更新："+
-
-new Date().toLocaleTimeString("zh-TW");
-
-$("updated").className=
-
-"status ok";
-
-}
-
-/* 取得行情 */
+   ========================= */
 
 async function load(){
 
-$("updated").textContent=
+  $("updated").textContent=
 
-"正在取得 BTC 15M / 1H / 4H…";
+    "正在取得 BTC 即時價格＋15M / 1H / 4H…";
 
-$("updated").className=
+  $("updated").className=
 
-"status";
+    "status";
 
-try{
+  try{
 
-const [
+    const [
 
-a15,
+      a15,
 
-a1,
+      a1,
 
-a4
+      a4,
 
-]=await Promise.all([
+      livePrice
 
-candles("15m"),
+    ]=
 
-candles("1h"),
+    await Promise.all([
 
-candles("4h")
+      candles("15m"),
 
-]);
+      candles("1h"),
 
-render(
+      candles("4h"),
 
-a15,
+      tickerPrice()
 
-a1,
+    ]);
 
-a4
+    render(
 
-);
+      a15,
+
+      a1,
+
+      a4,
+
+      livePrice
+
+    );
+
+  }
+
+  catch(e){
+
+    console.error(e);
+
+    $("updated").textContent=
+
+      "❌ 行情取得失敗："+
+
+      e.message;
+
+    $("updated").className=
+
+      "status err";
+
+  }
 
 }
 
-catch(e){
+/* =========================
 
-console.error(e);
+   分析師喊單驗證
 
-$("updated").textContent=
+   ========================= */
 
-"❌ 行情取得失敗："+
+function getCalls(){
 
-e.message;
+  try{
 
-$("updated").className=
+    return JSON.parse(
 
-"status err";
+      localStorage.getItem(
+
+        "btcCallsV31"
+
+      )||"[]"
+
+    );
+
+  }
+
+  catch(e){
+
+    return[];
+
+  }
 
 }
+
+function saveCalls(a){
+
+  localStorage.setItem(
+
+    "btcCallsV31",
+
+    JSON.stringify(a)
+
+  );
+
+}
+
+function addCall(){
+
+  const side=
+
+    $("side").value;
+
+  const entry=
+
+    Number(
+
+      $("entry").value
+
+    );
+
+  const sl=
+
+    Number(
+
+      $("sl").value
+
+    );
+
+  const tp=
+
+    Number(
+
+      $("tp").value
+
+    );
+
+  if(
+
+    !entry ||
+
+    !sl ||
+
+    !tp
+
+  ){
+
+    alert(
+
+      "請完整填寫進場、止損、止盈"
+
+    );
+
+    return;
+
+  }
+
+  const a=
+
+    getCalls();
+
+  a.unshift({
+
+    side,
+
+    entry,
+
+    sl,
+
+    tp
+
+  });
+
+  saveCalls(
+
+    a.slice(0,50)
+
+  );
+
+  $("entry").value="";
+
+  $("sl").value="";
+
+  $("tp").value="";
+
+  renderCalls();
+
+}
+
+function callResult(x){
+
+  if(data.price==null)
+
+    return"待定";
+
+  if(x.side==="LONG"){
+
+    if(data.price<=x.sl)
+
+      return"❌ 止損";
+
+    if(data.price>=x.tp)
+
+      return"✅ 止盈";
+
+  }
+
+  else{
+
+    if(data.price>=x.sl)
+
+      return"❌ 止損";
+
+    if(data.price<=x.tp)
+
+      return"✅ 止盈";
+
+  }
+
+  return"⏳ 持倉中";
+
+}
+
+function renderCalls(){
+
+  const a=
+
+    getCalls();
+
+  const t=
+
+    $("calls");
+
+  if(!a.length){
+
+    t.innerHTML=
+
+      '<tr><td colspan="5">尚無喊單</td></tr>';
+
+    return;
+
+  }
+
+  t.innerHTML=
+
+    a.map(x=>`
+
+      <tr>
+
+        <td>
+
+          ${x.side==="LONG"?"多":"空"}
+
+        </td>
+
+        <td>
+
+          ${fmt(x.entry)}
+
+        </td>
+
+        <td>
+
+          ${fmt(x.sl)}
+
+        </td>
+
+        <td>
+
+          ${fmt(x.tp)}
+
+        </td>
+
+        <td>
+
+          ${callResult(x)}
+
+        </td>
+
+      </tr>
+
+    `).join("");
 
 }
 
 /* 第一次執行 */
 
+renderCalls();
+
 load();
 
-/* 每60秒更新 */
+/* 每60秒自動更新 */
 
 setInterval(
 
-load,
+  load,
 
-60000
+  60000
 
 );
 
