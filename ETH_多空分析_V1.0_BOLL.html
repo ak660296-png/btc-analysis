@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ξ ETH 多空分析 V1.0</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f3f4f6;color:#202124;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Noto Sans TC",Arial,sans-serif}
+.wrap{max-width:760px;margin:auto;padding:12px}
+.card{background:#fff;border-radius:20px;padding:18px;margin-bottom:14px;box-shadow:0 3px 14px rgba(0,0,0,.06)}
+h1{margin:0 0 5px;font-size:28px}.sub{color:#70757d;font-size:14px}
+.price{font-size:36px;font-weight:800;margin-top:16px}.status{margin-top:6px;color:#777}.ok{color:#16803c}.err{color:#c62828}
+.action{border-radius:18px;padding:18px;margin-top:15px;background:#eee}.action.long{background:#e3f8e8}.action.short{background:#ffe5e5}.action.wait{background:#f1f1f1}
+.action-title{font-size:25px;font-weight:900}.confidence{font-size:18px;margin-top:8px}
+.bar{height:12px;background:#ddd;border-radius:10px;overflow:hidden;margin-top:10px}.bar>div{height:100%;background:#333;width:0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.box{background:#f7f7f8;border-radius:15px;padding:13px 9px}
+.label{font-size:13px;color:#777}.value{font-size:21px;font-weight:800;margin-top:5px}
+.row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #eee}.row:last-child{border:0}
+.longtxt{color:#08752c}.shorttxt{color:#b42318}
+.plan{border-radius:15px;padding:14px;margin-top:10px}.plan.long{background:#eefaf1}.plan.short{background:#fff0f0}.plan.wait{background:#f7f7f7}
+.plan h4{margin:0 0 8px;font-size:18px}.plan .row{padding:8px 0}.highlight{font-size:18px;font-weight:900}
+button{border:0;border-radius:12px;padding:12px 16px;background:#222;color:white;font-size:16px;font-weight:700}
+input,select{width:100%;padding:11px;margin:5px 0 10px;border:1px solid #d4d7dc;border-radius:10px;font-size:16px;background:#fff}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:9px 5px;border-bottom:1px solid #eee}
+.note{font-size:13px;color:#666;line-height:1.6}.small{font-size:13px;color:#777}
+@media(max-width:520px){.price{font-size:32px}.grid{gap:6px}.box{padding:11px 7px}.value{font-size:19px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="card">
+  <h1>Ξ ETH 多空分析 V1.0</h1>
+  <div class="sub">多週期趨勢＋BOLL＋量能＋交易條件｜15M / 1H / 4H</div>
+  <div id="price" class="price">載入中…</div>
+  <div id="updated" class="status">正在取得行情…</div>
+  <div id="action" class="action wait">
+    <div id="actionTitle" class="action-title">🟡 分析中</div>
+    <div id="confidence" class="confidence">做多：—　做空：—</div>
+    <div class="bar"><div id="strengthBar"></div></div>
+    <div id="reason" class="sub" style="margin-top:10px">等待多週期資料</div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>多週期方向</h3>
+  <div class="grid">
+    <div class="box"><div class="label">15M</div><div id="tf15" class="value">—</div></div>
+    <div class="box"><div class="label">1H</div><div id="tf1" class="value">—</div></div>
+    <div class="box"><div class="label">4H</div><div id="tf4" class="value">—</div></div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>技術指標</h3>
+  <div class="row"><span>多頭分數</span><b id="bull">—</b></div>
+  <div class="row"><span>空頭分數</span><b id="bear">—</b></div>
+  <div class="row"><span>RSI 1H</span><b id="rsi">—</b></div>
+  <div class="row"><span>EMA 12 / 26</span><b id="ema">—</b></div>
+  <div class="row"><span>MACD</span><b id="macd">—</b></div>
+  <div class="row"><span>ATR 1H</span><b id="atr">—</b></div>
+</div>
+
+<div class="card">
+  <h3>📊 BOLL 布林通道（1H）</h3>
+  <div class="row"><span>上軌</span><b id="bollUp">—</b></div>
+  <div class="row"><span>中軌</span><b id="bollMid">—</b></div>
+  <div class="row"><span>下軌</span><b id="bollLow">—</b></div>
+  <div class="row"><span>目前位置</span><b id="bollPos">—</b></div>
+  <div class="row"><span>通道寬度</span><b id="bollWidth">—</b></div>
+  <div class="row"><span>BOLL 訊號</span><b id="bollSignal">—</b></div>
+  <div class="note">BOLL 採 20 根、2 倍標準差。突破上／下軌、靠近軌道與通道收窄會影響綜合多空分數。</div>
+</div>
+
+<div class="card">
+  <h3>🎯 建議交易計畫 V1.0</h3>
+  <div class="sub">只有達到強訊號時才啟用；價格會隨最新行情與 1H ATR 自動重新計算。</div>
+  <div id="tradePlan" class="plan wait">
+    <h4 id="planTitle">🟡 等待訊號</h4>
+    <div class="row"><span>參考進場</span><b id="planEntry">等待</b></div>
+    <div class="row"><span>停損（1.5 ATR）</span><b id="planSL">等待</b></div>
+    <div class="row"><span>TP1（3 ATR）</span><b id="planTP1">等待</b></div>
+    <div class="row"><span>TP2（4.5 ATR）</span><b id="planTP2">等待</b></div>
+    <div class="row"><span>風險報酬比（TP1）</span><b id="planRR">等待</b></div>
+  </div>
+  <div class="note" style="margin-top:10px">⚠️ 這是技術分析計算的參考方案，不是保證獲利的買賣指令。實際成交價、滑價與市場波動都可能造成結果不同。</div>
+</div>
+
+<div class="card">
+  <h3>支撐 / 壓力</h3>
+  <div class="row"><span>近 50 根 1H 支撐</span><b id="support">—</b></div>
+  <div class="row"><span>近 50 根 1H 壓力</span><b id="resist">—</b></div>
+</div>
+
+<div class="card">
+  <h3>分析師喊單驗證</h3>
+  <div class="sub">可輸入別人的 ETH 喊單，用目前 ETH 價格追蹤是否碰到止損／止盈。</div>
+  <label>方向</label>
+  <select id="side"><option value="LONG">多單</option><option value="SHORT">空單</option></select>
+  <label>進場價</label><input id="entry" type="number" inputmode="decimal" placeholder="例如 4500">
+  <label>止損</label><input id="sl" type="number" inputmode="decimal" placeholder="例如 4400">
+  <label>止盈</label><input id="tp" type="number" inputmode="decimal" placeholder="例如 4800">
+  <button onclick="addCall()">新增喊單</button>
+  <div style="overflow:auto;margin-top:12px">
+    <table><thead><tr><th>方向</th><th>進場</th><th>止損</th><th>止盈</th><th>結果</th></tr></thead>
+    <tbody id="calls"></tbody></table>
+  </div>
+</div>
+
+<div class="card"><button onclick="load()">🔄 重新分析 ETH</button></div>
+
+<div class="card">
+  <div class="note">V1.0：ETH 專用版，加入 BOLL(20,2) 多空判斷；交易計畫依最新 ETH 價格＋1H ATR 動態計算。每 60 秒自動更新。</div>
+</div>
+
+</div>
+
+<script>
+const API="https://api.binance.com/api/v3";
+let data={price:null};
+
+function $(id){return document.getElementById(id)}
+function fmt(n){return Number.isFinite(n)?Number(n).toLocaleString("en-US",{maximumFractionDigits:2}):"—"}
+function money(n){return Number.isFinite(n)?"$"+fmt(n):"—"}
+
+function ema(a,n){
+  if(!a.length)return NaN;
+  const k=2/(n+1);let e=a[0];
+  for(let i=1;i<a.length;i++)e=a[i]*k+e*(1-k);
+  return e;
+}
+function rsi(a,n=14){
+  if(a.length<=n)return NaN;
+  let g=0,l=0;
+  for(let i=1;i<=n;i++){let d=a[i]-a[i-1];if(d>0)g+=d;else l-=d}
+  g/=n;l/=n;
+  for(let i=n+1;i<a.length;i++){
+    let d=a[i]-a[i-1];
+    g=(g*(n-1)+Math.max(d,0))/n;
+    l=(l*(n-1)+Math.max(-d,0))/n;
+  }
+  return l===0?100:100-100/(1+g/l);
+}
+function atr(a,n=14){
+  if(a.length<n+1)return NaN;
+  const tr=[];
+  for(let i=1;i<a.length;i++){
+    const x=a[i],p=a[i-1];
+    tr.push(Math.max(x.h-x.l,Math.abs(x.h-p.c),Math.abs(x.l-p.c)));
+  }
+  return tr.slice(-n).reduce((s,x)=>s+x,0)/Math.min(n,tr.length);
+}
+function boll(a,n=20,m=2){
+  if(a.length<n)return {mid:NaN,up:NaN,low:NaN,width:NaN};
+  const x=a.slice(-n),avg=x.reduce((s,v)=>s+v,0)/n;
+  const sd=Math.sqrt(x.reduce((s,v)=>s+(v-avg)**2,0)/n);
+  const up=avg+m*sd,low=avg-m*sd;
+  return {mid:avg,up,low,width:(up-low)/avg*100};
+}
+async function candles(interval,limit=180){
+  const res=await fetch(API+"/klines?symbol=ETHUSDT&interval="+interval+"&limit="+limit,{cache:"no-store"});
+  if(!res.ok)throw new Error("Binance 回應 "+res.status);
+  const j=await res.json();
+  if(!Array.isArray(j)||!j.length)throw new Error("沒有有效 K 線資料");
+  return j.map(x=>({o:+x[1],h:+x[2],l:+x[3],c:+x[4],v:+x[5]}));
+}
+async function tickerPrice(){
+  const res=await fetch(API+"/ticker/price?symbol=ETHUSDT",{cache:"no-store"});
+  if(!res.ok)throw new Error("ETH 即時價格取得失敗");
+  const j=await res.json();return +j.price;
+}
+
+function analyze(a){
+  const c=a.map(x=>x.c),last=a[a.length-1];
+  const e12=ema(c,12),e26=ema(c,26),R=rsi(c),M=e12-e26,A=atr(a),B=boll(c);
+  let b=0,s=0;
+
+  if(last.c>e12)b+=15;else s+=15;
+  if(e12>e26)b+=15;else s+=15;
+  if(R>=50)b+=10;else s+=10;
+  if(R>=60)b+=10;
+  if(R<=40)s+=10;
+  if(M>0)b+=15;else s+=15;
+
+  const recent=c.slice(-10);
+  if(recent[recent.length-1]>recent[0])b+=10;else s+=10;
+
+  // BOLL：趨勢突破給分，極端位置採較保守判斷
+  if(Number.isFinite(B.up)&&Number.isFinite(B.low)){
+    if(last.c>B.up)b+=15;
+    else if(last.c<B.low)s+=15;
+    else if(last.c>B.mid)b+=8;
+    else s+=8;
+  }
+
+  return{b,s,R,e12,e26,M,A,B};
+}
+function direction(x){
+  if(x.b>x.s+10)return "偏多";
+  if(x.s>x.b+10)return "偏空";
+  return "中性";
+}
+function setDirection(id,x){
+  const el=$(id),d=direction(x);
+  el.textContent=d;
+  el.className="value "+(d==="偏多"?"longtxt":d==="偏空"?"shorttxt":"");
+}
+function renderPlan(side,price,A){
+  const plan=$("tradePlan");
+  plan.className="plan "+(side==="LONG"?"long":side==="SHORT"?"short":"wait");
+  if(side==="WAIT"||!Number.isFinite(price)||!Number.isFinite(A)||A<=0){
+    $("planTitle").textContent="🟡 等待訊號";$("planEntry").textContent="等待";
+    $("planSL").textContent="等待";$("planTP1").textContent="等待";
+    $("planTP2").textContent="等待";$("planRR").textContent="等待";return;
+  }
+  const entry=price;let sl,tp1,tp2;
+  if(side==="LONG"){
+    sl=entry-A*1.5;tp1=entry+A*3;tp2=entry+A*4.5;
+    $("planTitle").textContent="🟢 做多交易計畫";
+  }else{
+    sl=entry+A*1.5;tp1=entry-A*3;tp2=entry-A*4.5;
+    $("planTitle").textContent="🔴 做空交易計畫";
+  }
+  const risk=Math.abs(entry-sl),reward=Math.abs(tp1-entry),rr=reward/risk;
+  $("planEntry").innerHTML='<span class="highlight">'+money(entry)+'</span>';
+  $("planSL").textContent=money(sl);$("planTP1").textContent=money(tp1);
+  $("planTP2").textContent=money(tp2);$("planRR").textContent=rr.toFixed(2)+" : 1";
+}
+function render(a15,a1,a4,livePrice){
+  const x15=analyze(a15),x1=analyze(a1),x4=analyze(a4);
+  const bull=Math.round(x15.b*.25+x1.b*.45+x4.b*.30);
+  const bear=Math.round(x15.s*.25+x1.s*.45+x4.s*.30);
+  data.price=livePrice;
+
+  $("price").textContent=money(data.price);
+  $("bull").textContent=bull;$("bear").textContent=bear;
+  $("rsi").textContent=x1.R.toFixed(1);
+  $("ema").textContent=fmt(x1.e12)+" / "+fmt(x1.e26);
+  $("macd").textContent=(x1.M>=0?"+":"")+fmt(x1.M);
+  $("atr").textContent=money(x1.A);
+
+  $("bollUp").textContent=money(x1.B.up);
+  $("bollMid").textContent=money(x1.B.mid);
+  $("bollLow").textContent=money(x1.B.low);
+  const bp=x1.B;
+  let pos="—",sig="—";
+  if(Number.isFinite(bp.up)&&Number.isFinite(bp.low)){
+    if(livePrice>bp.up){pos="突破上軌";sig="🟢 上軌突破";}
+    else if(livePrice<bp.low){pos="跌破下軌";sig="🔴 下軌跌破";}
+    else if(livePrice>=bp.mid){pos="中軌以上";sig="偏多";}
+    else{pos="中軌以下";sig="偏空";}
+  }
+  $("bollPos").textContent=pos;$("bollWidth").textContent=Number.isFinite(bp.width)?bp.width.toFixed(2)+"%":"—";
+  $("bollSignal").textContent=sig;
+
+  setDirection("tf15",x15);setDirection("tf1",x1);setDirection("tf4",x4);
+
+  const total=bull+bear,longPct=total?Math.round(bull/total*100):50,shortPct=100-longPct;
+  $("confidence").textContent="做多："+longPct+"%　｜　做空："+shortPct+"%";
+  $("strengthBar").style.width=Math.max(longPct,shortPct)+"%";
+
+  const action=$("action"),title=$("actionTitle"),reason=$("reason");
+  action.className="action wait";let planSide="WAIT";
+
+  if(longPct>=68&&direction(x1)==="偏多"){
+    action.className="action long";title.textContent="🟢 適合尋找做多機會";
+    reason.textContent="1H 偏多，且多頭條件達到門檻；BOLL、趨勢與量能條件正在綜合判斷。";
+    planSide="LONG";
+  }else if(shortPct>=68&&direction(x1)==="偏空"){
+    action.className="action short";title.textContent="🔴 適合尋找做空機會";
+    reason.textContent="1H 偏空，且空頭條件達到門檻；BOLL、趨勢與量能條件正在綜合判斷。";
+    planSide="SHORT";
+  }else{
+    title.textContent="🟡 觀望";
+    reason.textContent="多空條件尚未達到強訊號門檻，等待更明確的多週期＋BOLL 共振。";
+  }
+
+  renderPlan(planSide,data.price,x1.A);
+  const lows=a1.slice(-50).map(x=>x.l),highs=a1.slice(-50).map(x=>x.h);
+  $("support").textContent=money(Math.min(...lows));$("resist").textContent=money(Math.max(...highs));
+  $("updated").textContent="最後更新："+new Date().toLocaleTimeString("zh-TW");
+  $("updated").className="status ok";
+  renderCalls();
+}
+async function load(){
+  $("updated").textContent="正在取得 ETH 即時價格＋15M / 1H / 4H…";$("updated").className="status";
+  try{
+    const [a15,a1,a4,livePrice]=await Promise.all([candles("15m"),candles("1h"),candles("4h"),tickerPrice()]);
+    render(a15,a1,a4,livePrice);
+  }catch(e){
+    console.error(e);$("updated").textContent="❌ 行情取得失敗："+e.message;$("updated").className="status err";
+  }
+}
+function getCalls(){try{return JSON.parse(localStorage.getItem("ethCallsV10")||"[]")}catch(e){return[]}}
+function saveCalls(a){localStorage.setItem("ethCallsV10",JSON.stringify(a))}
+function addCall(){
+  const side=$("side").value,entry=Number($("entry").value),sl=Number($("sl").value),tp=Number($("tp").value);
+  if(!entry||!sl||!tp){alert("請完整填寫進場、止損、止盈");return}
+  const a=getCalls();a.unshift({side,entry,sl,tp});saveCalls(a.slice(0,50));
+  $("entry").value="";$("sl").value="";$("tp").value="";renderCalls();
+}
+function callResult(x){
+  if(data.price==null)return"待定";
+  if(x.side==="LONG"){if(data.price<=x.sl)return"❌ 止損";if(data.price>=x.tp)return"✅ 止盈"}
+  else{if(data.price>=x.sl)return"❌ 止損";if(data.price<=x.tp)return"✅ 止盈"}
+  return"⏳ 持倉中";
+}
+function renderCalls(){
+  const a=getCalls(),t=$("calls");
+  if(!a.length){t.innerHTML='<tr><td colspan="5">尚無喊單</td></tr>';return}
+  t.innerHTML=a.map(x=>`<tr><td>${x.side==="LONG"?"多":"空"}</td><td>${fmt(x.entry)}</td><td>${fmt(x.sl)}</td><td>${fmt(x.tp)}</td><td>${callResult(x)}</td></tr>`).join("");
+}
+renderCalls();load();setInterval(load,60000);
+</script>
+</body>
+</html>
