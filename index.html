@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BTC 多空分析 V2.2</title>
+<style>
+*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;background:#f4f5f7;color:#202124}
+.wrap{max-width:760px;margin:auto;padding:14px}.card{background:#fff;border-radius:18px;padding:17px;margin:10px 0;box-shadow:0 2px 10px #0001}
+h1{font-size:23px;margin:0 0 5px}.sub,.note{color:#6b7280;font-size:13px;line-height:1.55}.price{font-size:34px;font-weight:750;margin:8px 0}.status{font-size:14px;padding:8px 10px;border-radius:10px;background:#f0f0f0;margin-top:10px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.box{padding:12px;border-radius:12px;background:#f7f7f8}.label{font-size:12px;color:#777}.val{font-size:21px;font-weight:700;margin-top:4px}
+.row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #eee}.row:last-child{border:0}
+.badge{display:inline-block;padding:7px 12px;border-radius:999px;background:#eee;font-weight:700}.long{background:#dff7e5}.short{background:#ffe1e1}.wait{background:#eee}
+button{width:100%;padding:13px;border:0;border-radius:11px;background:#222;color:#fff;font-size:16px}button:disabled{opacity:.5}
+input,select{width:100%;padding:10px;border:1px solid #ddd;border-radius:9px;margin:5px 0 10px;font-size:15px}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:8px;border-bottom:1px solid #eee;text-align:left}
+.small{font-size:12px;color:#777}.ok{background:#e6f7ea}.err{background:#fff0f0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="card">
+<h1>₿ BTC 多空分析 V2.2</h1>
+<div class="sub">iPhone 友善版｜15M / 1H / 4H 多週期</div>
+<div class="price" id="price">尚未取得行情</div>
+<div class="status" id="status">正在連線到公開行情…</div>
+</div>
+
+<div class="card">
+<div class="grid">
+<div class="box"><div class="label">多頭</div><div class="val" id="bull">—</div></div>
+<div class="box"><div class="label">空頭</div><div class="val" id="bear">—</div></div>
+<div class="box"><div class="label">RSI 1H</div><div class="val" id="rsi">—</div></div>
+</div>
+<p>綜合判斷： <span id="decision" class="badge wait">分析中</span></p>
+</div>
+
+<div class="card"><h3>多週期</h3><div id="tf"><div class="small">等待行情…</div></div></div>
+
+<div class="card"><h3>支撐／壓力（近 50 根 1H）</h3>
+<div class="row"><span>近期支撐</span><b id="support">—</b></div>
+<div class="row"><span>近期壓力</span><b id="resist">—</b></div>
+</div>
+
+<div class="card"><h3>分析師喊單驗證</h3>
+<div class="sub">資料只保存在這台裝置的瀏覽器。輸入後可用目前 BTC 價格判斷是否碰到止盈／止損。</div>
+<label>方向</label><select id="side"><option value="LONG">做多</option><option value="SHORT">做空</option></select>
+<label>進場價</label><input id="entry" type="number" placeholder="例如 105000">
+<label>止損</label><input id="sl" type="number" placeholder="例如 103500">
+<label>止盈</label><input id="tp" type="number" placeholder="例如 108000">
+<button onclick="addCall()">新增喊單</button>
+<div style="overflow:auto;margin-top:12px"><table><thead><tr><th>方向</th><th>進場</th><th>止損</th><th>止盈</th><th>狀態</th></tr></thead><tbody id="calls"></tbody></table></div>
+</div>
+
+<div class="card"><button onclick="load()">🔄 重新取得 BTC 行情</button></div>
+<div class="card"><div class="note">⚠️ 技術分析不保證獲利，也不是投資建議。若 iPhone 的檔案預覽器禁止連線，請按右上角「⋯」→「分享」→「在 Safari 開啟」。若仍無法連線，畫面會明確顯示錯誤，而不會一直卡在「連線中」。</div></div>
+</div>
+
+<script>
+const API='https://api.binance.com/api/v3';
+let data={price:null};
+
+function ema(a,n){let k=2/(n+1),e=a[0];for(let i=1;i<a.length;i++)e=a[i]*k+e*(1-k);return e}
+function rsi(a,n=14){
+ let g=0,l=0;
+ for(let i=1;i<=n;i++){let d=a[i]-a[i-1];if(d>0)g+=d;else l-=d}
+ g/=n;l/=n;
+ for(let i=n+1;i<a.length;i++){let d=a[i]-a[i-1];g=(g*(n-1)+Math.max(d,0))/n;l=(l*(n-1)+Math.max(-d,0))/n}
+ return l===0?100:100-100/(1+g/l)
+}
+function macd(a){return ema(a,12)-ema(a,26)}
+async function candles(interval){
+ const res=await fetch(`${API}/klines?symbol=BTCUSDT&interval=${interval}&limit=200`,{cache:"no-store"});
+ if(!res.ok) throw new Error("行情伺服器回應 "+res.status);
+ const j=await res.json();
+ return j.map(x=>({o:+x[1],h:+x[2],l:+x[3],c:+x[4],v:+x[5]}));
+}
+function fmt(n){return '$'+Math.round(n).toLocaleString()}
+function analyze(a){
+ const c=a.map(x=>x.c), last=a.at(-1), e20=ema(c,20),e50=ema(c,50),e200=ema(c,200),R=rsi(c),M=macd(c);
+ let b=0,s=0;
+ if(last.c>e20)b+=10;else s+=10;
+ if(e20>e50)b+=15;else s+=15;
+ if(e50>e200)b+=15;else s+=15;
+ if(R>50)b+=10;else s+=10;
+ if(R>60)b+=10;
+ if(R<40)s+=10;
+ if(M>0)b+=15;else s+=15;
+ const avg=a.slice(-20).reduce((sum,x)=>sum+x.v,0)/20;
+ if(last.v>avg*1.2){if(last.c>last.o)b+=10;else s+=10}
+ return {b,s,R,e20,e50,e200};
+}
+async function load(){
+ const status=document.getElementById('status');
+ status.className='status';status.textContent='正在取得 BTC 15M / 1H / 4H K線…';
+ try{
+  const [a15,a1,a4]=await Promise.all([candles('15m'),candles('1h'),candles('4h')]);
+  const x15=analyze(a15),x1=analyze(a1),x4=analyze(a4);
+  const b=Math.round(x15.b*.25+x1.b*.4+x4.b*.35);
+  const s=Math.round(x15.s*.25+x1.s*.4+x4.s*.35);
+  data.price=a1.at(-1).c;
+  document.getElementById('price').textContent=fmt(data.price);
+  document.getElementById('updated').textContent='';
+  document.getElementById('status').className='status ok';
+  document.getElementById('status').textContent='✅ 行情已更新｜'+new Date().toLocaleTimeString();
+  document.getElementById('bull').textContent=b+'/100';
+  document.getElementById('bear').textContent=s+'/100';
+  const d=document.getElementById('decision');
+  d.textContent=b>=70&&b>s?'🟢 偏多':s>=70&&s>b?'🔴 偏空':'⚪ 觀望';
+  d.className='badge '+(b>=70&&b>s?'long':s>=70&&s>b?'short':'wait');
+  document.getElementById('rsi').textContent=x1.R.toFixed(1);
+  document.getElementById('tf').innerHTML=[['15M',x15],['1H',x1],['4H',x4]].map(q=>`<div class="row"><span>${q[0]}</span><span>多 ${q[1].b}　空 ${q[1].s}　RSI ${q[1].R.toFixed(1)}</span></div>`).join('');
+  const lows=a1.slice(-50).map(x=>x.l), highs=a1.slice(-50).map(x=>x.h);
+  document.getElementById('support').textContent=fmt(Math.min(...lows));
+  document.getElementById('resist').textContent=fmt(Math.max(...highs));
+  renderCalls();
+ }catch(e){
+  status.className='status err';
+  status.textContent='❌ 無法取得即時行情：'+(e.message||'連線失敗');
+  document.getElementById('price').textContent='暫時無法取得';
+  document.getElementById('tf').innerHTML='<div class="small">請用 Safari 開啟本檔案後再按「重新取得 BTC 行情」。</div>';
+ }
+}
+function addCall(){
+ const x={side:side.value,entry:+entry.value,sl:+sl.value,tp:+tp.value,time:new Date().toISOString()};
+ if(!x.entry||!x.sl||!x.tp)return alert('請填完整價格');
+ const arr=JSON.parse(localStorage.getItem('btcCalls')||'[]');arr.push(x);localStorage.setItem('btcCalls',JSON.stringify(arr));renderCalls();
+}
+function renderCalls(){
+ const arr=JSON.parse(localStorage.getItem('btcCalls')||'[]');
+ calls.innerHTML=arr.map(x=>{
+  let st='待定';
+  if(data.price){if(x.side==='LONG'){if(data.price<=x.sl)st='❌ 止損';else if(data.price>=x.tp)st='✅ 止盈';else st='⏳ 進行中'}else{if(data.price>=x.sl)st='❌ 止損';else if(data.price<=x.tp)st='✅ 止盈';else st='⏳ 進行中'}}
+  return `<tr><td>${x.side==='LONG'?'多':'空'}</td><td>${fmt(x.entry)}</td><td>${fmt(x.sl)}</td><td>${fmt(x.tp)}</td><td>${st}</td></tr>`
+ }).join('');
+}
+load();setInterval(load,60000);
+</script>
+</body></html>
