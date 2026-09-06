@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ETH 多空分析 V1.1 BOLL</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f4f6;color:#202124;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif}
+.wrap{max-width:820px;margin:auto;padding:22px 18px 50px}.title{font-size:36px;font-weight:800;margin:4px 0 6px}.sub{font-size:18px;color:#73777f;margin-bottom:22px}
+.price{font-size:48px;font-weight:800;margin:8px 0}.update{color:#188a45;font-size:18px;margin-bottom:18px}
+.card{background:#fff;border-radius:28px;padding:28px;margin:16px 0;box-shadow:0 2px 14px #0000000b}.hero{background:#f1f1f1}
+.signal{font-size:30px;font-weight:800}.muted{color:#73777f}.bar{height:24px;background:#ddd;border-radius:20px;overflow:hidden;margin:16px 0}.bar i{display:block;height:100%;background:#333}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.box{background:#f7f7f8;border-radius:24px;padding:18px 12px;text-align:center}.box b{display:block;font-size:21px;margin-top:8px}.bull{color:#138a3d}.bear{color:#c52d20}.wait{color:#8b8b00}
+h2{font-size:28px;margin:0 0 22px}h3{font-size:20px;margin:0 0 10px}
+.row{display:flex;justify-content:space-between;gap:14px;padding:15px 0;border-bottom:1px solid #e5e5e5;font-size:18px}.row:last-child{border-bottom:0}.val{font-weight:750;text-align:right}
+.zone{border-radius:22px;background:#f7f7f8;padding:18px;margin-top:12px}.zone strong{font-size:25px}.small{font-size:15px;color:#73777f;line-height:1.6}
+input,select{width:100%;padding:13px;border:1px solid #ddd;border-radius:14px;font-size:17px;background:#fff}button{width:100%;padding:14px;border:0;border-radius:15px;background:#222;color:#fff;font-size:17px;font-weight:700;margin-top:10px}
+.notice{font-size:15px;color:#666;line-height:1.7}
+@media(max-width:560px){.title{font-size:32px}.price{font-size:44px}.grid{gap:8px}.box{padding:15px 8px}.box b{font-size:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="title">Ξ ETH 多空分析 V1.1</div>
+  <div class="sub">多週期趨勢＋BOLL＋量能＋支撐做多評估｜15M / 1H / 4H</div>
+  <div id="price" class="price">$—</div>
+  <div id="updated" class="update">更新中…</div>
+
+  <div class="card hero">
+    <div id="signal" class="signal">🟡 計算中</div>
+    <div id="ratio" style="font-size:22px;margin-top:12px">做多：—　|　做空：—</div>
+    <div class="bar"><i id="ratioBar" style="width:50%"></i></div>
+    <div id="reason" class="muted" style="font-size:17px;line-height:1.6">正在取得 ETH 行情與技術指標。</div>
+  </div>
+
+  <div class="card">
+    <h2>多週期方向</h2>
+    <div class="grid">
+      <div class="box">15M<b id="d15">—</b></div>
+      <div class="box">1H<b id="d1h">—</b></div>
+      <div class="box">4H<b id="d4h">—</b></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>技術指標</h2>
+    <div id="tech"></div>
+  </div>
+
+  <div class="card">
+    <h2>支撐 / 壓力</h2>
+    <div class="row"><span>近 50 根 1H 支撐</span><span class="val" id="support">—</span></div>
+    <div class="row"><span>近 50 根 1H 壓力</span><span class="val" id="resistance">—</span></div>
+    <div class="row"><span>BOLL 下軌</span><span class="val" id="lower">—</span></div>
+    <div class="row"><span>BOLL 中軌</span><span class="val" id="middle">—</span></div>
+    <div class="row"><span>BOLL 上軌</span><span class="val" id="upper">—</span></div>
+  </div>
+
+  <div class="card">
+    <h2>🟢 支撐做多評估</h2>
+    <div id="longStatus" class="zone"><strong>計算中…</strong></div>
+    <div class="row"><span>建議掛多區間</span><span class="val" id="longZone">—</span></div>
+    <div class="row"><span>參考止損</span><span class="val" id="sl">—</span></div>
+    <div class="row"><span>TP1</span><span class="val" id="tp1">—</span></div>
+    <div class="row"><span>TP2</span><span class="val" id="tp2">—</span></div>
+    <div class="row"><span>預估 TP1 風險報酬</span><span class="val" id="rr">—</span></div>
+    <p class="notice">評估邏輯：歷史 1H 支撐＋BOLL 下軌＋RSI＋趨勢共同判斷。價格接近支撐不代表一定反彈；若有效跌破支撐，系統會降低做多評分。</p>
+  </div>
+
+  <div class="card">
+    <h2>分析師喊單驗證</h2>
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <div><label>方向</label><select id="side"><option value="long">做多</option><option value="short">做空</option></select></div>
+      <div><label>喊單價格</label><input id="callPrice" type="number" placeholder="例如 2430"></div>
+    </div>
+    <button onclick="verify()">驗證目前價格</button>
+    <div id="verifyResult" class="zone" style="margin-top:12px">輸入喊單方向與價格後驗證。</div>
+  </div>
+</div>
+
+<script>
+const API='https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=';
+const T={};
+function closes(a){return a.map(x=>+x[4])}
+function ema(a,n){let k=2/(n+1),e=a[0];for(let i=1;i<a.length;i++)e=a[i]*k+e*(1-k);return e}
+function sma(a,n){return a.slice(-n).reduce((x,y)=>x+y,0)/n}
+function sd(a,n){let s=a.slice(-n),m=s.reduce((x,y)=>x+y,0)/n;return Math.sqrt(s.reduce((x,y)=>x+(y-m)**2,0)/n)}
+function rsi(a,n=14){let g=0,l=0;for(let i=a.length-n;i<a.length;i++){let d=a[i]-a[i-1];if(d>0)g+=d;else l-=d}return l===0?100:100-100/(1+(g/n)/(l/n))}
+function macd(a){return ema(a,12)-ema(a,26)}
+function atr(k,n=14){let tr=[];for(let i=1;i<k.length;i++){let h=+k[i][2],lo=+k[i][3],pc=+k[i-1][4];tr.push(Math.max(h-lo,Math.abs(h-pc),Math.abs(lo-pc)))}return sma(tr,n)}
+function boll(a,n=20,m=2){let mid=sma(a,n),s=sd(a,n);return {mid,upper:mid+m*s,lower:mid-m*s}}
+function fmt(x){return '$'+x.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}
+function direction(k){let a=closes(k),e12=ema(a,12),e26=ema(a,26),r=rsi(a);return e12>e26&&r>=50?'偏多':e12<e26&&r<50?'偏空':'震盪'}
+async function get(tf){let r=await fetch(API+tf+'&limit=200');let k=await r.json();return {k,a:closes(k),boll:boll(closes(k)),r:rsi(closes(k)),atr:atr(k),dir:direction(k)}}
+async function refresh(){
+ try{
+  const [m15,h1,h4]=await Promise.all([get('15m'),get('1h'),get('4h')]);
+  const p=h1.a.at(-1), b=h1.boll, e12=ema(h1.a,12),e26=ema(h1.a,26),m=macd(h1.a),rr=h1.r;
+  const highs=h1.k.slice(-50).map(x=>+x[2]), lows=h1.k.slice(-50).map(x=>+x[3]);
+  const sup=Math.min(...lows),res=Math.max(...highs);
+  let long=0,short=0,why=[];
+  if(e12>e26){long+=20;why.push('1H EMA 偏多')}else{short+=20;why.push('1H EMA 偏空')}
+  if(rr>=50){long+=15}else{short+=15}
+  if(m>0){long+=15}else{short+=15}
+  if(p<=b.lower*1.012){long+=20;why.push('價格接近 BOLL 下軌')}
+  if(p>=b.upper*.988){short+=20;why.push('價格接近 BOLL 上軌')}
+  if(p> b.mid)long+=10;else short+=10;
+  if(h4.dir==='偏多')long+=15;else if(h4.dir==='偏空')short+=15;
+  const total=long+short||1, lp=Math.round(long/total*100),sp=100-lp;
+  let sig=lp>=62?'🟢 偏多':sp>=62?'🔴 偏空':'🟡 觀望';
+  document.getElementById('price').textContent=fmt(p);
+  document.getElementById('updated').textContent='最後更新：'+new Date().toLocaleTimeString('zh-TW');
+  document.getElementById('signal').textContent=sig;
+  document.getElementById('ratio').textContent=`做多：${lp}%　|　做空：${sp}%`;
+  document.getElementById('ratioBar').style.width=lp+'%';
+  document.getElementById('reason').textContent=why.length?why.join('、')+'。':'等待更多條件共振。';
+  setDir('d15',m15.dir);setDir('d1h',h1.dir);setDir('d4h',h4.dir);
+  document.getElementById('support').textContent=fmt(sup);document.getElementById('resistance').textContent=fmt(res);
+  document.getElementById('lower').textContent=fmt(b.lower);document.getElementById('middle').textContent=fmt(b.mid);document.getElementById('upper').textContent=fmt(b.upper);
+  document.getElementById('tech').innerHTML=[
+   ['多頭分數',long],['空頭分數',short],['RSI 1H',rr.toFixed(1)],['EMA 12 / 26',`${fmt(e12)} / ${fmt(e26)}`],['MACD',m.toFixed(2)],['ATR 1H',fmt(h1.atr)]
+  ].map(x=>`<div class="row"><span>${x[0]}</span><span class="val">${x[1]}</span></div>`).join('');
+  buildLong(p,sup,res,b,h1.atr,rr,lp);
+ }catch(e){document.getElementById('reason').textContent='行情取得失敗，請稍後重新整理。';console.error(e)}
+}
+function setDir(id,d){let el=document.getElementById(id);el.textContent=d;el.className='';el.classList.add(d==='偏多'?'bull':d==='偏空'?'bear':'wait')}
+function buildLong(p,sup,res,b,atr,rr,lp){
+ const near=Math.abs(p-sup)/p<=0.012;
+ const bollNear=p<=b.lower*1.012;
+ const rsiOk=rr>=38&&rr<=55;
+ let score=(near?30:0)+(bollNear?30:0)+(rsiOk?20:0)+(lp>=55?20:0);
+ let status=score>=70?'🟢 強支撐做多評估':score>=45?'🟡 支撐觀察區':'🔴 不建議現在接多';
+ let zoneLow=sup, zoneHigh=Math.max(sup,b.lower);
+ if(zoneLow>zoneHigh)[zoneLow,zoneHigh]=[zoneHigh,zoneLow];
+ let entry=(zoneLow+zoneHigh)/2;
+ let sl=sup-atr*0.65, tp1=Math.min(res,b.mid), tp2=res;
+ if(tp1<=entry)tp1=entry+atr*2;
+ if(tp2<=tp1)tp2=tp1+atr*1.5;
+ let rr=((tp1-entry)/(entry-sl)).toFixed(2);
+ document.getElementById('longStatus').innerHTML=`<strong>${status}</strong><div class="small" style="margin-top:8px">支撐 ${fmt(sup)}｜BOLL下軌 ${fmt(b.lower)}｜RSI ${rrsi(rr)}｜綜合條件 ${score}/100</div>`;
+ document.getElementById('longZone').textContent=fmt(zoneLow)+' ～ '+fmt(zoneHigh);
+ document.getElementById('sl').textContent=fmt(sl);document.getElementById('tp1').textContent=fmt(tp1);document.getElementById('tp2').textContent=fmt(tp2);document.getElementById('rr').textContent=rr+' : 1';
+}
+function rrsi(x){return x}
+function verify(){
+ let side=document.getElementById('side').value,cp=+document.getElementById('callPrice').value;
+ let p=+document.getElementById('price').textContent.replace(/[$,]/g,'');
+ if(!cp||!p){document.getElementById('verifyResult').textContent='請輸入有效喊單價格。';return}
+ let pct=side==='long'?(p-cp)/cp*100:(cp-p)/cp*100;
+ document.getElementById('verifyResult').innerHTML=`${side==='long'?'做多':'做空'} ${fmt(cp)} → 目前 ${fmt(p)}<br><strong>${pct>=0?'目前方向有利':'目前方向不利'} ${Math.abs(pct).toFixed(2)}%</strong>`;
+}
+refresh();setInterval(refresh,60000);
+</script>
+</body></html>
