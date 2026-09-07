@@ -6,13 +6,21 @@
 
 <meta charset="utf-8">
 
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="viewport"
 
-<title>₿ BTC 多空分析 V2.4</title>
+      content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<title>₿ BTC 多空分析 V2.0</title>
+
+<script src="https://unpkg.com/lightweight-charts@4.2.1/dist/lightweight-charts.standalone.production.js"></script>
 
 <style>
 
-*{box-sizing:border-box}
+*{
+
+  box-sizing:border-box;
+
+}
 
 body{
 
@@ -22,19 +30,101 @@ body{
 
   color:#202124;
 
-  font-family:-apple-system,BlinkMacSystemFont,"PingFang TC",
+  font-family:-apple-system,BlinkMacSystemFont,
 
-  "Noto Sans TC",Arial,sans-serif
+  "Segoe UI","Noto Sans TC",sans-serif;
 
 }
 
 .wrap{
 
-  max-width:760px;
+  max-width:1000px;
 
   margin:auto;
 
-  padding:14px
+  padding:18px 14px 50px;
+
+}
+
+.header{
+
+  padding:8px 4px 14px;
+
+}
+
+.title{
+
+  font-size:36px;
+
+  font-weight:800;
+
+  margin:0 0 5px;
+
+}
+
+.sub{
+
+  font-size:17px;
+
+  color:#73777f;
+
+  line-height:1.5;
+
+}
+
+.priceRow{
+
+  display:flex;
+
+  align-items:end;
+
+  gap:14px;
+
+  flex-wrap:wrap;
+
+  margin-top:14px;
+
+}
+
+.price{
+
+  font-size:46px;
+
+  font-weight:800;
+
+}
+
+.change{
+
+  font-size:18px;
+
+  font-weight:700;
+
+  padding-bottom:8px;
+
+}
+
+.green{
+
+  color:#138a3d;
+
+}
+
+.red{
+
+  color:#c52d20;
+
+}
+
+.yellow{
+
+  color:#8b7600;
+
+}
+
+.gray{
+
+  color:#73777f;
 
 }
 
@@ -42,55 +132,71 @@ body{
 
   background:#fff;
 
-  border-radius:20px;
+  border-radius:26px;
 
-  padding:20px;
+  padding:24px;
 
-  margin-bottom:16px;
+  margin:14px 0;
 
-  box-shadow:0 3px 14px rgba(0,0,0,.06)
-
-}
-
-h1{
-
-  font-size:28px;
-
-  margin:0 0 6px
+  box-shadow:0 2px 14px #0000000b;
 
 }
 
-h2{
+.hero{
 
-  font-size:22px;
-
-  margin:0 0 16px
+  background:#f1f1f1;
 
 }
 
-.sub{
+.signal{
 
-  color:#6b7280;
-
-  font-size:15px
-
-}
-
-.price{
-
-  font-size:42px;
+  font-size:30px;
 
   font-weight:800;
 
-  margin:20px 0 8px
+}
+
+.ratio{
+
+  font-size:21px;
+
+  margin-top:10px;
 
 }
 
-.update{
+.bar{
 
-  color:#25803b;
+  height:22px;
 
-  font-size:15px
+  background:#d8dce1;
+
+  border-radius:20px;
+
+  overflow:hidden;
+
+  margin:15px 0;
+
+}
+
+.bar i{
+
+  display:block;
+
+  height:100%;
+
+  background:#333;
+
+  transition:.4s;
+
+}
+
+.reason{
+
+  color:#73777f;
+
+  font-size:16px;
+
+  line-height:1.6;
 
 }
 
@@ -100,7 +206,17 @@ h2{
 
   grid-template-columns:repeat(3,1fr);
 
-  gap:10px
+  gap:12px;
+
+}
+
+.grid2{
+
+  display:grid;
+
+  grid-template-columns:repeat(2,1fr);
+
+  gap:12px;
 
 }
 
@@ -108,71 +224,205 @@ h2{
 
   background:#f7f7f8;
 
-  border-radius:18px;
+  border-radius:22px;
 
-  padding:14px
+  padding:17px 10px;
 
-}
-
-.label{
-
-  color:#777;
-
-  font-size:14px
+  text-align:center;
 
 }
 
-.val{
+.box b{
 
-  font-size:24px;
+  display:block;
 
-  font-weight:800;
+  font-size:20px;
 
-  margin-top:6px
+  margin-top:7px;
 
 }
 
-.signal{
+h2{
+
+  font-size:27px;
+
+  margin:0 0 18px;
+
+}
+
+h3{
+
+  margin:0 0 10px;
+
+}
+
+.chartHead{
 
   display:flex;
 
+  justify-content:space-between;
+
   align-items:center;
 
-  justify-content:center;
+  gap:10px;
 
-  border-radius:16px;
-
-  padding:14px;
-
-  margin-top:16px;
-
-  font-size:22px;
-
-  font-weight:800
+  flex-wrap:wrap;
 
 }
 
-.long{
+.tfButtons{
 
-  background:#e8f7ed;
+  display:flex;
 
-  color:#16733b
-
-}
-
-.short{
-
-  background:#fdecec;
-
-  color:#b42318
+  gap:6px;
 
 }
 
-.wait{
+.tfButtons button{
 
-  background:#f1f1f1;
+  width:auto;
 
-  color:#555
+  margin:0;
+
+  padding:8px 12px;
+
+  background:#fff;
+
+  color:#333;
+
+  border:1px solid #ddd;
+
+  font-size:14px;
+
+}
+
+.tfButtons button.active{
+
+  background:#222;
+
+  color:#fff;
+
+  border-color:#222;
+
+}
+
+.chartInfo{
+
+  font-size:14px;
+
+  color:#73777f;
+
+  margin:6px 0 10px;
+
+}
+
+.chartWrap{
+
+  position:relative;
+
+  width:100%;
+
+  height:480px;
+
+  border-radius:18px;
+
+  overflow:hidden;
+
+  background:#fff;
+
+}
+
+#chart{
+
+  width:100%;
+
+  height:100%;
+
+}
+
+.zoneLabel{
+
+  position:absolute;
+
+  right:8px;
+
+  padding:6px 10px;
+
+  border-radius:8px;
+
+  font-size:13px;
+
+  font-weight:800;
+
+  pointer-events:none;
+
+  z-index:5;
+
+}
+
+.longLabel{
+
+  background:#138a3d;
+
+  color:#fff;
+
+}
+
+.shortLabel{
+
+  background:#c52d20;
+
+  color:#fff;
+
+}
+
+.zoneLine{
+
+  position:absolute;
+
+  left:0;
+
+  right:0;
+
+  height:1px;
+
+  pointer-events:none;
+
+  z-index:4;
+
+}
+
+.longLine{
+
+  border-top:2px dashed #138a3d;
+
+}
+
+.shortLine{
+
+  border-top:2px dashed #c52d20;
+
+}
+
+.priceLineLabel{
+
+  position:absolute;
+
+  right:8px;
+
+  background:#222;
+
+  color:#fff;
+
+  padding:5px 8px;
+
+  border-radius:7px;
+
+  font-size:12px;
+
+  pointer-events:none;
+
+  z-index:6;
 
 }
 
@@ -182,51 +432,121 @@ h2{
 
   justify-content:space-between;
 
-  padding:13px 0;
+  gap:14px;
 
-  border-bottom:1px solid #eee;
+  padding:14px 0;
 
-  font-size:17px
+  border-bottom:1px solid #e5e5e5;
+
+  font-size:17px;
 
 }
 
 .row:last-child{
 
-  border-bottom:0
+  border-bottom:0;
 
 }
 
-.good{
+.val{
 
-  color:#17803d;
+  font-weight:750;
 
-  font-weight:800
-
-}
-
-.bad{
-
-  color:#c5221f;
-
-  font-weight:800
+  text-align:right;
 
 }
 
-.neutral{
+.techGrid{
 
-  color:#777;
+  display:grid;
 
-  font-weight:800
+  grid-template-columns:repeat(6,1fr);
+
+  gap:10px;
+
+}
+
+.techBox{
+
+  background:#f7f7f8;
+
+  border-radius:18px;
+
+  padding:14px 8px;
+
+  text-align:center;
+
+  font-size:13px;
+
+}
+
+.techBox b{
+
+  display:block;
+
+  font-size:17px;
+
+  margin-top:7px;
+
+}
+
+.zone{
+
+  border-radius:20px;
+
+  background:#f7f7f8;
+
+  padding:17px;
+
+  margin-top:10px;
+
+}
+
+.zone strong{
+
+  font-size:22px;
 
 }
 
 .small{
 
-  font-size:13px;
+  font-size:14px;
 
-  color:#777;
+  color:#73777f;
 
-  line-height:1.6
+  line-height:1.6;
+
+  margin-top:7px;
+
+}
+
+.longCard{
+
+  border-left:5px solid #138a3d;
+
+}
+
+.shortCard{
+
+  border-left:5px solid #c52d20;
+
+}
+
+input,
+
+select{
+
+  width:100%;
+
+  padding:13px;
+
+  border:1px solid #ddd;
+
+  border-radius:13px;
+
+  font-size:17px;
+
+  background:#fff;
 
 }
 
@@ -234,19 +554,145 @@ button{
 
   width:100%;
 
+  padding:13px;
+
   border:0;
 
   border-radius:14px;
 
-  padding:14px;
-
-  background:#202124;
+  background:#222;
 
   color:#fff;
 
-  font-size:17px;
+  font-size:16px;
 
-  font-weight:700
+  font-weight:700;
+
+  margin-top:10px;
+
+}
+
+.notice{
+
+  font-size:14px;
+
+  color:#666;
+
+  line-height:1.7;
+
+}
+
+.error{
+
+  color:#b42318;
+
+}
+
+.footer{
+
+  text-align:center;
+
+  color:#888;
+
+  font-size:12px;
+
+  line-height:1.6;
+
+  padding:12px;
+
+}
+
+@media(max-width:700px){
+
+  .wrap{
+
+    padding:14px 10px 40px;
+
+  }
+
+  .title{
+
+    font-size:31px;
+
+  }
+
+  .price{
+
+    font-size:40px;
+
+  }
+
+  .card{
+
+    border-radius:24px;
+
+    padding:21px 18px;
+
+  }
+
+  .grid{
+
+    gap:8px;
+
+  }
+
+  .box{
+
+    padding:15px 6px;
+
+  }
+
+  .box b{
+
+    font-size:18px;
+
+  }
+
+  h2{
+
+    font-size:26px;
+
+  }
+
+  .chartWrap{
+
+    height:420px;
+
+  }
+
+  .techGrid{
+
+    grid-template-columns:repeat(3,1fr);
+
+  }
+
+}
+
+@media(max-width:430px){
+
+  .price{
+
+    font-size:36px;
+
+  }
+
+  .chartWrap{
+
+    height:390px;
+
+  }
+
+  .tfButtons{
+
+    width:100%;
+
+  }
+
+  .tfButtons button{
+
+    flex:1;
+
+  }
 
 }
 
@@ -258,213 +704,523 @@ button{
 
 <div class="wrap">
 
-<div class="card">
+<div class="header">
 
-<h1>₿ BTC 多空分析 V2.4</h1>
+  <div class="title">
 
-<div class="sub">
+    ₿ BTC 多空分析 V2.0
 
-iPhone 友善版｜15M / 1H / 4H｜自動更新
+  </div>
 
-</div>
+  <div class="sub">
 
-<div id="price" class="price">
+    多週期趨勢＋BOLL＋量能＋支撐／壓力＋多空區｜15M / 1H / 4H / 1D
 
-讀取中…
+  </div>
 
-</div>
+  <div class="priceRow">
 
-<div id="update" class="update">
+    <div id="price" class="price">
 
-正在取得 Binance BTC/USDT 資料
+      $—
 
-</div>
+    </div>
 
-</div>
+    <div id="change" class="change gray">
 
-<div class="card">
+      —
 
-<div class="grid">
+    </div>
 
-<div class="box">
+  </div>
 
-<div class="label">多頭分數</div>
+  <div id="updated" class="sub">
 
-<div id="bull" class="val">—</div>
+    連線中…
 
-</div>
-
-<div class="box">
-
-<div class="label">空頭分數</div>
-
-<div id="bear" class="val">—</div>
+  </div>
 
 </div>
 
-<div class="box">
+<!-- 主訊號 -->
 
-<div class="label">RSI 1H</div>
+<div class="card hero">
 
-<div id="rsi" class="val">—</div>
+  <div id="signal" class="signal">
 
-</div>
+    🟡 計算中
 
-</div>
+  </div>
 
-<div id="signal" class="signal wait">
+  <div id="ratio" class="ratio">
 
-分析中…
+    做多：—　|　做空：—
 
-</div>
+  </div>
 
-<div id="reason" class="small" style="margin-top:12px">
+  <div class="bar">
 
-等待市場資料。
+    <i id="ratioBar" style="width:50%"></i>
 
-</div>
+  </div>
 
-</div>
+  <div id="reason" class="reason">
 
-<div class="card">
+    正在取得 BTC 行情與技術指標。
 
-<h2>多週期</h2>
-
-<div class="row">
-
-<span>15M</span>
-
-<b id="s15">—</b>
+  </div>
 
 </div>
 
-<div class="row">
-
-<span>1H</span>
-
-<b id="s1">—</b>
-
-</div>
-
-<div class="row">
-
-<span>4H</span>
-
-<b id="s4">—</b>
-
-</div>
-
-<div class="row">
-
-<span>EMA 12 / 26（1H）</span>
-
-<b id="ema">—</b>
-
-</div>
-
-<div class="row">
-
-<span>MACD（1H）</span>
-
-<b id="macd">—</b>
-
-</div>
-
-</div>
+<!-- 多週期 -->
 
 <div class="card">
 
-<h2>做多 / 做空提示</h2>
+  <h2>多週期方向</h2>
 
-<div class="row">
+  <div class="grid">
 
-<span>做多條件</span>
+    <div class="box">
 
-<b id="longHint" class="neutral">等待</b>
+      15M
 
-</div>
+      <b id="d15">—</b>
 
-<div class="row">
+    </div>
 
-<span>做空條件</span>
+    <div class="box">
 
-<b id="shortHint" class="neutral">等待</b>
+      1H
 
-</div>
+      <b id="d1h">—</b>
 
-<div class="row">
+    </div>
 
-<span>目前策略</span>
+    <div class="box">
 
-<b id="strategy" class="neutral">觀望</b>
+      4H
 
-</div>
+      <b id="d4h">—</b>
 
-<p class="small">
+    </div>
 
-提示是技術指標條件，不是保證獲利。
-
-建議等多週期方向一致，再考慮進場；
-
-不要只靠單一訊號追單。
-
-</p>
+  </div>
 
 </div>
+
+<!-- K線 -->
 
 <div class="card">
 
-<h2>關鍵價位</h2>
+  <div class="chartHead">
 
-<div class="row">
+    <h2 style="margin:0">
 
-<span>1H EMA12</span>
+      BTC/USDT 線圖
 
-<b id="e12">—</b>
+    </h2>
+
+    <div class="tfButtons">
+
+      <button
+
+        id="tf15"
+
+        onclick="changeTF('15m')">
+
+        15分
+
+      </button>
+
+      <button
+
+        id="tf1h"
+
+        class="active"
+
+        onclick="changeTF('1h')">
+
+        1小時
+
+      </button>
+
+      <button
+
+        id="tf4h"
+
+        onclick="changeTF('4h')">
+
+        4小時
+
+      </button>
+
+      <button
+
+        id="tf1d"
+
+        onclick="changeTF('1d')">
+
+        1天
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <div id="chartInfo" class="chartInfo">
+
+    等待行情…
+
+  </div>
+
+  <div class="chartWrap">
+
+    <div id="chart"></div>
+
+    <div id="longLabel"
+
+         class="zoneLabel longLabel">
+
+      🟢 做多區
+
+    </div>
+
+    <div id="shortLabel"
+
+         class="zoneLabel shortLabel">
+
+      🔴 做空區
+
+    </div>
+
+    <div id="longLine1"
+
+         class="zoneLine longLine"></div>
+
+    <div id="longLine2"
+
+         class="zoneLine longLine"></div>
+
+    <div id="shortLine1"
+
+         class="zoneLine shortLine"></div>
+
+    <div id="shortLine2"
+
+         class="zoneLine shortLine"></div>
+
+    <div id="currentLabel"
+
+         class="priceLineLabel">
+
+      BTC
+
+    </div>
+
+  </div>
+
+  <div class="small">
+
+    🟢 綠色區域＝支撐做多觀察區　
+
+    🔴 紅色區域＝壓力做空觀察區
+
+  </div>
 
 </div>
 
-<div class="row">
-
-<span>1H EMA26</span>
-
-<b id="e26">—</b>
-
-</div>
-
-<div class="row">
-
-<span>1H 近期高點</span>
-
-<b id="hi">—</b>
-
-</div>
-
-<div class="row">
-
-<span>1H 近期低點</span>
-
-<b id="lo">—</b>
-
-</div>
-
-</div>
+<!-- 技術指標 -->
 
 <div class="card">
 
-<button onclick="loadAll()">
+  <h2>技術指標（1H）</h2>
 
-🔄 立即更新
+  <div class="techGrid">
 
-</button>
+    <div class="techBox">
 
-<p class="small" style="margin-bottom:0">
+      多頭分數
 
-資料來源：Binance 公開 BTC/USDT K 線 API。
+      <b id="longScore">—</b>
 
-若 API 暫時無法連線，請稍後重試。
+    </div>
 
-</p>
+    <div class="techBox">
+
+      空頭分數
+
+      <b id="shortScore">—</b>
+
+    </div>
+
+    <div class="techBox">
+
+      RSI(14)
+
+      <b id="rsi">—</b>
+
+    </div>
+
+    <div class="techBox">
+
+      EMA12
+
+      <b id="ema12">—</b>
+
+    </div>
+
+    <div class="techBox">
+
+      EMA26
+
+      <b id="ema26">—</b>
+
+    </div>
+
+    <div class="techBox">
+
+      MACD
+
+      <b id="macd">—</b>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- 支撐壓力 -->
+
+<div class="card">
+
+  <h2>支撐 / 壓力</h2>
+
+  <div class="row">
+
+    <span>近 50 根支撐</span>
+
+    <span id="support" class="val">—</span>
+
+  </div>
+
+  <div class="row">
+
+    <span>近 50 根壓力</span>
+
+    <span id="resistance" class="val">—</span>
+
+  </div>
+
+  <div class="row">
+
+    <span>BOLL 下軌</span>
+
+    <span id="lower" class="val">—</span>
+
+  </div>
+
+  <div class="row">
+
+    <span>BOLL 中軌</span>
+
+    <span id="middle" class="val">—</span>
+
+  </div>
+
+  <div class="row">
+
+    <span>BOLL 上軌</span>
+
+    <span id="upper" class="val">—</span>
+
+  </div>
+
+  <div class="row">
+
+    <span>ATR(14)</span>
+
+    <span id="atr" class="val">—</span>
+
+  </div>
+
+</div>
+
+<!-- 做多 -->
+
+<div class="card longCard">
+
+  <h2>🟢 支撐做多評估</h2>
+
+  <div id="longStatus" class="zone">
+
+    <strong>計算中…</strong>
+
+  </div>
+
+  <div class="row">
+
+    <span>建議掛多區間</span>
+
+    <span id="longZone" class="val">—</span>
+
+  </div>
+
+  <div class="row">
+
+    <span>參考止損</span>
+
+    <span id="longSL" class="val">—</span>
+
+  </div>
+
+  <div class="row">
+
+    <span>TP1</span>
+
+    <span id="longTP1" class="val">—</span>
+
+  </div>
+
+  <div class="row">
+
+    <span>TP2</span>
+
+    <span id="longTP2" class="val">—</span>
+
+  </div>
+
+  <div class="row">
+
+    <span>TP1 風險報酬</span>
+
+    <span id="longRR" class="val">—</span>
+
+  </div>
+
+</div>
+
+<!-- 做空 -->
+
+<div class="card shortCard">
+
+  <h2>🔴 壓力做空評估</h2>
+
+  <div id="shortStatus" class="zone">
+
+    <strong>計算中…</strong>
+
+  </div>
+
+  <div class="row">
+
+    <span>建議掛空區間</span>
+
+    <span id="shortZone" class="val">—</span>
+
+  </div>
+
+  <div class="row">
+
+    <span>參考止損</span>
+
+    <span id="shortSL" class="val">—</span>
+
+  </div>
+
+  <div class="row">
+
+    <span>TP1</span>
+
+    <span id="shortTP1" class="val">—</span>
+
+  </div>
+
+  <div class="row">
+
+    <span>TP2</span>
+
+    <span id="shortTP2" class="val">—</span>
+
+  </div>
+
+  <div class="row">
+
+    <span>TP1 風險報酬</span>
+
+    <span id="shortRR" class="val">—</span>
+
+  </div>
+
+</div>
+
+<!-- 喊單驗證 -->
+
+<div class="card">
+
+  <h2>分析師喊單驗證</h2>
+
+  <div class="grid2">
+
+    <div>
+
+      <label>方向</label>
+
+      <select id="side">
+
+        <option value="long">
+
+          做多
+
+        </option>
+
+        <option value="short">
+
+          做空
+
+        </option>
+
+      </select>
+
+    </div>
+
+    <div>
+
+      <label>喊單價格</label>
+
+      <input
+
+        id="callPrice"
+
+        type="number"
+
+        placeholder="例如 80000">
+
+    </div>
+
+  </div>
+
+  <button onclick="verify()">
+
+    驗證目前價格
+
+  </button>
+
+  <div id="verifyResult" class="zone">
+
+    輸入喊單方向與價格後驗證。
+
+  </div>
+
+</div>
+
+<div class="footer">
+
+  資料來源：Binance Public Market Data<br>
+
+  技術指標僅供分析參考，不代表一定反彈或一定突破。<br>
+
+  支撐／壓力失效時，請以止損與風險管理為優先。
 
 </div>
 
@@ -472,473 +1228,2589 @@ iPhone 友善版｜15M / 1H / 4H｜自動更新
 
 <script>
 
-const API="https://api.binance.com/api/v3/klines";
+/* =========================================================
 
-const fmt=n =>
+   基本設定
 
-Number(n).toLocaleString("en-US",{
+   ========================================================= */
 
-minimumFractionDigits:2,
+const API =
 
-maximumFractionDigits:2
+  "https://api.binance.com/api/v3";
 
-});
+let currentTF = "1h";
 
-function ema(a,p){
+let chart = null;
 
-let k=2/(p+1);
+let candleSeries = null;
 
-let e=a[0];
+let volumeSeries = null;
 
-for(let i=1;i<a.length;i++){
+let ema12Series = null;
 
-e=a[i]*k+e*(1-k);
+let ema26Series = null;
+
+let bollUpperSeries = null;
+
+let bollMiddleSeries = null;
+
+let bollLowerSeries = null;
+
+let lastChartData = null;
+
+/* =========================================================
+
+   工具
+
+   ========================================================= */
+
+function fmt(x){
+
+  if(!isFinite(x)){
+
+    return "$—";
+
+  }
+
+  return "$" +
+
+    Number(x).toLocaleString(
+
+      "en-US",
+
+      {
+
+        minimumFractionDigits:2,
+
+        maximumFractionDigits:2
+
+      }
+
+    );
 
 }
 
-return e;
+function fmtPrice(x){
+
+  return Number(x).toLocaleString(
+
+    "en-US",
+
+    {
+
+      minimumFractionDigits:2,
+
+      maximumFractionDigits:2
+
+    }
+
+  );
 
 }
 
-function rsi(a,p=14){
+function ema(data,n){
 
-let g=0;
+  if(!data.length) return 0;
 
-let l=0;
+  let k = 2/(n+1);
 
-for(let i=a.length-p;i<a.length;i++){
+  let e = data[0];
 
-const d=a[i]-a[i-1];
+  for(let i=1;i<data.length;i++){
 
-if(d>=0)
+    e =
 
-g+=d;
+      data[i]*k+
 
-else
+      e*(1-k);
 
-l-=d;
+  }
 
-}
-
-if(l===0)
-
-return 100;
-
-const rs=(g/p)/(l/p);
-
-return 100-100/(1+rs);
+  return e;
 
 }
 
-function macd(a){
+function sma(data,n){
 
-const e12=ema(a,12);
+  if(!data.length) return 0;
 
-const e26=ema(a,26);
+  let arr =
 
-return {
+    data.slice(-n);
 
-m:e12-e26,
+  return arr.reduce(
 
-e12,
+    (a,b)=>a+b,
 
-e26
+    0
+
+  )/arr.length;
+
+}
+
+function sd(data,n){
+
+  let arr =
+
+    data.slice(-n);
+
+  let mean =
+
+    sma(data,n);
+
+  let sum=0;
+
+  arr.forEach(function(x){
+
+    sum +=
+
+      Math.pow(x-mean,2);
+
+  });
+
+  return Math.sqrt(
+
+    sum/arr.length
+
+  );
+
+}
+
+function boll(data,n=20,m=2){
+
+  let middle =
+
+    sma(data,n);
+
+  let d =
+
+    sd(data,n);
+
+  return {
+
+    middle:middle,
+
+    upper:
+
+      middle+m*d,
+
+    lower:
+
+      middle-m*d
+
+  };
+
+}
+
+function rsi(data,n=14){
+
+  if(data.length<=n){
+
+    return 50;
+
+  }
+
+  let gain=0;
+
+  let loss=0;
+
+  for(
+
+    let i=data.length-n;
+
+    i<data.length;
+
+    i++
+
+  ){
+
+    let d =
+
+      data[i]-data[i-1];
+
+    if(d>0){
+
+      gain+=d;
+
+    }
+
+    else{
+
+      loss-=d;
+
+    }
+
+  }
+
+  if(loss===0){
+
+    return 100;
+
+  }
+
+  let rs =
+
+    (gain/n)/(loss/n);
+
+  return 100-(100/(1+rs));
+
+}
+
+function macd(data){
+
+  return (
+
+    ema(data,12)-
+
+    ema(data,26)
+
+  );
+
+}
+
+function atr(data,n=14){
+
+  let tr=[];
+
+  for(let i=1;i<data.length;i++){
+
+    let high =
+
+      Number(data[i][2]);
+
+    let low =
+
+      Number(data[i][3]);
+
+    let prev =
+
+      Number(data[i-1][4]);
+
+    tr.push(
+
+      Math.max(
+
+        high-low,
+
+        Math.abs(high-prev),
+
+        Math.abs(low-prev)
+
+      )
+
+    );
+
+  }
+
+  return sma(tr,n);
+
+}
+
+/* =========================================================
+
+   趨勢
+
+   ========================================================= */
+
+function direction(data){
+
+  let c =
+
+    data.map(x=>Number(x[4]));
+
+  let e12 =
+
+    ema(c,12);
+
+  let e26 =
+
+    ema(c,26);
+
+  let r =
+
+    rsi(c,14);
+
+  if(
+
+    e12>e26 &&
+
+    r>=50
+
+  ){
+
+    return "偏多";
+
+  }
+
+  if(
+
+    e12<e26 &&
+
+    r<50
+
+  ){
+
+    return "偏空";
+
+  }
+
+  return "震盪";
+
+}
+
+function setDir(id,d){
+
+  let el =
+
+    document.getElementById(id);
+
+  el.textContent=d;
+
+  el.className="";
+
+  if(d==="偏多"){
+
+    el.classList.add("green");
+
+  }
+
+  else if(d==="偏空"){
+
+    el.classList.add("red");
+
+  }
+
+  else{
+
+    el.classList.add("yellow");
+
+  }
+
+}
+
+/* =========================================================
+
+   取得 K 線
+
+   ========================================================= */
+
+async function getKlines(tf){
+
+  let url =
+
+    API+
+
+    "/klines?symbol=BTCUSDT"+
+
+    "&interval="+tf+
+
+    "&limit=200";
+
+  let response =
+
+    await fetch(
+
+      url,
+
+      {
+
+        cache:"no-store"
+
+      }
+
+    );
+
+  if(!response.ok){
+
+    throw new Error(
+
+      "HTTP "+response.status
+
+    );
+
+  }
+
+  let data =
+
+    await response.json();
+
+  if(
+
+    !Array.isArray(data) ||
+
+    data.length<50
+
+  ){
+
+    throw new Error(
+
+      "BTC 資料不足"
+
+    );
+
+  }
+
+  return data;
+
+}
+
+/* =========================================================
+
+   建立圖表
+
+   ========================================================= */
+
+function createChart(){
+
+  const container =
+
+    document.getElementById(
+
+      "chart"
+
+    );
+
+  chart =
+
+    LightweightCharts.createChart(
+
+      container,
+
+      {
+
+        width:container.clientWidth,
+
+        height:container.clientHeight,
+
+        layout:{
+
+          background:{
+
+            color:"#ffffff"
+
+          },
+
+          textColor:"#555"
+
+        },
+
+        grid:{
+
+          vertLines:{
+
+            color:"#eeeeee"
+
+          },
+
+          horzLines:{
+
+            color:"#eeeeee"
+
+          }
+
+        },
+
+        rightPriceScale:{
+
+          borderColor:"#dddddd"
+
+        },
+
+        timeScale:{
+
+          borderColor:"#dddddd",
+
+          timeVisible:true,
+
+          secondsVisible:false
+
+        },
+
+        crosshair:{
+
+          mode:1
+
+        }
+
+      }
+
+    );
+
+  candleSeries =
+
+    chart.addCandlestickSeries({
+
+      upColor:"#16a34a",
+
+      downColor:"#dc2626",
+
+      borderUpColor:"#16a34a",
+
+      borderDownColor:"#dc2626",
+
+      wickUpColor:"#16a34a",
+
+      wickDownColor:"#dc2626"
+
+    });
+
+  volumeSeries =
+
+    chart.addHistogramSeries({
+
+      priceFormat:{
+
+        type:"volume"
+
+      },
+
+      priceScaleId:"volume",
+
+      scaleMargins:{
+
+        top:0.82,
+
+        bottom:0
+
+      }
+
+    });
+
+  ema12Series =
+
+    chart.addLineSeries({
+
+      color:"#f59e0b",
+
+      lineWidth:2,
+
+      title:"EMA12"
+
+    });
+
+  ema26Series =
+
+    chart.addLineSeries({
+
+      color:"#8b5cf6",
+
+      lineWidth:2,
+
+      title:"EMA26"
+
+    });
+
+  bollUpperSeries =
+
+    chart.addLineSeries({
+
+      color:"#60a5fa",
+
+      lineWidth:1,
+
+      lineStyle:2,
+
+      title:"BOLL上"
+
+    });
+
+  bollMiddleSeries =
+
+    chart.addLineSeries({
+
+      color:"#94a3b8",
+
+      lineWidth:1,
+
+      title:"BOLL中"
+
+    });
+
+  bollLowerSeries =
+
+    chart.addLineSeries({
+
+      color:"#60a5fa",
+
+      lineWidth:1,
+
+      lineStyle:2,
+
+      title:"BOLL下"
+
+    });
+
+  window.addEventListener(
+
+    "resize",
+
+    resizeChart
+
+  );
+
+}
+
+function resizeChart(){
+
+  if(!chart) return;
+
+  let el =
+
+    document.getElementById(
+
+      "chart"
+
+    );
+
+  chart.applyOptions({
+
+    width:el.clientWidth,
+
+    height:el.clientHeight
+
+  });
+
+  updateZoneOverlay();
+
+}
+
+/* =========================================================
+
+   建立 EMA / BOLL
+
+   ========================================================= */
+
+function buildIndicators(data){
+
+  let closes =
+
+    data.map(x=>Number(x[4]));
+
+  let ema12=[];
+
+  let ema26=[];
+
+  let upper=[];
+
+  let middle=[];
+
+  let lower=[];
+
+  let e12 =
+
+    closes[0];
+
+  let e26 =
+
+    closes[0];
+
+  let k12 =
+
+    2/(12+1);
+
+  let k26 =
+
+    2/(26+1);
+
+  for(
+
+    let i=0;
+
+    i<closes.length;
+
+    i++
+
+  ){
+
+    e12 =
+
+      i===0
+
+      ? closes[i]
+
+      : closes[i]*k12+
+
+        e12*(1-k12);
+
+    e26 =
+
+      i===0
+
+      ? closes[i]
+
+      : closes[i]*k26+
+
+        e26*(1-k26);
+
+    ema12.push({
+
+      time:data[i][0]/1000,
+
+      value:e12
+
+    });
+
+    ema26.push({
+
+      time:data[i][0]/1000,
+
+      value:e26
+
+    });
+
+    if(i>=19){
+
+      let arr =
+
+        closes.slice(
+
+          i-19,
+
+          i+1
+
+        );
+
+      let mid =
+
+        arr.reduce(
+
+          (a,b)=>a+b,
+
+          0
+
+        )/20;
+
+      let variance =
+
+        arr.reduce(
+
+          (s,x)=>
+
+            s+Math.pow(x-mid,2),
+
+          0
+
+        )/20;
+
+      let dev =
+
+        Math.sqrt(variance);
+
+      middle.push({
+
+        time:data[i][0]/1000,
+
+        value:mid
+
+      });
+
+      upper.push({
+
+        time:data[i][0]/1000,
+
+        value:mid+2*dev
+
+      });
+
+      lower.push({
+
+        time:data[i][0]/1000,
+
+        value:mid-2*dev
+
+      });
+
+    }
+
+  }
+
+  ema12Series.setData(
+
+    ema12
+
+  );
+
+  ema26Series.setData(
+
+    ema26
+
+  );
+
+  bollUpperSeries.setData(
+
+    upper
+
+  );
+
+  bollMiddleSeries.setData(
+
+    middle
+
+  );
+
+  bollLowerSeries.setData(
+
+    lower
+
+  );
+
+}
+
+/* =========================================================
+
+   成交量
+
+   ========================================================= */
+
+function buildVolume(data){
+
+  let volume =
+
+    data.map(function(x){
+
+      return {
+
+        time:x[0]/1000,
+
+        value:Number(x[5]),
+
+        color:
+
+          Number(x[4])>=
+
+          Number(x[1])
+
+          ? "#86efac"
+
+          : "#fca5a5"
+
+      };
+
+    });
+
+  volumeSeries.setData(
+
+    volume
+
+  );
+
+}
+
+/* =========================================================
+
+   圖上多空位置
+
+   ========================================================= */
+
+let chartZones = {
+
+  longLow:0,
+
+  longHigh:0,
+
+  shortLow:0,
+
+  shortHigh:0,
+
+  current:0
 
 };
 
+function updateZoneOverlay(){
+
+  if(!chart || !lastChartData){
+
+    return;
+
+  }
+
+  let series =
+
+    candleSeries;
+
+  let long1 =
+
+    series.priceToCoordinate(
+
+      chartZones.longLow
+
+    );
+
+  let long2 =
+
+    series.priceToCoordinate(
+
+      chartZones.longHigh
+
+    );
+
+  let short1 =
+
+    series.priceToCoordinate(
+
+      chartZones.shortLow
+
+    );
+
+  let short2 =
+
+    series.priceToCoordinate(
+
+      chartZones.shortHigh
+
+    );
+
+  let current =
+
+    series.priceToCoordinate(
+
+      chartZones.current
+
+    );
+
+  if(long1!==null){
+
+    document.getElementById(
+
+      "longLine1"
+
+    ).style.top =
+
+      long1+"px";
+
+  }
+
+  if(long2!==null){
+
+    document.getElementById(
+
+      "longLine2"
+
+    ).style.top =
+
+      long2+"px";
+
+    document.getElementById(
+
+      "longLabel"
+
+    ).style.top =
+
+      Math.min(
+
+        long1,
+
+        long2
+
+      )+"px";
+
+  }
+
+  if(short1!==null){
+
+    document.getElementById(
+
+      "shortLine1"
+
+    ).style.top =
+
+      short1+"px";
+
+  }
+
+  if(short2!==null){
+
+    document.getElementById(
+
+      "shortLine2"
+
+    ).style.top =
+
+      short2+"px";
+
+    document.getElementById(
+
+      "shortLabel"
+
+    ).style.top =
+
+      Math.min(
+
+        short1,
+
+        short2
+
+      )+"px";
+
+  }
+
+  if(current!==null){
+
+    document.getElementById(
+
+      "currentLabel"
+
+    ).style.top =
+
+      Math.max(
+
+        5,
+
+        current-10
+
+      )+"px";
+
+    document.getElementById(
+
+      "currentLabel"
+
+    ).textContent =
+
+      fmtPrice(
+
+        chartZones.current
+
+      );
+
+  }
+
 }
 
-async function candles(interval,limit=200){
+/* =========================================================
 
-const r=await fetch(
+   多空計算
 
-`${API}?symbol=BTCUSDT&interval=${interval}&limit=${limit}`,
+   ========================================================= */
 
-{cache:"no-store"}
+function calculateAnalysis(
+
+  data15,
+
+  data1h,
+
+  data4h
+
+){
+
+  let c =
+
+    data1h.map(x=>Number(x[4]));
+
+  let price =
+
+    c[c.length-1];
+
+  let b =
+
+    boll(c,20,2);
+
+  let e12 =
+
+    ema(c,12);
+
+  let e26 =
+
+    ema(c,26);
+
+  let m =
+
+    macd(c);
+
+  let r =
+
+    rsi(c,14);
+
+  let atrValue =
+
+    atr(data1h,14);
+
+  let last50 =
+
+    data1h.slice(-50);
+
+  let support =
+
+    Math.min(
+
+      ...last50.map(
+
+        x=>Number(x[3])
+
+      )
+
+    );
+
+  let resistance =
+
+    Math.max(
+
+      ...last50.map(
+
+        x=>Number(x[2])
+
+      )
+
+    );
+
+  let longScore=0;
+
+  let shortScore=0;
+
+  let reasons=[];
+
+  /* EMA */
+
+  if(e12>e26){
+
+    longScore+=20;
+
+    reasons.push(
+
+      "1H EMA 偏多"
+
+    );
+
+  }
+
+  else{
+
+    shortScore+=20;
+
+    reasons.push(
+
+      "1H EMA 偏空"
+
+    );
+
+  }
+
+  /* RSI */
+
+  if(r>=50){
+
+    longScore+=15;
+
+  }
+
+  else{
+
+    shortScore+=15;
+
+  }
+
+  /* MACD */
+
+  if(m>0){
+
+    longScore+=15;
+
+  }
+
+  else{
+
+    shortScore+=15;
+
+  }
+
+  /* BOLL */
+
+  if(
+
+    price<=
+
+    b.lower*1.012
+
+  ){
+
+    longScore+=20;
+
+    reasons.push(
+
+      "價格接近 BOLL 下軌"
+
+    );
+
+  }
+
+  if(
+
+    price>=
+
+    b.upper*0.988
+
+  ){
+
+    shortScore+=20;
+
+    reasons.push(
+
+      "價格接近 BOLL 上軌"
+
+    );
+
+  }
+
+  /* 中軌 */
+
+  if(price>b.middle){
+
+    longScore+=10;
+
+  }
+
+  else{
+
+    shortScore+=10;
+
+  }
+
+  /* 4H */
+
+  let d4 =
+
+    direction(data4h);
+
+  if(d4==="偏多"){
+
+    longScore+=15;
+
+  }
+
+  else if(d4==="偏空"){
+
+    shortScore+=15;
+
+  }
+
+  /* 15M */
+
+  let d15 =
+
+    direction(data15);
+
+  if(d15==="偏多"){
+
+    longScore+=5;
+
+  }
+
+  else if(d15==="偏空"){
+
+    shortScore+=5;
+
+  }
+
+  let total =
+
+    longScore+shortScore;
+
+  if(total<=0){
+
+    total=1;
+
+  }
+
+  let longPercent =
+
+    Math.round(
+
+      longScore/
+
+      total*
+
+      100
+
+    );
+
+  let shortPercent =
+
+    100-longPercent;
+
+  let signal;
+
+  if(longPercent>=62){
+
+    signal="🟢 偏多";
+
+  }
+
+  else if(shortPercent>=62){
+
+    signal="🔴 偏空";
+
+  }
+
+  else{
+
+    signal="🟡 觀望";
+
+  }
+
+  /* =====================================================
+
+     做多區
+
+     ===================================================== */
+
+  let longLow =
+
+    Math.min(
+
+      support,
+
+      b.lower
+
+    );
+
+  let longHigh =
+
+    Math.max(
+
+      support,
+
+      b.lower
+
+    );
+
+  /* BTC 專用緩衝 */
+
+  longLow =
+
+    longLow -
+
+    atrValue*0.10;
+
+  longHigh =
+
+    longHigh +
+
+    atrValue*0.10;
+
+  let longEntry =
+
+    (longLow+longHigh)/2;
+
+  let longSL =
+
+    support-
+
+    atrValue*0.70;
+
+  let longTP1 =
+
+    Math.min(
+
+      resistance,
+
+      b.middle
+
+    );
+
+  if(longTP1<=longEntry){
+
+    longTP1 =
+
+      longEntry+
+
+      atrValue*2;
+
+  }
+
+  let longTP2 =
+
+    resistance;
+
+  if(longTP2<=longTP1){
+
+    longTP2 =
+
+      longTP1+
+
+      atrValue*1.5;
+
+  }
+
+  let longRisk =
+
+    longEntry-longSL;
+
+  let longReward =
+
+    longTP1-longEntry;
+
+  let longRR =
+
+    longRisk>0
+
+    ? longReward/longRisk
+
+    : 0;
+
+  /* =====================================================
+
+     做空區
+
+     ===================================================== */
+
+  let shortLow =
+
+    Math.min(
+
+      resistance,
+
+      b.upper
+
+    );
+
+  let shortHigh =
+
+    Math.max(
+
+      resistance,
+
+      b.upper
+
+    );
+
+  shortLow =
+
+    shortLow -
+
+    atrValue*0.10;
+
+  shortHigh =
+
+    shortHigh +
+
+    atrValue*0.10;
+
+  let shortEntry =
+
+    (shortLow+shortHigh)/2;
+
+  let shortSL =
+
+    resistance+
+
+    atrValue*0.70;
+
+  let shortTP1 =
+
+    Math.max(
+
+      support,
+
+      b.middle
+
+    );
+
+  if(shortTP1>=shortEntry){
+
+    shortTP1 =
+
+      shortEntry-
+
+      atrValue*2;
+
+  }
+
+  let shortTP2 =
+
+    support;
+
+  if(shortTP2>=shortTP1){
+
+    shortTP2 =
+
+      shortTP1-
+
+      atrValue*1.5;
+
+  }
+
+  let shortRisk =
+
+    shortSL-shortEntry;
+
+  let shortReward =
+
+    shortEntry-shortTP1;
+
+  let shortRR =
+
+    shortRisk>0
+
+    ? shortReward/shortRisk
+
+    : 0;
+
+  /* =====================================================
+
+     做多評估
+
+     ===================================================== */
+
+  let nearSupport =
+
+    Math.abs(
+
+      price-support
+
+    )/price<=0.015;
+
+  let nearLower =
+
+    price<=
+
+    b.lower*1.015;
+
+  let rsiLong =
+
+    r>=38 &&
+
+    r<=58;
+
+  let longEval=0;
+
+  if(nearSupport)
+
+    longEval+=30;
+
+  if(nearLower)
+
+    longEval+=25;
+
+  if(rsiLong)
+
+    longEval+=20;
+
+  if(longPercent>=55)
+
+    longEval+=25;
+
+  let longStatus;
+
+  if(longEval>=75){
+
+    longStatus=
+
+      "🟢 強支撐做多評估";
+
+  }
+
+  else if(longEval>=50){
+
+    longStatus=
+
+      "🟡 支撐觀察區";
+
+  }
+
+  else{
+
+    longStatus=
+
+      "🔴 暫不建議接多";
+
+  }
+
+  /* =====================================================
+
+     做空評估
+
+     ===================================================== */
+
+  let nearResistance =
+
+    Math.abs(
+
+      price-resistance
+
+    )/price<=0.015;
+
+  let nearUpper =
+
+    price>=
+
+    b.upper*0.985;
+
+  let rsiShort =
+
+    r>=42 &&
+
+    r<=68;
+
+  let shortEval=0;
+
+  if(nearResistance)
+
+    shortEval+=30;
+
+  if(nearUpper)
+
+    shortEval+=25;
+
+  if(rsiShort)
+
+    shortEval+=20;
+
+  if(shortPercent>=55)
+
+    shortEval+=25;
+
+  let shortStatus;
+
+  if(shortEval>=75){
+
+    shortStatus=
+
+      "🔴 強壓力做空評估";
+
+  }
+
+  else if(shortEval>=50){
+
+    shortStatus=
+
+      "🟡 壓力觀察區";
+
+  }
+
+  else{
+
+    shortStatus=
+
+      "🟢 暫不建議接空";
+
+  }
+
+  return {
+
+    price,
+
+    boll:b,
+
+    ema12:e12,
+
+    ema26:e26,
+
+    macd:m,
+
+    rsi:r,
+
+    atr:atrValue,
+
+    support,
+
+    resistance,
+
+    longScore,
+
+    shortScore,
+
+    longPercent,
+
+    shortPercent,
+
+    signal,
+
+    reasons,
+
+    longLow,
+
+    longHigh,
+
+    longEntry,
+
+    longSL,
+
+    longTP1,
+
+    longTP2,
+
+    longRR,
+
+    longEval,
+
+    longStatus,
+
+    shortLow,
+
+    shortHigh,
+
+    shortEntry,
+
+    shortSL,
+
+    shortTP1,
+
+    shortTP2,
+
+    shortRR,
+
+    shortEval,
+
+    shortStatus
+
+  };
+
+}
+
+/* =========================================================
+
+   更新畫面
+
+   ========================================================= */
+
+function renderAnalysis(a){
+
+  document.getElementById(
+
+    "price"
+
+  ).textContent =
+
+    fmt(a.price);
+
+  document.getElementById(
+
+    "signal"
+
+  ).textContent =
+
+    a.signal;
+
+  document.getElementById(
+
+    "ratio"
+
+  ).textContent =
+
+    "做多："+a.longPercent+
+
+    "%　|　做空："+a.shortPercent+"%";
+
+  document.getElementById(
+
+    "ratioBar"
+
+  ).style.width =
+
+    a.longPercent+"%";
+
+  document.getElementById(
+
+    "reason"
+
+  ).textContent =
+
+    a.reasons.length
+
+    ? a.reasons.join("、")+"。"
+
+    : "等待更多條件共振。";
+
+  document.getElementById(
+
+    "longScore"
+
+  ).textContent =
+
+    a.longScore;
+
+  document.getElementById(
+
+    "shortScore"
+
+  ).textContent =
+
+    a.shortScore;
+
+  document.getElementById(
+
+    "rsi"
+
+  ).textContent =
+
+    a.rsi.toFixed(1);
+
+  document.getElementById(
+
+    "ema12"
+
+  ).textContent =
+
+    fmt(a.ema12);
+
+  document.getElementById(
+
+    "ema26"
+
+  ).textContent =
+
+    fmt(a.ema26);
+
+  document.getElementById(
+
+    "macd"
+
+  ).textContent =
+
+    a.macd.toFixed(2);
+
+  document.getElementById(
+
+    "support"
+
+  ).textContent =
+
+    fmt(a.support);
+
+  document.getElementById(
+
+    "resistance"
+
+  ).textContent =
+
+    fmt(a.resistance);
+
+  document.getElementById(
+
+    "lower"
+
+  ).textContent =
+
+    fmt(a.boll.lower);
+
+  document.getElementById(
+
+    "middle"
+
+  ).textContent =
+
+    fmt(a.boll.middle);
+
+  document.getElementById(
+
+    "upper"
+
+  ).textContent =
+
+    fmt(a.boll.upper);
+
+  document.getElementById(
+
+    "atr"
+
+  ).textContent =
+
+    fmt(a.atr);
+
+  /* 做多 */
+
+  document.getElementById(
+
+    "longStatus"
+
+  ).innerHTML =
+
+    `<strong>${a.longStatus}</strong>
+
+     <div class="small">
+
+       支撐：
+
+       ${fmt(a.support)}
+
+       ｜BOLL下軌：
+
+       ${fmt(a.boll.lower)}
+
+       ｜RSI：
+
+       ${a.rsi.toFixed(1)}
+
+       ｜條件：
+
+       ${a.longEval}/100
+
+     </div>`;
+
+  document.getElementById(
+
+    "longZone"
+
+  ).textContent =
+
+    fmt(a.longLow)+
+
+    " ～ "+
+
+    fmt(a.longHigh);
+
+  document.getElementById(
+
+    "longSL"
+
+  ).textContent =
+
+    fmt(a.longSL);
+
+  document.getElementById(
+
+    "longTP1"
+
+  ).textContent =
+
+    fmt(a.longTP1);
+
+  document.getElementById(
+
+    "longTP2"
+
+  ).textContent =
+
+    fmt(a.longTP2);
+
+  document.getElementById(
+
+    "longRR"
+
+  ).textContent =
+
+    a.longRR.toFixed(2)+" : 1";
+
+  /* 做空 */
+
+  document.getElementById(
+
+    "shortStatus"
+
+  ).innerHTML =
+
+    `<strong>${a.shortStatus}</strong>
+
+     <div class="small">
+
+       壓力：
+
+       ${fmt(a.resistance)}
+
+       ｜BOLL上軌：
+
+       ${fmt(a.boll.upper)}
+
+       ｜RSI：
+
+       ${a.rsi.toFixed(1)}
+
+       ｜條件：
+
+       ${a.shortEval}/100
+
+     </div>`;
+
+  document.getElementById(
+
+    "shortZone"
+
+  ).textContent =
+
+    fmt(a.shortLow)+
+
+    " ～ "+
+
+    fmt(a.shortHigh);
+
+  document.getElementById(
+
+    "shortSL"
+
+  ).textContent =
+
+    fmt(a.shortSL);
+
+  document.getElementById(
+
+    "shortTP1"
+
+  ).textContent =
+
+    fmt(a.shortTP1);
+
+  document.getElementById(
+
+    "shortTP2"
+
+  ).textContent =
+
+    fmt(a.shortTP2);
+
+  document.getElementById(
+
+    "shortRR"
+
+  ).textContent =
+
+    a.shortRR.toFixed(2)+" : 1";
+
+  /* 圖上區域 */
+
+  chartZones = {
+
+    longLow:a.longLow,
+
+    longHigh:a.longHigh,
+
+    shortLow:a.shortLow,
+
+    shortHigh:a.shortHigh,
+
+    current:a.price
+
+  };
+
+  updateZoneOverlay();
+
+}
+
+/* =========================================================
+
+   更新圖
+
+   ========================================================= */
+
+function renderChart(data){
+
+  let candles =
+
+    data.map(function(x){
+
+      return {
+
+        time:x[0]/1000,
+
+        open:Number(x[1]),
+
+        high:Number(x[2]),
+
+        low:Number(x[3]),
+
+        close:Number(x[4])
+
+      };
+
+    });
+
+  candleSeries.setData(
+
+    candles
+
+  );
+
+  buildVolume(data);
+
+  buildIndicators(data);
+
+  lastChartData=data;
+
+  chart.timeScale().fitContent();
+
+  setTimeout(
+
+    updateZoneOverlay,
+
+    100
+
+  );
+
+}
+
+/* =========================================================
+
+   更新
+
+   ========================================================= */
+
+async function refresh(){
+
+  try{
+
+    const [
+
+      data15,
+
+      data1h,
+
+      data4h
+
+    ] = await Promise.all([
+
+      getKlines("15m"),
+
+      getKlines("1h"),
+
+      getKlines("4h")
+
+    ]);
+
+    let analysis =
+
+      calculateAnalysis(
+
+        data15,
+
+        data1h,
+
+        data4h
+
+      );
+
+    let ticker =
+
+      await fetch(
+
+        API+
+
+        "/ticker/24hr?symbol=BTCUSDT",
+
+        {
+
+          cache:"no-store"
+
+        }
+
+      ).then(
+
+        r=>r.json()
+
+      );
+
+    let change =
+
+      Number(
+
+        ticker.priceChangePercent
+
+      );
+
+    document.getElementById(
+
+      "change"
+
+    ).textContent =
+
+      (change>=0?"+":"")+
+
+      change.toFixed(2)+
+
+      "% / 24H";
+
+    document.getElementById(
+
+      "change"
+
+    ).className =
+
+      "change "+
+
+      (change>=0
+
+        ?"green"
+
+        :"red");
+
+    document.getElementById(
+
+      "updated"
+
+    ).textContent =
+
+      "最後更新："+
+
+      new Date().toLocaleTimeString(
+
+        "zh-TW"
+
+      );
+
+    setDir(
+
+      "d15",
+
+      direction(data15)
+
+    );
+
+    setDir(
+
+      "d1h",
+
+      direction(data1h)
+
+    );
+
+    setDir(
+
+      "d4h",
+
+      direction(data4h)
+
+    );
+
+    renderAnalysis(
+
+      analysis
+
+    );
+
+    /* 目前圖表 */
+
+    let chartData;
+
+    if(currentTF==="15m"){
+
+      chartData=data15;
+
+    }
+
+    else if(currentTF==="4h"){
+
+      chartData=data4h;
+
+    }
+
+    else if(currentTF==="1d"){
+
+      chartData=
+
+        await getKlines("1d");
+
+    }
+
+    else{
+
+      chartData=data1h;
+
+    }
+
+    renderChart(
+
+      chartData
+
+    );
+
+    document.getElementById(
+
+      "chartInfo"
+
+    ).textContent =
+
+      "BTC/USDT · "+
+
+      currentTF+
+
+      " · 目前 "+
+
+      fmt(analysis.price)+
+
+      " · 做多區 "+
+
+      fmt(analysis.longLow)+
+
+      "～"+
+
+      fmt(analysis.longHigh)+
+
+      " · 做空區 "+
+
+      fmt(analysis.shortLow)+
+
+      "～"+
+
+      fmt(analysis.shortHigh);
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    document.getElementById(
+
+      "updated"
+
+    ).textContent =
+
+      "行情連線失敗";
+
+    document.getElementById(
+
+      "reason"
+
+    ).innerHTML =
+
+      '<span class="error">'+
+
+      '無法取得 BTC 即時資料。'+
+
+      '<br>'+
+
+      '請確認網路連線後重新整理。'+
+
+      '</span>';
+
+  }
+
+}
+
+/* =========================================================
+
+   切換時間週期
+
+   ========================================================= */
+
+function changeTF(tf){
+
+  currentTF=tf;
+
+  document
+
+    .querySelectorAll(
+
+      ".tfButtons button"
+
+    )
+
+    .forEach(function(btn){
+
+      btn.classList.remove(
+
+        "active"
+
+      );
+
+    });
+
+  let id;
+
+  if(tf==="15m"){
+
+    id="tf15";
+
+  }
+
+  else if(tf==="4h"){
+
+    id="tf4h";
+
+  }
+
+  else if(tf==="1d"){
+
+    id="tf1d";
+
+  }
+
+  else{
+
+    id="tf1h";
+
+  }
+
+  document
+
+    .getElementById(id)
+
+    .classList.add(
+
+      "active"
+
+    );
+
+  refresh();
+
+}
+
+/* =========================================================
+
+   喊單驗證
+
+   ========================================================= */
+
+function verify(){
+
+  let side =
+
+    document.getElementById(
+
+      "side"
+
+    ).value;
+
+  let callPrice =
+
+    Number(
+
+      document.getElementById(
+
+        "callPrice"
+
+      ).value
+
+    );
+
+  let current =
+
+    Number(
+
+      document.getElementById(
+
+        "price"
+
+      ).textContent
+
+      .replace(/[$,]/g,"")
+
+    );
+
+  if(
+
+    !callPrice ||
+
+    !current
+
+  ){
+
+    document.getElementById(
+
+      "verifyResult"
+
+    ).textContent =
+
+      "請輸入有效喊單價格。";
+
+    return;
+
+  }
+
+  let percentage;
+
+  if(side==="long"){
+
+    percentage =
+
+      (current-callPrice)/
+
+      callPrice*100;
+
+  }
+
+  else{
+
+    percentage =
+
+      (callPrice-current)/
+
+      callPrice*100;
+
+  }
+
+  let favorable =
+
+    percentage>=0;
+
+  document.getElementById(
+
+    "verifyResult"
+
+  ).innerHTML =
+
+    `<strong>
+
+      ${side==="long"
+
+        ?"🟢 做多"
+
+        :"🔴 做空"}
+
+    </strong>
+
+    ${fmt(callPrice)}
+
+    → 目前
+
+    ${fmt(current)}
+
+    <br><br>
+
+    <strong class="${
+
+      favorable
+
+      ?"green"
+
+      :"red"
+
+    }">
+
+      ${
+
+        favorable
+
+        ?"目前方向有利"
+
+        :"目前方向不利"
+
+      }
+
+      ${Math.abs(
+
+        percentage
+
+      ).toFixed(2)}%
+
+    </strong>`;
+
+}
+
+/* =========================================================
+
+   啟動
+
+   ========================================================= */
+
+createChart();
+
+refresh();
+
+/* 每60秒更新 */
+
+setInterval(
+
+  refresh,
+
+  60000
 
 );
 
-if(!r.ok)
+/* 圖表拖曳、縮放時更新標記 */
 
-throw Error("API error");
+if(chart){
 
-const d=await r.json();
+  chart.timeScale()
 
-return d.map(x=>({
+    .subscribeVisibleLogicalRangeChange(
 
-o:+x[1],
+      function(){
 
-h:+x[2],
+        updateZoneOverlay();
 
-l:+x[3],
+      }
 
-c:+x[4]
-
-}));
+    );
 
 }
-
-function trend(c){
-
-const a=c.map(x=>x.c);
-
-const e12=ema(a,12);
-
-const e26=ema(a,26);
-
-const rr=rsi(a);
-
-const last=a.at(-1);
-
-let score=0;
-
-if(e12>e26)
-
-score+=2;
-
-else
-
-score-=2;
-
-if(last>e12)
-
-score+=1;
-
-else
-
-score-=1;
-
-if(rr>50)
-
-score+=1;
-
-else
-
-score-=1;
-
-return {
-
-score,
-
-e12,
-
-e26,
-
-rsi:rr,
-
-last,
-
-high:Math.max(
-
-...c.slice(-48).map(x=>x.h)
-
-),
-
-low:Math.min(
-
-...c.slice(-48).map(x=>x.l)
-
-),
-
-macd:macd(a).m
-
-};
-
-}
-
-function label(score){
-
-if(score>=3)
-
-return ["偏多","good"];
-
-if(score<=-3)
-
-return ["偏空","bad"];
-
-return ["震盪","neutral"];
-
-}
-
-function set(id,text,cls){
-
-const e=document.getElementById(id);
-
-e.textContent=text;
-
-e.className=cls;
-
-}
-
-async function loadAll(){
-
-try{
-
-document.getElementById("update").textContent="更新中…";
-
-const [c15,c1,c4]=await Promise.all([
-
-candles("15m"),
-
-candles("1h"),
-
-candles("4h")
-
-]);
-
-const a=trend(c15);
-
-const b=trend(c1);
-
-const c=trend(c4);
-
-const price=b.last;
-
-document.getElementById("price").textContent=
-
-"$"+fmt(price);
-
-document.getElementById("update").textContent=
-
-"最後更新："+new Date().toLocaleString("zh-TW");
-
-document.getElementById("bull").textContent=
-
-Math.max(0,a.score)+
-
-Math.max(0,b.score)+
-
-Math.max(0,c.score);
-
-document.getElementById("bear").textContent=
-
-Math.max(0,-a.score)+
-
-Math.max(0,-b.score)+
-
-Math.max(0,-c.score);
-
-document.getElementById("rsi").textContent=
-
-b.rsi.toFixed(1);
-
-const [l15,cl15]=label(a.score);
-
-const [l1,cl1]=label(b.score);
-
-const [l4,cl4]=label(c.score);
-
-set("s15",l15,cl15);
-
-set("s1",l1,cl1);
-
-set("s4",l4,cl4);
-
-document.getElementById("ema").textContent=
-
-fmt(b.e12)+" / "+fmt(b.e26);
-
-document.getElementById("macd").textContent=
-
-(b.macd>=0?"+":"")+
-
-b.macd.toFixed(2);
-
-document.getElementById("e12").textContent=
-
-fmt(b.e12);
-
-document.getElementById("e26").textContent=
-
-fmt(b.e26);
-
-document.getElementById("hi").textContent=
-
-fmt(b.high);
-
-document.getElementById("lo").textContent=
-
-fmt(b.low);
-
-const longOk=
-
-a.score>=2 &&
-
-b.score>=2 &&
-
-c.score>=2 &&
-
-b.rsi<70;
-
-const shortOk=
-
-a.score<=-2 &&
-
-b.score<=-2 &&
-
-c.score<=-2 &&
-
-b.rsi>30;
-
-const sig=
-
-document.getElementById("signal");
-
-if(longOk){
-
-sig.className="signal long";
-
-sig.textContent="🟢 偏向做多";
-
-set(
-
-"strategy",
-
-"等待回踩確認再做多",
-
-"good"
-
-);
-
-}
-
-else if(shortOk){
-
-sig.className="signal short";
-
-sig.textContent="🔴 偏向做空";
-
-set(
-
-"strategy",
-
-"等待反彈確認再做空",
-
-"bad"
-
-);
-
-}
-
-else{
-
-sig.className="signal wait";
-
-sig.textContent="🟡 觀望";
-
-set(
-
-"strategy",
-
-"多空未完全一致",
-
-"neutral"
-
-);
-
-}
-
-const longText=
-
-(a.score>=2 &&
-
- b.score>=2 &&
-
- c.score>=2)
-
-?"條件較完整"
-
-:"尚未全部滿足";
-
-const shortText=
-
-(a.score<=-2 &&
-
- b.score<=-2 &&
-
- c.score<=-2)
-
-?"條件較完整"
-
-:"尚未全部滿足";
-
-set(
-
-"longHint",
-
-longText,
-
-longText==="條件較完整"
-
-?"good"
-
-:"neutral"
-
-);
-
-set(
-
-"shortHint",
-
-shortText,
-
-shortText==="條件較完整"
-
-?"bad"
-
-:"neutral"
-
-);
-
-document.getElementById("reason").textContent=
-
-`15M ${l15}、1H ${l1}、4H ${l4}；1H RSI ${b.rsi.toFixed(1)}。`
-
-+
-
-(
-
-longOk
-
-?
-
-" 三週期同向偏多，但仍建議等回踩確認。"
-
-:
-
-shortOk
-
-?
-
-" 三週期同向偏空，但仍建議等反彈確認。"
-
-:
-
-" 三週期尚未形成強烈一致方向，因此目前以觀望為主。"
-
-);
-
-}
-
-catch(e){
-
-document.getElementById("update").textContent=
-
-"資料取得失敗，請稍後重試";
-
-document.getElementById("signal").textContent=
-
-"⚠️ 暫時無法分析";
-
-console.error(e);
-
-}
-
-}
-
-loadAll();
-
-setInterval(loadAll,60000);
 
 </script>
 
