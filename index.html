@@ -10,7 +10,7 @@
 
       content="width=device-width,initial-scale=1,viewport-fit=cover">
 
-<title>🪙 萬用幣種多空分析 V1.0</title>
+<title>🪙 萬用幣種多空分析 V1.1</title>
 
 <style>
 
@@ -81,6 +81,8 @@ body{
   flex:1;
 
   min-width:0;
+
+  text-transform:uppercase;
 
 }
 
@@ -300,8 +302,6 @@ input{
 
   background:#fff;
 
-  text-transform:uppercase;
-
 }
 
 button{
@@ -321,8 +321,6 @@ button{
   font-size:17px;
 
   font-weight:700;
-
-  margin-top:10px;
 
 }
 
@@ -350,6 +348,20 @@ canvas{
 
 }
 
+.errorBox{
+
+  background:#fff0f0;
+
+  color:#b42318;
+
+  border-radius:22px;
+
+  padding:18px;
+
+  line-height:1.7;
+
+}
+
 .notice{
 
   font-size:15px;
@@ -357,28 +369,6 @@ canvas{
   color:#666;
 
   line-height:1.7;
-
-}
-
-.error{
-
-  color:#b42318;
-
-}
-
-.good{
-
-  color:#138a3d;
-
-  font-weight:700;
-
-}
-
-.bad{
-
-  color:#c52d20;
-
-  font-weight:700;
 
 }
 
@@ -438,7 +428,7 @@ canvas{
 
 <div class="title">
 
-  🪙 <span id="coinTitle">BTC</span> 多空分析 V1.0
+  🪙 <span id="coinTitle">BTC</span> 多空分析 V1.1
 
 </div>
 
@@ -448,8 +438,6 @@ canvas{
 
 </div>
 
-<!-- 幣種輸入 -->
-
 <div class="coinBox">
 
 <input
@@ -458,25 +446,39 @@ canvas{
 
   value="BTC"
 
-  placeholder="輸入幣種，例如 BTC、ETH、SOL">
+  placeholder="輸入 BTC、ETH、AKE、SOL...">
 
 <button onclick="changeCoin()">
 
-  開始分析
+開始分析
 
 </button>
 
 </div>
 
-<div id="price" class="price">
+<div id="marketType"
 
-  $—
+     class="small"
+
+     style="margin-bottom:10px">
+
+正在準備行情…
 
 </div>
 
-<div id="updated" class="update">
+<div id="price"
 
-  連線中…
+     class="price">
+
+$—
+
+</div>
+
+<div id="updated"
+
+     class="update">
+
+連線中…
 
 </div>
 
@@ -484,9 +486,11 @@ canvas{
 
 <div class="card hero">
 
-<div id="signal" class="signal">
+<div id="signal"
 
-  🟡 計算中
+     class="signal">
+
+🟡 計算中
 
 </div>
 
@@ -494,13 +498,17 @@ canvas{
 
      style="font-size:22px;margin-top:12px">
 
-  做多：—　|　做空：—
+做多：—　|　做空：—
 
 </div>
 
 <div class="bar">
 
-  <i id="ratioBar" style="width:50%"></i>
+<i id="ratioBar"
+
+   style="width:50%">
+
+</i>
 
 </div>
 
@@ -510,7 +518,7 @@ canvas{
 
      style="font-size:17px;line-height:1.6">
 
-  正在取得行情與技術指標。
+正在取得行情與技術指標。
 
 </div>
 
@@ -556,11 +564,13 @@ canvas{
 
 <div class="card">
 
-<h2>📈 K 線與交易位置</h2>
+<h2>📈 K線與交易位置</h2>
 
 <div class="chartWrap">
 
-<canvas id="chart"></canvas>
+<canvas id="chart">
+
+</canvas>
 
 </div>
 
@@ -568,9 +578,9 @@ canvas{
 
      style="margin-top:12px">
 
-🟢 綠色：建議觀察做多區　
+🟢 綠色：做多觀察區　
 
-🔴 紅色：建議觀察做空區　
+🔴 紅色：做空觀察區　
 
 │：目前價格
 
@@ -584,7 +594,9 @@ canvas{
 
 <h2>技術指標</h2>
 
-<div id="tech"></div>
+<div id="tech">
+
+</div>
 
 </div>
 
@@ -596,17 +608,29 @@ canvas{
 
 <div class="row">
 
-<span>近 50 根 1H 支撐</span>
+<span>近50根 1H 支撐</span>
 
-<span class="val" id="support">—</span>
+<span class="val"
+
+      id="support">
+
+—
+
+</span>
 
 </div>
 
 <div class="row">
 
-<span>近 50 根 1H 壓力</span>
+<span>近50根 1H 壓力</span>
 
-<span class="val" id="resistance">—</span>
+<span class="val"
+
+      id="resistance">
+
+—
+
+</span>
 
 </div>
 
@@ -614,7 +638,13 @@ canvas{
 
 <span>BOLL 下軌</span>
 
-<span class="val" id="lower">—</span>
+<span class="val"
+
+      id="lower">
+
+—
+
+</span>
 
 </div>
 
@@ -622,7 +652,13 @@ canvas{
 
 <span>BOLL 中軌</span>
 
-<span class="val" id="middle">—</span>
+<span class="val"
+
+      id="middle">
+
+—
+
+</span>
 
 </div>
 
@@ -630,7 +666,13 @@ canvas{
 
 <span>BOLL 上軌</span>
 
-<span class="val" id="upper">—</span>
+<span class="val"
+
+      id="upper">
+
+—
+
+</span>
 
 </div>
 
@@ -654,7 +696,13 @@ canvas{
 
 <span>建議做多區間</span>
 
-<span class="val" id="longZone">—</span>
+<span class="val"
+
+      id="longZone">
+
+—
+
+</span>
 
 </div>
 
@@ -662,7 +710,13 @@ canvas{
 
 <span>參考止損</span>
 
-<span class="val" id="longSL">—</span>
+<span class="val"
+
+      id="longSL">
+
+—
+
+</span>
 
 </div>
 
@@ -670,7 +724,13 @@ canvas{
 
 <span>TP1</span>
 
-<span class="val" id="longTP1">—</span>
+<span class="val"
+
+      id="longTP1">
+
+—
+
+</span>
 
 </div>
 
@@ -678,7 +738,13 @@ canvas{
 
 <span>TP2</span>
 
-<span class="val" id="longTP2">—</span>
+<span class="val"
+
+      id="longTP2">
+
+—
+
+</span>
 
 </div>
 
@@ -686,7 +752,13 @@ canvas{
 
 <span>TP1 風險報酬</span>
 
-<span class="val" id="longRR">—</span>
+<span class="val"
+
+      id="longRR">
+
+—
+
+</span>
 
 </div>
 
@@ -710,7 +782,13 @@ canvas{
 
 <span>建議做空區間</span>
 
-<span class="val" id="shortZone">—</span>
+<span class="val"
+
+      id="shortZone">
+
+—
+
+</span>
 
 </div>
 
@@ -718,7 +796,13 @@ canvas{
 
 <span>參考止損</span>
 
-<span class="val" id="shortSL">—</span>
+<span class="val"
+
+      id="shortSL">
+
+—
+
+</span>
 
 </div>
 
@@ -726,7 +810,13 @@ canvas{
 
 <span>TP1</span>
 
-<span class="val" id="shortTP1">—</span>
+<span class="val"
+
+      id="shortTP1">
+
+—
+
+</span>
 
 </div>
 
@@ -734,7 +824,13 @@ canvas{
 
 <span>TP2</span>
 
-<span class="val" id="shortTP2">—</span>
+<span class="val"
+
+      id="shortTP2">
+
+—
+
+</span>
 
 </div>
 
@@ -742,7 +838,13 @@ canvas{
 
 <span>TP1 風險報酬</span>
 
-<span class="val" id="shortRR">—</span>
+<span class="val"
+
+      id="shortRR">
+
+—
+
+</span>
 
 </div>
 
@@ -750,9 +852,7 @@ canvas{
 
 ⚠️ 技術分析僅供參考。
 
-價格到達支撐或壓力不代表一定反轉，
-
-建議等待趨勢、RSI、BOLL 等條件共振。
+價格到達支撐或壓力不代表一定反轉。
 
 </p>
 
@@ -764,257 +864,203 @@ canvas{
 
 /* =====================================================
 
-   萬用幣種
+   全域
 
    ===================================================== */
 
-let COIN = "BTC";
+let COIN="BTC";
 
-let currentData = null;
+let MARKET="";
+
+let currentData=null;
 
 /* =====================================================
 
-   Binance 行情
+   清除舊資料
 
    ===================================================== */
 
-function apiURL(tf){
+function clearOldData(){
 
-return "https://api.binance.com/api/v3/klines"+
+document.getElementById("price")
 
-       "?symbol="+COIN+"USDT"+
+.textContent="$—";
 
-       "&interval="+tf+
+document.getElementById("updated")
 
-       "&limit=200";
+.textContent="正在切換幣種…";
+
+document.getElementById("marketType")
+
+.textContent="正在尋找交易市場…";
+
+document.getElementById("signal")
+
+.textContent="🟡 計算中";
+
+document.getElementById("ratio")
+
+.textContent="做多：—　|　做空：—";
+
+document.getElementById("reason")
+
+.textContent="正在取得新的行情資料…";
+
+document.getElementById("d15")
+
+.textContent="—";
+
+document.getElementById("d1h")
+
+.textContent="—";
+
+document.getElementById("d4h")
+
+.textContent="—";
+
+document.getElementById("support")
+
+.textContent="—";
+
+document.getElementById("resistance")
+
+.textContent="—";
+
+document.getElementById("lower")
+
+.textContent="—";
+
+document.getElementById("middle")
+
+.textContent="—";
+
+document.getElementById("upper")
+
+.textContent="—";
+
+document.getElementById("tech")
+
+innerHTML="";
+
+document.getElementById("longZone")
+
+.textContent="—";
+
+document.getElementById("longSL")
+
+.textContent="—";
+
+document.getElementById("longTP1")
+
+.textContent="—";
+
+document.getElementById("longTP2")
+
+.textContent="—";
+
+document.getElementById("longRR")
+
+.textContent="—";
+
+document.getElementById("shortZone")
+
+.textContent="—";
+
+document.getElementById("shortSL")
+
+.textContent="—";
+
+document.getElementById("shortTP1")
+
+.textContent="—";
+
+document.getElementById("shortTP2")
+
+.textContent="—";
+
+document.getElementById("shortRR")
+
+.textContent="—";
 
 }
 
 /* =====================================================
 
-   基本計算
+   幣種切換
 
    ===================================================== */
 
-function closes(data){
+function changeCoin(){
 
-return data.map(function(x){
+let input=
 
-return Number(x[4]);
+document.getElementById("coinInput")
+
+.value
+
+.trim()
+
+.toUpperCase()
+
+.replace(/[^A-Z0-9]/g,"");
+
+if(!input){
+
+return;
+
+}
+
+COIN=input;
+
+clearOldData();
+
+document.getElementById("coinTitle")
+
+.textContent=COIN;
+
+document.title=
+
+"🪙 "+COIN+" 多空分析 V1.1";
+
+refresh();
+
+}
+
+/* =====================================================
+
+   Enter
+
+   ===================================================== */
+
+document.getElementById("coinInput")
+
+.addEventListener(
+
+"keydown",
+
+function(e){
+
+if(e.key==="Enter"){
+
+changeCoin();
+
+}
 
 });
 
-}
-
-function ema(data,n){
-
-let k=2/(n+1);
-
-let e=data[0];
-
-for(let i=1;i<data.length;i++){
-
-e=data[i]*k+e*(1-k);
-
-}
-
-return e;
-
-}
-
-function sma(data,n){
-
-let arr=data.slice(-n);
-
-return arr.reduce(function(a,b){
-
-return a+b;
-
-},0)/arr.length;
-
-}
-
-function sd(data,n){
-
-let arr=data.slice(-n);
-
-let mean=
-
-arr.reduce(function(a,b){
-
-return a+b;
-
-},0)/arr.length;
-
-let sum=0;
-
-arr.forEach(function(x){
-
-sum+=Math.pow(x-mean,2);
-
-});
-
-return Math.sqrt(sum/arr.length);
-
-}
-
-function rsi(data,n){
-
-n=n||14;
-
-let gain=0;
-
-let loss=0;
-
-for(
-
-let i=data.length-n;
-
-i<data.length;
-
-i++
-
-){
-
-let d=data[i]-data[i-1];
-
-if(d>0){
-
-gain+=d;
-
-}
-
-else{
-
-loss-=d;
-
-}
-
-}
-
-if(loss===0){
-
-return 100;
-
-}
-
-let rs=(gain/n)/(loss/n);
-
-return 100-(100/(1+rs));
-
-}
-
-function macd(data){
-
-return ema(data,12)-ema(data,26);
-
-}
-
-function atr(data,n){
-
-n=n||14;
-
-let tr=[];
-
-for(let i=1;i<data.length;i++){
-
-let high=Number(data[i][2]);
-
-let low=Number(data[i][3]);
-
-let prev=Number(data[i-1][4]);
-
-tr.push(
-
-Math.max(
-
-high-low,
-
-Math.abs(high-prev),
-
-Math.abs(low-prev)
-
-)
-
-);
-
-}
-
-return sma(tr,n);
-
-}
-
-function boll(data,n,m){
-
-n=n||20;
-
-m=m||2;
-
-let middle=sma(data,n);
-
-let deviation=sd(data,n);
-
-return{
-
-middle:middle,
-
-upper:
-
-middle+m*deviation,
-
-lower:
-
-middle-m*deviation
-
-};
-
-}
-
 /* =====================================================
 
-   趨勢
+   Binance Futures exchangeInfo
 
    ===================================================== */
 
-function direction(data){
-
-let c=closes(data);
-
-let e12=ema(c,12);
-
-let e26=ema(c,26);
-
-let r=rsi(c,14);
-
-if(e12>e26 && r>=50){
-
-return "偏多";
-
-}
-
-if(e12<e26 && r<50){
-
-return "偏空";
-
-}
-
-return "震盪";
-
-}
-
-/* =====================================================
-
-   取得資料
-
-   ===================================================== */
-
-async function get(tf){
+async function findFuturesSymbol(){
 
 let response=
 
 await fetch(
 
-apiURL(tf),
+"https://fapi.binance.com/fapi/v1/exchangeInfo",
 
 {
 
@@ -1028,7 +1074,265 @@ if(!response.ok){
 
 throw new Error(
 
-"Binance HTTP "+response.status
+"Futures exchangeInfo HTTP "+
+
+response.status
+
+);
+
+}
+
+let data=
+
+await response.json();
+
+let symbol=
+
+data.symbols.find(
+
+function(x){
+
+return(
+
+x.symbol===COIN+"USDT" &&
+
+x.status==="TRADING"
+
+);
+
+}
+
+);
+
+return symbol ? symbol.symbol : null;
+
+}
+
+/* =====================================================
+
+   Binance Spot exchangeInfo
+
+   ===================================================== */
+
+async function findSpotSymbol(){
+
+let response=
+
+await fetch(
+
+"https://api.binance.com/api/v3/exchangeInfo",
+
+{
+
+cache:"no-store"
+
+}
+
+);
+
+if(!response.ok){
+
+throw new Error(
+
+"Spot exchangeInfo HTTP "+
+
+response.status
+
+);
+
+}
+
+let data=
+
+await response.json();
+
+let symbol=
+
+data.symbols.find(
+
+function(x){
+
+return(
+
+x.symbol===COIN+"USDT" &&
+
+x.status==="TRADING"
+
+);
+
+}
+
+);
+
+return symbol ? symbol.symbol : null;
+
+}
+
+/* =====================================================
+
+   自動尋找市場
+
+   ===================================================== */
+
+async function findMarket(){
+
+/* 永續優先 */
+
+try{
+
+let futures=
+
+await findFuturesSymbol();
+
+if(futures){
+
+return{
+
+type:"futures",
+
+symbol:futures
+
+};
+
+}
+
+}
+
+catch(error){
+
+console.log(
+
+"Futures 搜尋失敗",
+
+error
+
+);
+
+}
+
+/* 現貨備援 */
+
+try{
+
+let spot=
+
+await findSpotSymbol();
+
+if(spot){
+
+return{
+
+type:"spot",
+
+symbol:spot
+
+};
+
+}
+
+}
+
+catch(error){
+
+console.log(
+
+"Spot 搜尋失敗",
+
+error
+
+);
+
+}
+
+return null;
+
+}
+
+/* =====================================================
+
+   K線 API
+
+   ===================================================== */
+
+function klineURL(
+
+market,
+
+symbol,
+
+tf
+
+){
+
+if(market==="futures"){
+
+return(
+
+"https://fapi.binance.com/fapi/v1/klines"+
+
+"?symbol="+symbol+
+
+"&interval="+tf+
+
+"&limit=200"
+
+);
+
+}
+
+return(
+
+"https://api.binance.com/api/v3/klines"+
+
+"?symbol="+symbol+
+
+"&interval="+tf+
+
+"&limit=200"
+
+);
+
+}
+
+/* =====================================================
+
+   取得K線
+
+   ===================================================== */
+
+async function get(tf){
+
+let url=
+
+klineURL(
+
+MARKET,
+
+COIN+"USDT",
+
+tf
+
+);
+
+let response=
+
+await fetch(
+
+url,
+
+{
+
+cache:"no-store"
+
+}
+
+);
+
+if(!response.ok){
+
+throw new Error(
+
+"HTTP "+response.status
 
 );
 
@@ -1054,7 +1358,17 @@ throw new Error(
 
 }
 
-let c=closes(raw);
+let c=
+
+raw.map(
+
+function(x){
+
+return Number(x[4]);
+
+}
+
+);
 
 return{
 
@@ -1076,15 +1390,373 @@ dir:direction(raw)
 
 /* =====================================================
 
+   EMA
+
+   ===================================================== */
+
+function ema(data,n){
+
+let k=2/(n+1);
+
+let e=data[0];
+
+for(
+
+let i=1;
+
+i<data.length;
+
+i++
+
+){
+
+e=
+
+data[i]*k+
+
+e*(1-k);
+
+}
+
+return e;
+
+}
+
+/* =====================================================
+
+   SMA
+
+   ===================================================== */
+
+function sma(data,n){
+
+let arr=
+
+data.slice(-n);
+
+return(
+
+arr.reduce(
+
+function(a,b){
+
+return a+b;
+
+},
+
+0
+
+)/arr.length
+
+);
+
+}
+
+/* =====================================================
+
+   標準差
+
+   ===================================================== */
+
+function sd(data,n){
+
+let arr=
+
+data.slice(-n);
+
+let mean=
+
+arr.reduce(
+
+function(a,b){
+
+return a+b;
+
+},
+
+0
+
+)/arr.length;
+
+let sum=0;
+
+arr.forEach(
+
+function(x){
+
+sum+=
+
+Math.pow(
+
+x-mean,
+
+2
+
+);
+
+}
+
+);
+
+return Math.sqrt(
+
+sum/arr.length
+
+);
+
+}
+
+/* =====================================================
+
+   RSI
+
+   ===================================================== */
+
+function rsi(data,n){
+
+n=n||14;
+
+let gain=0;
+
+let loss=0;
+
+for(
+
+let i=data.length-n;
+
+i<data.length;
+
+i++
+
+){
+
+let d=
+
+data[i]-
+
+data[i-1];
+
+if(d>0){
+
+gain+=d;
+
+}
+
+else{
+
+loss-=d;
+
+}
+
+}
+
+if(loss===0){
+
+return 100;
+
+}
+
+let rs=
+
+(gain/n)/
+
+(loss/n);
+
+return(
+
+100-
+
+100/(1+rs)
+
+);
+
+}
+
+/* =====================================================
+
+   MACD
+
+   ===================================================== */
+
+function macd(data){
+
+return(
+
+ema(data,12)-
+
+ema(data,26)
+
+);
+
+}
+
+/* =====================================================
+
+   ATR
+
+   ===================================================== */
+
+function atr(data,n){
+
+n=n||14;
+
+let tr=[];
+
+for(
+
+let i=1;
+
+i<data.length;
+
+i++
+
+){
+
+let high=
+
+Number(data[i][2]);
+
+let low=
+
+Number(data[i][3]);
+
+let prev=
+
+Number(data[i-1][4]);
+
+tr.push(
+
+Math.max(
+
+high-low,
+
+Math.abs(high-prev),
+
+Math.abs(low-prev)
+
+)
+
+);
+
+}
+
+return sma(tr,n);
+
+}
+
+/* =====================================================
+
+   BOLL
+
+   ===================================================== */
+
+function boll(data,n,m){
+
+n=n||20;
+
+m=m||2;
+
+let middle=
+
+sma(data,n);
+
+let deviation=
+
+sd(data,n);
+
+return{
+
+middle:middle,
+
+upper:
+
+middle+
+
+m*deviation,
+
+lower:
+
+middle-
+
+m*deviation
+
+};
+
+}
+
+/* =====================================================
+
+   趨勢
+
+   ===================================================== */
+
+function direction(data){
+
+let c=
+
+data.map(
+
+function(x){
+
+return Number(x[4]);
+
+}
+
+);
+
+let e12=
+
+ema(c,12);
+
+let e26=
+
+ema(c,26);
+
+let r=
+
+rsi(c,14);
+
+if(
+
+e12>e26 &&
+
+r>=50
+
+){
+
+return"偏多";
+
+}
+
+if(
+
+e12<e26 &&
+
+r<50
+
+){
+
+return"偏空";
+
+}
+
+return"震盪";
+
+}
+
+/* =====================================================
+
    格式
 
    ===================================================== */
 
 function fmt(x){
 
-return "$"+
+return"$"+
 
-Number(x).toLocaleString(
+Number(x)
+
+.toLocaleString(
 
 undefined,
 
@@ -1099,76 +1771,6 @@ maximumFractionDigits:2
 );
 
 }
-
-/* =====================================================
-
-   幣種切換
-
-   ===================================================== */
-
-function changeCoin(){
-
-let input=
-
-document.getElementById(
-
-"coinInput"
-
-).value
-
-.trim()
-
-.toUpperCase()
-
-.replace(/[^A-Z0-9]/g,"");
-
-if(!input){
-
-return;
-
-}
-
-COIN=input;
-
-document.getElementById(
-
-"coinTitle"
-
-).textContent=COIN;
-
-document.title=
-
-"🪙 "+COIN+" 多空分析 V1.0";
-
-refresh();
-
-}
-
-/* =====================================================
-
-   Enter
-
-   ===================================================== */
-
-document.getElementById(
-
-"coinInput"
-
-).addEventListener(
-
-"keydown",
-
-function(e){
-
-if(e.key==="Enter"){
-
-changeCoin();
-
-}
-
-}
-
-);
 
 /* =====================================================
 
@@ -1208,7 +1810,7 @@ el.classList.add("wait");
 
 /* =====================================================
 
-   主分析
+   主更新
 
    ===================================================== */
 
@@ -1216,13 +1818,51 @@ async function refresh(){
 
 try{
 
+clearOldData();
+
 document.getElementById(
 
 "updated"
 
 ).textContent=
 
-"正在取得 "+COIN+" 行情…";
+"正在尋找 "+COIN+"USDT…";
+
+/* 找市場 */
+
+let market=
+
+await findMarket();
+
+if(!market){
+
+throw new Error(
+
+"找不到 "+COIN+"USDT"
+
+);
+
+}
+
+MARKET=
+
+market.type;
+
+/* 顯示市場 */
+
+document.getElementById(
+
+"marketType"
+
+).textContent=
+
+market.type==="futures"
+
+?"📌 Binance USDⓈ-M 永續合約"
+
+:"📌 Binance 現貨";
+
+/* 三週期 */
 
 let result=
 
@@ -1252,11 +1892,15 @@ h4:h4
 
 };
 
+/* 價格 */
+
 let price=
 
 h1.a[h1.a.length-1];
 
-let b=h1.boll;
+let b=
+
+h1.boll;
 
 let e12=
 
@@ -1286,31 +1930,51 @@ h1.k.slice(-50);
 
 let highs=
 
-last50.map(function(x){
+last50.map(
+
+function(x){
 
 return Number(x[2]);
 
-});
+}
+
+);
 
 let lows=
 
-last50.map(function(x){
+last50.map(
+
+function(x){
 
 return Number(x[3]);
 
-});
+}
+
+);
 
 let support=
 
-Math.min.apply(null,lows);
+Math.min.apply(
+
+null,
+
+lows
+
+);
 
 let resistance=
 
-Math.max.apply(null,highs);
+Math.max.apply(
+
+null,
+
+highs
+
+);
 
 /* =================================================
 
-   多空評分
+   多空分數
 
    ================================================= */
 
@@ -1374,11 +2038,13 @@ shortScore+=15;
 
 }
 
-/* BOLL */
+/* BOLL下軌 */
 
 if(
 
-price<=b.lower*1.012
+price<=
+
+b.lower*1.012
 
 ){
 
@@ -1392,9 +2058,13 @@ reasons.push(
 
 }
 
+/* BOLL上軌 */
+
 if(
 
-price>=b.upper*0.988
+price>=
+
+b.upper*0.988
 
 ){
 
@@ -1438,7 +2108,9 @@ shortScore+=15;
 
 let total=
 
-longScore+shortScore;
+longScore+
+
+shortScore;
 
 if(total<=0){
 
@@ -1450,7 +2122,11 @@ let longPercent=
 
 Math.round(
 
-longScore/total*100
+longScore/
+
+total*
+
+100
 
 );
 
@@ -1458,11 +2134,7 @@ let shortPercent=
 
 100-longPercent;
 
-/* =================================================
-
-   主訊號
-
-   ================================================= */
+/* 主訊號 */
 
 let signal;
 
@@ -1486,7 +2158,7 @@ signal="🟡 觀望";
 
 /* =================================================
 
-   畫面
+   更新
 
    ================================================= */
 
@@ -1506,7 +2178,9 @@ document.getElementById(
 
 "最後更新："+
 
-new Date().toLocaleTimeString(
+new Date()
+
+.toLocaleTimeString(
 
 "zh-TW"
 
@@ -1548,9 +2222,9 @@ document.getElementById(
 
 reasons.length
 
-? reasons.join("、")+"。"
+?reasons.join("、")+"。"
 
-: "等待更多條件共振。";
+:"等待更多條件共振。";
 
 setDir(
 
@@ -1576,7 +2250,7 @@ h4.dir
 
 );
 
-/* 支撐 */
+/* 支撐壓力 */
 
 document.getElementById(
 
@@ -1585,8 +2259,6 @@ document.getElementById(
 ).textContent=
 
 fmt(support);
-
-/* 壓力 */
 
 document.getElementById(
 
@@ -1622,11 +2294,7 @@ document.getElementById(
 
 fmt(b.upper);
 
-/* =================================================
-
-   技術指標
-
-   ================================================= */
+/* 技術 */
 
 let techData=[
 
@@ -1696,11 +2364,7 @@ ${item[1]}
 
 ).join("");
 
-/* =================================================
-
-   交易區
-
-   ================================================= */
+/* 做多 */
 
 buildLong(
 
@@ -1720,6 +2384,8 @@ longPercent
 
 );
 
+/* 做空 */
+
 buildShort(
 
 price,
@@ -1738,11 +2404,7 @@ shortPercent
 
 );
 
-/* =================================================
-
-   K線
-
-   ================================================= */
+/* K線 */
 
 drawChart(
 
@@ -1766,6 +2428,14 @@ console.error(error);
 
 document.getElementById(
 
+"price"
+
+).textContent=
+
+"$—";
+
+document.getElementById(
+
 "updated"
 
 ).textContent=
@@ -1774,19 +2444,51 @@ document.getElementById(
 
 document.getElementById(
 
+"marketType"
+
+).textContent=
+
+"⚠️ 無法找到可用市場";
+
+document.getElementById(
+
+"signal"
+
+).textContent=
+
+"⚠️ 分析失敗";
+
+document.getElementById(
+
+"ratio"
+
+).textContent=
+
+"做多：—　|　做空：—";
+
+document.getElementById(
+
 "reason"
 
 ).innerHTML=
 
-'<span class="error">'+
+`<div class="errorBox">
 
-"無法取得 "+COIN+
+無法取得
 
-"USDT 即時資料。"+
+<strong>${COIN}</strong>
 
-"<br>請確認 Binance 有這個交易對。"+
+USDT 即時資料。
 
-"</span>";
+<br><br>
+
+請確認 Binance 是否有
+
+<strong>${COIN}USDT</strong>
+
+永續或現貨交易對。
+
+</div>`;
 
 }
 
@@ -1818,11 +2520,17 @@ longPercent
 
 let nearSupport=
 
-Math.abs(price-support)/price<=0.012;
+Math.abs(
+
+price-support
+
+)/price<=0.012;
 
 let nearLower=
 
-price<=boll.lower*1.012;
+price<=
+
+boll.lower*1.012;
 
 let rsiOK=
 
@@ -1860,29 +2568,21 @@ let status;
 
 if(score>=70){
 
-status=
-
-"🟢 強支撐做多評估";
+status="🟢 強支撐做多評估";
 
 }
 
 else if(score>=45){
 
-status=
-
-"🟡 支撐觀察區";
+status="🟡 支撐觀察區";
 
 }
 
 else{
 
-status=
-
-"🔴 不建議現在接多";
+status="🔴 不建議現在接多";
 
 }
-
-/* 做多區 */
 
 let zoneLow=
 
@@ -1908,15 +2608,11 @@ let entry=
 
 (zoneLow+zoneHigh)/2;
 
-/* SL */
-
 let stopLoss=
 
 support-
 
 atrValue*0.65;
-
-/* TP */
 
 let tp1=
 
@@ -1964,7 +2660,7 @@ let rr=
 
 risk>0
 
-? reward/risk
+?reward/risk
 
 :0;
 
@@ -2070,11 +2766,17 @@ shortPercent
 
 let nearResistance=
 
-Math.abs(price-resistance)/price<=0.012;
+Math.abs(
+
+price-resistance
+
+)/price<=0.012;
 
 let nearUpper=
 
-price>=boll.upper*0.988;
+price>=
+
+boll.upper*0.988;
 
 let rsiOK=
 
@@ -2112,29 +2814,21 @@ let status;
 
 if(score>=70){
 
-status=
-
-"🔴 強壓力做空評估";
+status="🔴 強壓力做空評估";
 
 }
 
 else if(score>=45){
 
-status=
-
-"🟡 壓力觀察區";
+status="🟡 壓力觀察區";
 
 }
 
 else{
 
-status=
-
-"🟢 不建議現在追空";
+status="🟢 不建議現在追空";
 
 }
-
-/* 做空區 */
 
 let zoneLow=
 
@@ -2160,15 +2854,11 @@ let entry=
 
 (zoneLow+zoneHigh)/2;
 
-/* SL */
-
 let stopLoss=
 
 resistance+
 
 atrValue*0.65;
-
-/* TP */
 
 let tp1=
 
@@ -2216,7 +2906,7 @@ let rr=
 
 risk>0
 
-? reward/risk
+?reward/risk
 
 :0;
 
@@ -2342,7 +3032,17 @@ rect.height*dpr;
 
 ctx.setTransform(
 
-dpr,0,0,dpr,0,0
+dpr,
+
+0,
+
+0,
+
+dpr,
+
+0,
+
+0
 
 );
 
@@ -2352,7 +3052,13 @@ let H=rect.height;
 
 ctx.clearRect(
 
-0,0,W,H
+0,
+
+0,
+
+W,
+
+H
 
 );
 
@@ -2362,11 +3068,11 @@ return;
 
 }
 
-/* 高低 */
-
 let values=[];
 
-data.forEach(function(x){
+data.forEach(
+
+function(x){
 
 values.push(
 
@@ -2392,11 +3098,23 @@ boll.lower
 
 let min=
 
-Math.min.apply(null,values);
+Math.min.apply(
+
+null,
+
+values
+
+);
 
 let max=
 
-Math.max.apply(null,values);
+Math.max.apply(
+
+null,
+
+values
+
+);
 
 let padding=
 
@@ -2410,7 +3128,13 @@ function y(v){
 
 return H-
 
-((v-min)/(max-min))*H;
+(
+
+(v-min)/
+
+(max-min)
+
+)*H;
 
 }
 
@@ -2434,7 +3158,13 @@ ctx.fillStyle="#111";
 
 ctx.fillRect(
 
-0,0,W,H
+0,
+
+0,
+
+W,
+
+H
 
 );
 
@@ -2444,7 +3174,15 @@ ctx.strokeStyle="#333";
 
 ctx.lineWidth=1;
 
-for(let i=1;i<5;i++){
+for(
+
+let i=1;
+
+i<5;
+
+i++
+
+){
 
 let yy=
 
@@ -2452,9 +3190,21 @@ H*i/5;
 
 ctx.beginPath();
 
-ctx.moveTo(0,yy);
+ctx.moveTo(
 
-ctx.lineTo(W,yy);
+0,
+
+yy
+
+);
+
+ctx.lineTo(
+
+W,
+
+yy
+
+);
 
 ctx.stroke();
 
@@ -2462,7 +3212,13 @@ ctx.stroke();
 
 /* BOLL */
 
-function line(values,style){
+function drawLine(
+
+values,
+
+style
+
+){
 
 ctx.strokeStyle=style;
 
@@ -2484,13 +3240,25 @@ let yy=y(v);
 
 if(i===0){
 
-ctx.moveTo(xx,yy);
+ctx.moveTo(
+
+xx,
+
+yy
+
+);
 
 }
 
 else{
 
-ctx.lineTo(xx,yy);
+ctx.lineTo(
+
+xx,
+
+yy
+
+);
 
 }
 
@@ -2506,13 +3274,17 @@ let upperArr=[];
 
 let lowerArr=[];
 
-let closesArr=
+let closeArr=
 
-data.map(function(x){
+data.map(
+
+function(x){
 
 return Number(x[4]);
 
-});
+}
+
+);
 
 for(
 
@@ -2536,7 +3308,7 @@ i-19
 
 let arr=
 
-closesArr.slice(
+closeArr.slice(
 
 start,
 
@@ -2552,7 +3324,9 @@ function(a,b){
 
 return a+b;
 
-},0
+},
+
+0
 
 )/arr.length;
 
@@ -2562,7 +3336,15 @@ arr.forEach(
 
 function(v){
 
-sum+=Math.pow(v-mid,2);
+sum+=
+
+Math.pow(
+
+v-mid,
+
+2
+
+);
 
 });
 
@@ -2578,23 +3360,45 @@ middleArr.push(mid);
 
 upperArr.push(
 
-mid+2*deviation
+mid+
+
+2*deviation
 
 );
 
 lowerArr.push(
 
-mid-2*deviation
+mid-
+
+2*deviation
 
 );
 
 }
 
-line(upperArr,"#777");
+drawLine(
 
-line(middleArr,"#aaa");
+upperArr,
 
-line(lowerArr,"#777");
+"#777"
+
+);
+
+drawLine(
+
+middleArr,
+
+"#aaa"
+
+);
+
+drawLine(
+
+lowerArr,
+
+"#777"
+
+);
 
 /* K線 */
 
@@ -2624,13 +3428,17 @@ i*candleWidth+
 
 candleWidth/2;
 
+let rising=
+
+close>=open;
+
 let color=
 
-close>=open
+rising
 
-? "#39d98a"
+?"#39d98a"
 
-: "#ff5c5c";
+:"#ff5c5c";
 
 ctx.strokeStyle=color;
 
@@ -2640,19 +3448,51 @@ ctx.lineWidth=1;
 
 ctx.beginPath();
 
-ctx.moveTo(xx,y(high));
+ctx.moveTo(
 
-ctx.lineTo(xx,y(low));
+xx,
+
+y(high)
+
+);
+
+ctx.lineTo(
+
+xx,
+
+y(low)
+
+);
 
 ctx.stroke();
 
 let top=
 
-y(Math.max(open,close));
+y(
+
+Math.max(
+
+open,
+
+close
+
+)
+
+);
 
 let bottom=
 
-y(Math.min(open,close));
+y(
+
+Math.min(
+
+open,
+
+close
+
+)
+
+);
 
 let height=
 
@@ -2704,9 +3544,21 @@ ctx.setLineDash(
 
 ctx.beginPath();
 
-ctx.moveTo(0,yy);
+ctx.moveTo(
 
-ctx.lineTo(W,yy);
+0,
+
+yy
+
+);
+
+ctx.lineTo(
+
+W,
+
+yy
+
+);
 
 ctx.stroke();
 
@@ -2720,9 +3572,7 @@ ctx.font=
 
 ctx.fillText(
 
-label+" "+
-
-fmt(value),
+label+" "+fmt(value),
 
 8,
 
@@ -2774,9 +3624,21 @@ ctx.setLineDash(
 
 ctx.beginPath();
 
-ctx.moveTo(0,py);
+ctx.moveTo(
 
-ctx.lineTo(W,py);
+0,
+
+py
+
+);
+
+ctx.lineTo(
+
+W,
+
+py
+
+);
 
 ctx.stroke();
 
@@ -2824,7 +3686,11 @@ refresh,
 
 );
 
-/* 視窗大小變化 */
+/* =====================================================
+
+   視窗大小
+
+   ===================================================== */
 
 window.addEventListener(
 
@@ -2860,7 +3726,9 @@ function(x){
 
 return Number(x[2]);
 
-});
+}
+
+);
 
 let lows=
 
@@ -2870,7 +3738,9 @@ function(x){
 
 return Number(x[3]);
 
-});
+}
+
+);
 
 let support=
 
