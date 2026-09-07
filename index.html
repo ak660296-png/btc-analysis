@@ -10,9 +10,7 @@
 
       content="width=device-width,initial-scale=1,viewport-fit=cover">
 
-<title>₿ BTC 多空分析 V2.0</title>
-
-<script src="https://unpkg.com/lightweight-charts@4.2.1/dist/lightweight-charts.standalone.production.js"></script>
+<title>🪙 萬用幣種多空分析 V1.0</title>
 
 <style>
 
@@ -38,17 +36,11 @@ body{
 
 .wrap{
 
-  max-width:1000px;
+  max-width:900px;
 
   margin:auto;
 
-  padding:18px 14px 50px;
-
-}
-
-.header{
-
-  padding:8px 4px 14px;
+  padding:22px 18px 50px;
 
 }
 
@@ -58,73 +50,65 @@ body{
 
   font-weight:800;
 
-  margin:0 0 5px;
+  margin:4px 0 6px;
 
 }
 
 .sub{
 
-  font-size:17px;
+  font-size:18px;
 
   color:#73777f;
+
+  margin-bottom:20px;
 
   line-height:1.5;
 
 }
 
-.priceRow{
+.coinBox{
 
   display:flex;
 
-  align-items:end;
+  gap:10px;
 
-  gap:14px;
+  margin-bottom:18px;
 
-  flex-wrap:wrap;
+}
 
-  margin-top:14px;
+.coinBox input{
+
+  flex:1;
+
+  min-width:0;
+
+}
+
+.coinBox button{
+
+  width:150px;
+
+  margin:0;
 
 }
 
 .price{
 
-  font-size:46px;
+  font-size:48px;
 
   font-weight:800;
 
-}
-
-.change{
-
-  font-size:18px;
-
-  font-weight:700;
-
-  padding-bottom:8px;
+  margin:8px 0;
 
 }
 
-.green{
+.update{
 
-  color:#138a3d;
+  color:#188a45;
 
-}
+  font-size:17px;
 
-.red{
-
-  color:#c52d20;
-
-}
-
-.yellow{
-
-  color:#8b7600;
-
-}
-
-.gray{
-
-  color:#73777f;
+  margin-bottom:18px;
 
 }
 
@@ -132,11 +116,11 @@ body{
 
   background:#fff;
 
-  border-radius:26px;
+  border-radius:28px;
 
-  padding:24px;
+  padding:28px;
 
-  margin:14px 0;
+  margin:16px 0;
 
   box-shadow:0 2px 14px #0000000b;
 
@@ -156,25 +140,23 @@ body{
 
 }
 
-.ratio{
+.muted{
 
-  font-size:21px;
-
-  margin-top:10px;
+  color:#73777f;
 
 }
 
 .bar{
 
-  height:22px;
+  height:24px;
 
-  background:#d8dce1;
+  background:#ddd;
 
   border-radius:20px;
 
   overflow:hidden;
 
-  margin:15px 0;
+  margin:16px 0;
 
 }
 
@@ -185,18 +167,6 @@ body{
   height:100%;
 
   background:#333;
-
-  transition:.4s;
-
-}
-
-.reason{
-
-  color:#73777f;
-
-  font-size:16px;
-
-  line-height:1.6;
 
 }
 
@@ -210,23 +180,13 @@ body{
 
 }
 
-.grid2{
-
-  display:grid;
-
-  grid-template-columns:repeat(2,1fr);
-
-  gap:12px;
-
-}
-
 .box{
 
   background:#f7f7f8;
 
-  border-radius:22px;
+  border-radius:24px;
 
-  padding:17px 10px;
+  padding:18px 12px;
 
   text-align:center;
 
@@ -236,193 +196,35 @@ body{
 
   display:block;
 
-  font-size:20px;
+  font-size:21px;
 
-  margin-top:7px;
+  margin-top:8px;
+
+}
+
+.bull{
+
+  color:#138a3d;
+
+}
+
+.bear{
+
+  color:#c52d20;
+
+}
+
+.wait{
+
+  color:#8b8b00;
 
 }
 
 h2{
 
-  font-size:27px;
+  font-size:28px;
 
-  margin:0 0 18px;
-
-}
-
-h3{
-
-  margin:0 0 10px;
-
-}
-
-.chartHead{
-
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  gap:10px;
-
-  flex-wrap:wrap;
-
-}
-
-.tfButtons{
-
-  display:flex;
-
-  gap:6px;
-
-}
-
-.tfButtons button{
-
-  width:auto;
-
-  margin:0;
-
-  padding:8px 12px;
-
-  background:#fff;
-
-  color:#333;
-
-  border:1px solid #ddd;
-
-  font-size:14px;
-
-}
-
-.tfButtons button.active{
-
-  background:#222;
-
-  color:#fff;
-
-  border-color:#222;
-
-}
-
-.chartInfo{
-
-  font-size:14px;
-
-  color:#73777f;
-
-  margin:6px 0 10px;
-
-}
-
-.chartWrap{
-
-  position:relative;
-
-  width:100%;
-
-  height:480px;
-
-  border-radius:18px;
-
-  overflow:hidden;
-
-  background:#fff;
-
-}
-
-#chart{
-
-  width:100%;
-
-  height:100%;
-
-}
-
-.zoneLabel{
-
-  position:absolute;
-
-  right:8px;
-
-  padding:6px 10px;
-
-  border-radius:8px;
-
-  font-size:13px;
-
-  font-weight:800;
-
-  pointer-events:none;
-
-  z-index:5;
-
-}
-
-.longLabel{
-
-  background:#138a3d;
-
-  color:#fff;
-
-}
-
-.shortLabel{
-
-  background:#c52d20;
-
-  color:#fff;
-
-}
-
-.zoneLine{
-
-  position:absolute;
-
-  left:0;
-
-  right:0;
-
-  height:1px;
-
-  pointer-events:none;
-
-  z-index:4;
-
-}
-
-.longLine{
-
-  border-top:2px dashed #138a3d;
-
-}
-
-.shortLine{
-
-  border-top:2px dashed #c52d20;
-
-}
-
-.priceLineLabel{
-
-  position:absolute;
-
-  right:8px;
-
-  background:#222;
-
-  color:#fff;
-
-  padding:5px 8px;
-
-  border-radius:7px;
-
-  font-size:12px;
-
-  pointer-events:none;
-
-  z-index:6;
+  margin:0 0 22px;
 
 }
 
@@ -434,11 +236,11 @@ h3{
 
   gap:14px;
 
-  padding:14px 0;
+  padding:15px 0;
 
   border-bottom:1px solid #e5e5e5;
 
-  font-size:17px;
+  font-size:18px;
 
 }
 
@@ -456,97 +258,49 @@ h3{
 
 }
 
-.techGrid{
-
-  display:grid;
-
-  grid-template-columns:repeat(6,1fr);
-
-  gap:10px;
-
-}
-
-.techBox{
-
-  background:#f7f7f8;
-
-  border-radius:18px;
-
-  padding:14px 8px;
-
-  text-align:center;
-
-  font-size:13px;
-
-}
-
-.techBox b{
-
-  display:block;
-
-  font-size:17px;
-
-  margin-top:7px;
-
-}
-
 .zone{
 
-  border-radius:20px;
+  border-radius:22px;
 
   background:#f7f7f8;
 
-  padding:17px;
+  padding:18px;
 
-  margin-top:10px;
+  margin-top:12px;
 
 }
 
 .zone strong{
 
-  font-size:22px;
+  font-size:25px;
 
 }
 
 .small{
 
-  font-size:14px;
+  font-size:15px;
 
   color:#73777f;
 
   line-height:1.6;
 
-  margin-top:7px;
-
 }
 
-.longCard{
-
-  border-left:5px solid #138a3d;
-
-}
-
-.shortCard{
-
-  border-left:5px solid #c52d20;
-
-}
-
-input,
-
-select{
+input{
 
   width:100%;
 
-  padding:13px;
+  padding:14px;
 
   border:1px solid #ddd;
 
-  border-radius:13px;
+  border-radius:14px;
 
-  font-size:17px;
+  font-size:18px;
 
   background:#fff;
+
+  text-transform:uppercase;
 
 }
 
@@ -554,17 +308,17 @@ button{
 
   width:100%;
 
-  padding:13px;
+  padding:14px;
 
   border:0;
 
-  border-radius:14px;
+  border-radius:15px;
 
   background:#222;
 
   color:#fff;
 
-  font-size:16px;
+  font-size:17px;
 
   font-weight:700;
 
@@ -572,9 +326,33 @@ button{
 
 }
 
+.chartWrap{
+
+  width:100%;
+
+  overflow:hidden;
+
+  border-radius:20px;
+
+  background:#111;
+
+  padding:10px;
+
+}
+
+canvas{
+
+  display:block;
+
+  width:100%;
+
+  height:420px;
+
+}
+
 .notice{
 
-  font-size:14px;
+  font-size:15px;
 
   color:#666;
 
@@ -588,45 +366,33 @@ button{
 
 }
 
-.footer{
+.good{
 
-  text-align:center;
+  color:#138a3d;
 
-  color:#888;
-
-  font-size:12px;
-
-  line-height:1.6;
-
-  padding:12px;
+  font-weight:700;
 
 }
 
-@media(max-width:700px){
+.bad{
 
-  .wrap{
+  color:#c52d20;
 
-    padding:14px 10px 40px;
+  font-weight:700;
 
-  }
+}
+
+@media(max-width:560px){
 
   .title{
 
-    font-size:31px;
+    font-size:30px;
 
   }
 
   .price{
 
-    font-size:40px;
-
-  }
-
-  .card{
-
-    border-radius:24px;
-
-    padding:21px 18px;
+    font-size:42px;
 
   }
 
@@ -638,7 +404,7 @@ button{
 
   .box{
 
-    padding:15px 6px;
+    padding:15px 8px;
 
   }
 
@@ -648,49 +414,15 @@ button{
 
   }
 
-  h2{
+  .coinBox button{
 
-    font-size:26px;
-
-  }
-
-  .chartWrap{
-
-    height:420px;
+    width:115px;
 
   }
 
-  .techGrid{
+  canvas{
 
-    grid-template-columns:repeat(3,1fr);
-
-  }
-
-}
-
-@media(max-width:430px){
-
-  .price{
-
-    font-size:36px;
-
-  }
-
-  .chartWrap{
-
-    height:390px;
-
-  }
-
-  .tfButtons{
-
-    width:100%;
-
-  }
-
-  .tfButtons button{
-
-    flex:1;
+    height:330px;
 
   }
 
@@ -704,41 +436,47 @@ button{
 
 <div class="wrap">
 
-<div class="header">
+<div class="title">
 
-  <div class="title">
+  🪙 <span id="coinTitle">BTC</span> 多空分析 V1.0
 
-    ₿ BTC 多空分析 V2.0
+</div>
 
-  </div>
+<div class="sub">
 
-  <div class="sub">
+  多週期趨勢＋BOLL＋量能＋支撐壓力＋交易區域｜15M / 1H / 4H
 
-    多週期趨勢＋BOLL＋量能＋支撐／壓力＋多空區｜15M / 1H / 4H / 1D
+</div>
 
-  </div>
+<!-- 幣種輸入 -->
 
-  <div class="priceRow">
+<div class="coinBox">
 
-    <div id="price" class="price">
+<input
 
-      $—
+  id="coinInput"
 
-    </div>
+  value="BTC"
 
-    <div id="change" class="change gray">
+  placeholder="輸入幣種，例如 BTC、ETH、SOL">
 
-      —
+<button onclick="changeCoin()">
 
-    </div>
+  開始分析
 
-  </div>
+</button>
 
-  <div id="updated" class="sub">
+</div>
 
-    連線中…
+<div id="price" class="price">
 
-  </div>
+  $—
+
+</div>
+
+<div id="updated" class="update">
+
+  連線中…
 
 </div>
 
@@ -746,29 +484,35 @@ button{
 
 <div class="card hero">
 
-  <div id="signal" class="signal">
+<div id="signal" class="signal">
 
-    🟡 計算中
+  🟡 計算中
 
-  </div>
+</div>
 
-  <div id="ratio" class="ratio">
+<div id="ratio"
 
-    做多：—　|　做空：—
+     style="font-size:22px;margin-top:12px">
 
-  </div>
+  做多：—　|　做空：—
 
-  <div class="bar">
+</div>
 
-    <i id="ratioBar" style="width:50%"></i>
+<div class="bar">
 
-  </div>
+  <i id="ratioBar" style="width:50%"></i>
 
-  <div id="reason" class="reason">
+</div>
 
-    正在取得 BTC 行情與技術指標。
+<div id="reason"
 
-  </div>
+     class="muted"
+
+     style="font-size:17px;line-height:1.6">
+
+  正在取得行情與技術指標。
+
+</div>
 
 </div>
 
@@ -776,35 +520,35 @@ button{
 
 <div class="card">
 
-  <h2>多週期方向</h2>
+<h2>多週期方向</h2>
 
-  <div class="grid">
+<div class="grid">
 
-    <div class="box">
+<div class="box">
 
-      15M
+15M
 
-      <b id="d15">—</b>
+<b id="d15">—</b>
 
-    </div>
+</div>
 
-    <div class="box">
+<div class="box">
 
-      1H
+1H
 
-      <b id="d1h">—</b>
+<b id="d1h">—</b>
 
-    </div>
+</div>
 
-    <div class="box">
+<div class="box">
 
-      4H
+4H
 
-      <b id="d4h">—</b>
+<b id="d4h">—</b>
 
-    </div>
+</div>
 
-  </div>
+</div>
 
 </div>
 
@@ -812,121 +556,25 @@ button{
 
 <div class="card">
 
-  <div class="chartHead">
+<h2>📈 K 線與交易位置</h2>
 
-    <h2 style="margin:0">
+<div class="chartWrap">
 
-      BTC/USDT 線圖
+<canvas id="chart"></canvas>
 
-    </h2>
+</div>
 
-    <div class="tfButtons">
+<div class="small"
 
-      <button
+     style="margin-top:12px">
 
-        id="tf15"
+🟢 綠色：建議觀察做多區　
 
-        onclick="changeTF('15m')">
+🔴 紅色：建議觀察做空區　
 
-        15分
+│：目前價格
 
-      </button>
-
-      <button
-
-        id="tf1h"
-
-        class="active"
-
-        onclick="changeTF('1h')">
-
-        1小時
-
-      </button>
-
-      <button
-
-        id="tf4h"
-
-        onclick="changeTF('4h')">
-
-        4小時
-
-      </button>
-
-      <button
-
-        id="tf1d"
-
-        onclick="changeTF('1d')">
-
-        1天
-
-      </button>
-
-    </div>
-
-  </div>
-
-  <div id="chartInfo" class="chartInfo">
-
-    等待行情…
-
-  </div>
-
-  <div class="chartWrap">
-
-    <div id="chart"></div>
-
-    <div id="longLabel"
-
-         class="zoneLabel longLabel">
-
-      🟢 做多區
-
-    </div>
-
-    <div id="shortLabel"
-
-         class="zoneLabel shortLabel">
-
-      🔴 做空區
-
-    </div>
-
-    <div id="longLine1"
-
-         class="zoneLine longLine"></div>
-
-    <div id="longLine2"
-
-         class="zoneLine longLine"></div>
-
-    <div id="shortLine1"
-
-         class="zoneLine shortLine"></div>
-
-    <div id="shortLine2"
-
-         class="zoneLine shortLine"></div>
-
-    <div id="currentLabel"
-
-         class="priceLineLabel">
-
-      BTC
-
-    </div>
-
-  </div>
-
-  <div class="small">
-
-    🟢 綠色區域＝支撐做多觀察區　
-
-    🔴 紅色區域＝壓力做空觀察區
-
-  </div>
+</div>
 
 </div>
 
@@ -934,59 +582,9 @@ button{
 
 <div class="card">
 
-  <h2>技術指標（1H）</h2>
+<h2>技術指標</h2>
 
-  <div class="techGrid">
-
-    <div class="techBox">
-
-      多頭分數
-
-      <b id="longScore">—</b>
-
-    </div>
-
-    <div class="techBox">
-
-      空頭分數
-
-      <b id="shortScore">—</b>
-
-    </div>
-
-    <div class="techBox">
-
-      RSI(14)
-
-      <b id="rsi">—</b>
-
-    </div>
-
-    <div class="techBox">
-
-      EMA12
-
-      <b id="ema12">—</b>
-
-    </div>
-
-    <div class="techBox">
-
-      EMA26
-
-      <b id="ema26">—</b>
-
-    </div>
-
-    <div class="techBox">
-
-      MACD
-
-      <b id="macd">—</b>
-
-    </div>
-
-  </div>
+<div id="tech"></div>
 
 </div>
 
@@ -994,233 +592,169 @@ button{
 
 <div class="card">
 
-  <h2>支撐 / 壓力</h2>
+<h2>支撐 / 壓力</h2>
 
-  <div class="row">
+<div class="row">
 
-    <span>近 50 根支撐</span>
+<span>近 50 根 1H 支撐</span>
 
-    <span id="support" class="val">—</span>
+<span class="val" id="support">—</span>
 
-  </div>
+</div>
 
-  <div class="row">
+<div class="row">
 
-    <span>近 50 根壓力</span>
+<span>近 50 根 1H 壓力</span>
 
-    <span id="resistance" class="val">—</span>
+<span class="val" id="resistance">—</span>
 
-  </div>
+</div>
 
-  <div class="row">
+<div class="row">
 
-    <span>BOLL 下軌</span>
+<span>BOLL 下軌</span>
 
-    <span id="lower" class="val">—</span>
+<span class="val" id="lower">—</span>
 
-  </div>
+</div>
 
-  <div class="row">
+<div class="row">
 
-    <span>BOLL 中軌</span>
+<span>BOLL 中軌</span>
 
-    <span id="middle" class="val">—</span>
+<span class="val" id="middle">—</span>
 
-  </div>
+</div>
 
-  <div class="row">
+<div class="row">
 
-    <span>BOLL 上軌</span>
+<span>BOLL 上軌</span>
 
-    <span id="upper" class="val">—</span>
+<span class="val" id="upper">—</span>
 
-  </div>
-
-  <div class="row">
-
-    <span>ATR(14)</span>
-
-    <span id="atr" class="val">—</span>
-
-  </div>
+</div>
 
 </div>
 
 <!-- 做多 -->
 
-<div class="card longCard">
+<div class="card">
 
-  <h2>🟢 支撐做多評估</h2>
+<h2>🟢 做多評估</h2>
 
-  <div id="longStatus" class="zone">
+<div id="longStatus"
 
-    <strong>計算中…</strong>
+     class="zone">
 
-  </div>
+<strong>計算中…</strong>
 
-  <div class="row">
+</div>
 
-    <span>建議掛多區間</span>
+<div class="row">
 
-    <span id="longZone" class="val">—</span>
+<span>建議做多區間</span>
 
-  </div>
+<span class="val" id="longZone">—</span>
 
-  <div class="row">
+</div>
 
-    <span>參考止損</span>
+<div class="row">
 
-    <span id="longSL" class="val">—</span>
+<span>參考止損</span>
 
-  </div>
+<span class="val" id="longSL">—</span>
 
-  <div class="row">
+</div>
 
-    <span>TP1</span>
+<div class="row">
 
-    <span id="longTP1" class="val">—</span>
+<span>TP1</span>
 
-  </div>
+<span class="val" id="longTP1">—</span>
 
-  <div class="row">
+</div>
 
-    <span>TP2</span>
+<div class="row">
 
-    <span id="longTP2" class="val">—</span>
+<span>TP2</span>
 
-  </div>
+<span class="val" id="longTP2">—</span>
 
-  <div class="row">
+</div>
 
-    <span>TP1 風險報酬</span>
+<div class="row">
 
-    <span id="longRR" class="val">—</span>
+<span>TP1 風險報酬</span>
 
-  </div>
+<span class="val" id="longRR">—</span>
+
+</div>
 
 </div>
 
 <!-- 做空 -->
 
-<div class="card shortCard">
-
-  <h2>🔴 壓力做空評估</h2>
-
-  <div id="shortStatus" class="zone">
-
-    <strong>計算中…</strong>
-
-  </div>
-
-  <div class="row">
-
-    <span>建議掛空區間</span>
-
-    <span id="shortZone" class="val">—</span>
-
-  </div>
-
-  <div class="row">
-
-    <span>參考止損</span>
-
-    <span id="shortSL" class="val">—</span>
-
-  </div>
-
-  <div class="row">
-
-    <span>TP1</span>
-
-    <span id="shortTP1" class="val">—</span>
-
-  </div>
-
-  <div class="row">
-
-    <span>TP2</span>
-
-    <span id="shortTP2" class="val">—</span>
-
-  </div>
-
-  <div class="row">
-
-    <span>TP1 風險報酬</span>
-
-    <span id="shortRR" class="val">—</span>
-
-  </div>
-
-</div>
-
-<!-- 喊單驗證 -->
-
 <div class="card">
 
-  <h2>分析師喊單驗證</h2>
+<h2>🔴 做空評估</h2>
 
-  <div class="grid2">
+<div id="shortStatus"
 
-    <div>
+     class="zone">
 
-      <label>方向</label>
-
-      <select id="side">
-
-        <option value="long">
-
-          做多
-
-        </option>
-
-        <option value="short">
-
-          做空
-
-        </option>
-
-      </select>
-
-    </div>
-
-    <div>
-
-      <label>喊單價格</label>
-
-      <input
-
-        id="callPrice"
-
-        type="number"
-
-        placeholder="例如 80000">
-
-    </div>
-
-  </div>
-
-  <button onclick="verify()">
-
-    驗證目前價格
-
-  </button>
-
-  <div id="verifyResult" class="zone">
-
-    輸入喊單方向與價格後驗證。
-
-  </div>
+<strong>計算中…</strong>
 
 </div>
 
-<div class="footer">
+<div class="row">
 
-  資料來源：Binance Public Market Data<br>
+<span>建議做空區間</span>
 
-  技術指標僅供分析參考，不代表一定反彈或一定突破。<br>
+<span class="val" id="shortZone">—</span>
 
-  支撐／壓力失效時，請以止損與風險管理為優先。
+</div>
+
+<div class="row">
+
+<span>參考止損</span>
+
+<span class="val" id="shortSL">—</span>
+
+</div>
+
+<div class="row">
+
+<span>TP1</span>
+
+<span class="val" id="shortTP1">—</span>
+
+</div>
+
+<div class="row">
+
+<span>TP2</span>
+
+<span class="val" id="shortTP2">—</span>
+
+</div>
+
+<div class="row">
+
+<span>TP1 風險報酬</span>
+
+<span class="val" id="shortRR">—</span>
+
+</div>
+
+<p class="notice">
+
+⚠️ 技術分析僅供參考。
+
+價格到達支撐或壓力不代表一定反轉，
+
+建議等待趨勢、RSI、BOLL 等條件共振。
+
+</p>
 
 </div>
 
@@ -1228,2589 +762,2153 @@ button{
 
 <script>
 
-/* =========================================================
+/* =====================================================
 
-   基本設定
+   萬用幣種
 
-   ========================================================= */
+   ===================================================== */
 
-const API =
+let COIN = "BTC";
 
-  "https://api.binance.com/api/v3";
+let currentData = null;
 
-let currentTF = "1h";
+/* =====================================================
 
-let chart = null;
+   Binance 行情
 
-let candleSeries = null;
+   ===================================================== */
 
-let volumeSeries = null;
+function apiURL(tf){
 
-let ema12Series = null;
+return "https://api.binance.com/api/v3/klines"+
 
-let ema26Series = null;
+       "?symbol="+COIN+"USDT"+
 
-let bollUpperSeries = null;
+       "&interval="+tf+
 
-let bollMiddleSeries = null;
-
-let bollLowerSeries = null;
-
-let lastChartData = null;
-
-/* =========================================================
-
-   工具
-
-   ========================================================= */
-
-function fmt(x){
-
-  if(!isFinite(x)){
-
-    return "$—";
-
-  }
-
-  return "$" +
-
-    Number(x).toLocaleString(
-
-      "en-US",
-
-      {
-
-        minimumFractionDigits:2,
-
-        maximumFractionDigits:2
-
-      }
-
-    );
+       "&limit=200";
 
 }
 
-function fmtPrice(x){
+/* =====================================================
 
-  return Number(x).toLocaleString(
+   基本計算
 
-    "en-US",
+   ===================================================== */
 
-    {
+function closes(data){
 
-      minimumFractionDigits:2,
+return data.map(function(x){
 
-      maximumFractionDigits:2
+return Number(x[4]);
 
-    }
-
-  );
+});
 
 }
 
 function ema(data,n){
 
-  if(!data.length) return 0;
+let k=2/(n+1);
 
-  let k = 2/(n+1);
+let e=data[0];
 
-  let e = data[0];
+for(let i=1;i<data.length;i++){
 
-  for(let i=1;i<data.length;i++){
+e=data[i]*k+e*(1-k);
 
-    e =
+}
 
-      data[i]*k+
-
-      e*(1-k);
-
-  }
-
-  return e;
+return e;
 
 }
 
 function sma(data,n){
 
-  if(!data.length) return 0;
+let arr=data.slice(-n);
 
-  let arr =
+return arr.reduce(function(a,b){
 
-    data.slice(-n);
+return a+b;
 
-  return arr.reduce(
-
-    (a,b)=>a+b,
-
-    0
-
-  )/arr.length;
+},0)/arr.length;
 
 }
 
 function sd(data,n){
 
-  let arr =
+let arr=data.slice(-n);
 
-    data.slice(-n);
+let mean=
 
-  let mean =
+arr.reduce(function(a,b){
 
-    sma(data,n);
+return a+b;
 
-  let sum=0;
+},0)/arr.length;
 
-  arr.forEach(function(x){
+let sum=0;
 
-    sum +=
+arr.forEach(function(x){
 
-      Math.pow(x-mean,2);
+sum+=Math.pow(x-mean,2);
 
-  });
+});
 
-  return Math.sqrt(
-
-    sum/arr.length
-
-  );
+return Math.sqrt(sum/arr.length);
 
 }
 
-function boll(data,n=20,m=2){
+function rsi(data,n){
 
-  let middle =
+n=n||14;
 
-    sma(data,n);
+let gain=0;
 
-  let d =
+let loss=0;
 
-    sd(data,n);
+for(
 
-  return {
+let i=data.length-n;
 
-    middle:middle,
+i<data.length;
 
-    upper:
+i++
 
-      middle+m*d,
+){
 
-    lower:
+let d=data[i]-data[i-1];
 
-      middle-m*d
+if(d>0){
 
-  };
+gain+=d;
 
 }
 
-function rsi(data,n=14){
+else{
 
-  if(data.length<=n){
+loss-=d;
 
-    return 50;
+}
 
-  }
+}
 
-  let gain=0;
+if(loss===0){
 
-  let loss=0;
+return 100;
 
-  for(
+}
 
-    let i=data.length-n;
+let rs=(gain/n)/(loss/n);
 
-    i<data.length;
-
-    i++
-
-  ){
-
-    let d =
-
-      data[i]-data[i-1];
-
-    if(d>0){
-
-      gain+=d;
-
-    }
-
-    else{
-
-      loss-=d;
-
-    }
-
-  }
-
-  if(loss===0){
-
-    return 100;
-
-  }
-
-  let rs =
-
-    (gain/n)/(loss/n);
-
-  return 100-(100/(1+rs));
+return 100-(100/(1+rs));
 
 }
 
 function macd(data){
 
-  return (
-
-    ema(data,12)-
-
-    ema(data,26)
-
-  );
+return ema(data,12)-ema(data,26);
 
 }
 
-function atr(data,n=14){
+function atr(data,n){
 
-  let tr=[];
+n=n||14;
 
-  for(let i=1;i<data.length;i++){
+let tr=[];
 
-    let high =
+for(let i=1;i<data.length;i++){
 
-      Number(data[i][2]);
+let high=Number(data[i][2]);
 
-    let low =
+let low=Number(data[i][3]);
 
-      Number(data[i][3]);
+let prev=Number(data[i-1][4]);
 
-    let prev =
+tr.push(
 
-      Number(data[i-1][4]);
+Math.max(
 
-    tr.push(
+high-low,
 
-      Math.max(
+Math.abs(high-prev),
 
-        high-low,
+Math.abs(low-prev)
 
-        Math.abs(high-prev),
-
-        Math.abs(low-prev)
-
-      )
-
-    );
-
-  }
-
-  return sma(tr,n);
-
-}
-
-/* =========================================================
-
-   趨勢
-
-   ========================================================= */
-
-function direction(data){
-
-  let c =
-
-    data.map(x=>Number(x[4]));
-
-  let e12 =
-
-    ema(c,12);
-
-  let e26 =
-
-    ema(c,26);
-
-  let r =
-
-    rsi(c,14);
-
-  if(
-
-    e12>e26 &&
-
-    r>=50
-
-  ){
-
-    return "偏多";
-
-  }
-
-  if(
-
-    e12<e26 &&
-
-    r<50
-
-  ){
-
-    return "偏空";
-
-  }
-
-  return "震盪";
-
-}
-
-function setDir(id,d){
-
-  let el =
-
-    document.getElementById(id);
-
-  el.textContent=d;
-
-  el.className="";
-
-  if(d==="偏多"){
-
-    el.classList.add("green");
-
-  }
-
-  else if(d==="偏空"){
-
-    el.classList.add("red");
-
-  }
-
-  else{
-
-    el.classList.add("yellow");
-
-  }
-
-}
-
-/* =========================================================
-
-   取得 K 線
-
-   ========================================================= */
-
-async function getKlines(tf){
-
-  let url =
-
-    API+
-
-    "/klines?symbol=BTCUSDT"+
-
-    "&interval="+tf+
-
-    "&limit=200";
-
-  let response =
-
-    await fetch(
-
-      url,
-
-      {
-
-        cache:"no-store"
-
-      }
-
-    );
-
-  if(!response.ok){
-
-    throw new Error(
-
-      "HTTP "+response.status
-
-    );
-
-  }
-
-  let data =
-
-    await response.json();
-
-  if(
-
-    !Array.isArray(data) ||
-
-    data.length<50
-
-  ){
-
-    throw new Error(
-
-      "BTC 資料不足"
-
-    );
-
-  }
-
-  return data;
-
-}
-
-/* =========================================================
-
-   建立圖表
-
-   ========================================================= */
-
-function createChart(){
-
-  const container =
-
-    document.getElementById(
-
-      "chart"
-
-    );
-
-  chart =
-
-    LightweightCharts.createChart(
-
-      container,
-
-      {
-
-        width:container.clientWidth,
-
-        height:container.clientHeight,
-
-        layout:{
-
-          background:{
-
-            color:"#ffffff"
-
-          },
-
-          textColor:"#555"
-
-        },
-
-        grid:{
-
-          vertLines:{
-
-            color:"#eeeeee"
-
-          },
-
-          horzLines:{
-
-            color:"#eeeeee"
-
-          }
-
-        },
-
-        rightPriceScale:{
-
-          borderColor:"#dddddd"
-
-        },
-
-        timeScale:{
-
-          borderColor:"#dddddd",
-
-          timeVisible:true,
-
-          secondsVisible:false
-
-        },
-
-        crosshair:{
-
-          mode:1
-
-        }
-
-      }
-
-    );
-
-  candleSeries =
-
-    chart.addCandlestickSeries({
-
-      upColor:"#16a34a",
-
-      downColor:"#dc2626",
-
-      borderUpColor:"#16a34a",
-
-      borderDownColor:"#dc2626",
-
-      wickUpColor:"#16a34a",
-
-      wickDownColor:"#dc2626"
-
-    });
-
-  volumeSeries =
-
-    chart.addHistogramSeries({
-
-      priceFormat:{
-
-        type:"volume"
-
-      },
-
-      priceScaleId:"volume",
-
-      scaleMargins:{
-
-        top:0.82,
-
-        bottom:0
-
-      }
-
-    });
-
-  ema12Series =
-
-    chart.addLineSeries({
-
-      color:"#f59e0b",
-
-      lineWidth:2,
-
-      title:"EMA12"
-
-    });
-
-  ema26Series =
-
-    chart.addLineSeries({
-
-      color:"#8b5cf6",
-
-      lineWidth:2,
-
-      title:"EMA26"
-
-    });
-
-  bollUpperSeries =
-
-    chart.addLineSeries({
-
-      color:"#60a5fa",
-
-      lineWidth:1,
-
-      lineStyle:2,
-
-      title:"BOLL上"
-
-    });
-
-  bollMiddleSeries =
-
-    chart.addLineSeries({
-
-      color:"#94a3b8",
-
-      lineWidth:1,
-
-      title:"BOLL中"
-
-    });
-
-  bollLowerSeries =
-
-    chart.addLineSeries({
-
-      color:"#60a5fa",
-
-      lineWidth:1,
-
-      lineStyle:2,
-
-      title:"BOLL下"
-
-    });
-
-  window.addEventListener(
-
-    "resize",
-
-    resizeChart
-
-  );
-
-}
-
-function resizeChart(){
-
-  if(!chart) return;
-
-  let el =
-
-    document.getElementById(
-
-      "chart"
-
-    );
-
-  chart.applyOptions({
-
-    width:el.clientWidth,
-
-    height:el.clientHeight
-
-  });
-
-  updateZoneOverlay();
-
-}
-
-/* =========================================================
-
-   建立 EMA / BOLL
-
-   ========================================================= */
-
-function buildIndicators(data){
-
-  let closes =
-
-    data.map(x=>Number(x[4]));
-
-  let ema12=[];
-
-  let ema26=[];
-
-  let upper=[];
-
-  let middle=[];
-
-  let lower=[];
-
-  let e12 =
-
-    closes[0];
-
-  let e26 =
-
-    closes[0];
-
-  let k12 =
-
-    2/(12+1);
-
-  let k26 =
-
-    2/(26+1);
-
-  for(
-
-    let i=0;
-
-    i<closes.length;
-
-    i++
-
-  ){
-
-    e12 =
-
-      i===0
-
-      ? closes[i]
-
-      : closes[i]*k12+
-
-        e12*(1-k12);
-
-    e26 =
-
-      i===0
-
-      ? closes[i]
-
-      : closes[i]*k26+
-
-        e26*(1-k26);
-
-    ema12.push({
-
-      time:data[i][0]/1000,
-
-      value:e12
-
-    });
-
-    ema26.push({
-
-      time:data[i][0]/1000,
-
-      value:e26
-
-    });
-
-    if(i>=19){
-
-      let arr =
-
-        closes.slice(
-
-          i-19,
-
-          i+1
-
-        );
-
-      let mid =
-
-        arr.reduce(
-
-          (a,b)=>a+b,
-
-          0
-
-        )/20;
-
-      let variance =
-
-        arr.reduce(
-
-          (s,x)=>
-
-            s+Math.pow(x-mid,2),
-
-          0
-
-        )/20;
-
-      let dev =
-
-        Math.sqrt(variance);
-
-      middle.push({
-
-        time:data[i][0]/1000,
-
-        value:mid
-
-      });
-
-      upper.push({
-
-        time:data[i][0]/1000,
-
-        value:mid+2*dev
-
-      });
-
-      lower.push({
-
-        time:data[i][0]/1000,
-
-        value:mid-2*dev
-
-      });
-
-    }
-
-  }
-
-  ema12Series.setData(
-
-    ema12
-
-  );
-
-  ema26Series.setData(
-
-    ema26
-
-  );
-
-  bollUpperSeries.setData(
-
-    upper
-
-  );
-
-  bollMiddleSeries.setData(
-
-    middle
-
-  );
-
-  bollLowerSeries.setData(
-
-    lower
-
-  );
-
-}
-
-/* =========================================================
-
-   成交量
-
-   ========================================================= */
-
-function buildVolume(data){
-
-  let volume =
-
-    data.map(function(x){
-
-      return {
-
-        time:x[0]/1000,
-
-        value:Number(x[5]),
-
-        color:
-
-          Number(x[4])>=
-
-          Number(x[1])
-
-          ? "#86efac"
-
-          : "#fca5a5"
-
-      };
-
-    });
-
-  volumeSeries.setData(
-
-    volume
-
-  );
-
-}
-
-/* =========================================================
-
-   圖上多空位置
-
-   ========================================================= */
-
-let chartZones = {
-
-  longLow:0,
-
-  longHigh:0,
-
-  shortLow:0,
-
-  shortHigh:0,
-
-  current:0
-
-};
-
-function updateZoneOverlay(){
-
-  if(!chart || !lastChartData){
-
-    return;
-
-  }
-
-  let series =
-
-    candleSeries;
-
-  let long1 =
-
-    series.priceToCoordinate(
-
-      chartZones.longLow
-
-    );
-
-  let long2 =
-
-    series.priceToCoordinate(
-
-      chartZones.longHigh
-
-    );
-
-  let short1 =
-
-    series.priceToCoordinate(
-
-      chartZones.shortLow
-
-    );
-
-  let short2 =
-
-    series.priceToCoordinate(
-
-      chartZones.shortHigh
-
-    );
-
-  let current =
-
-    series.priceToCoordinate(
-
-      chartZones.current
-
-    );
-
-  if(long1!==null){
-
-    document.getElementById(
-
-      "longLine1"
-
-    ).style.top =
-
-      long1+"px";
-
-  }
-
-  if(long2!==null){
-
-    document.getElementById(
-
-      "longLine2"
-
-    ).style.top =
-
-      long2+"px";
-
-    document.getElementById(
-
-      "longLabel"
-
-    ).style.top =
-
-      Math.min(
-
-        long1,
-
-        long2
-
-      )+"px";
-
-  }
-
-  if(short1!==null){
-
-    document.getElementById(
-
-      "shortLine1"
-
-    ).style.top =
-
-      short1+"px";
-
-  }
-
-  if(short2!==null){
-
-    document.getElementById(
-
-      "shortLine2"
-
-    ).style.top =
-
-      short2+"px";
-
-    document.getElementById(
-
-      "shortLabel"
-
-    ).style.top =
-
-      Math.min(
-
-        short1,
-
-        short2
-
-      )+"px";
-
-  }
-
-  if(current!==null){
-
-    document.getElementById(
-
-      "currentLabel"
-
-    ).style.top =
-
-      Math.max(
-
-        5,
-
-        current-10
-
-      )+"px";
-
-    document.getElementById(
-
-      "currentLabel"
-
-    ).textContent =
-
-      fmtPrice(
-
-        chartZones.current
-
-      );
-
-  }
-
-}
-
-/* =========================================================
-
-   多空計算
-
-   ========================================================= */
-
-function calculateAnalysis(
-
-  data15,
-
-  data1h,
-
-  data4h
-
-){
-
-  let c =
-
-    data1h.map(x=>Number(x[4]));
-
-  let price =
-
-    c[c.length-1];
-
-  let b =
-
-    boll(c,20,2);
-
-  let e12 =
-
-    ema(c,12);
-
-  let e26 =
-
-    ema(c,26);
-
-  let m =
-
-    macd(c);
-
-  let r =
-
-    rsi(c,14);
-
-  let atrValue =
-
-    atr(data1h,14);
-
-  let last50 =
-
-    data1h.slice(-50);
-
-  let support =
-
-    Math.min(
-
-      ...last50.map(
-
-        x=>Number(x[3])
-
-      )
-
-    );
-
-  let resistance =
-
-    Math.max(
-
-      ...last50.map(
-
-        x=>Number(x[2])
-
-      )
-
-    );
-
-  let longScore=0;
-
-  let shortScore=0;
-
-  let reasons=[];
-
-  /* EMA */
-
-  if(e12>e26){
-
-    longScore+=20;
-
-    reasons.push(
-
-      "1H EMA 偏多"
-
-    );
-
-  }
-
-  else{
-
-    shortScore+=20;
-
-    reasons.push(
-
-      "1H EMA 偏空"
-
-    );
-
-  }
-
-  /* RSI */
-
-  if(r>=50){
-
-    longScore+=15;
-
-  }
-
-  else{
-
-    shortScore+=15;
-
-  }
-
-  /* MACD */
-
-  if(m>0){
-
-    longScore+=15;
-
-  }
-
-  else{
-
-    shortScore+=15;
-
-  }
-
-  /* BOLL */
-
-  if(
-
-    price<=
-
-    b.lower*1.012
-
-  ){
-
-    longScore+=20;
-
-    reasons.push(
-
-      "價格接近 BOLL 下軌"
-
-    );
-
-  }
-
-  if(
-
-    price>=
-
-    b.upper*0.988
-
-  ){
-
-    shortScore+=20;
-
-    reasons.push(
-
-      "價格接近 BOLL 上軌"
-
-    );
-
-  }
-
-  /* 中軌 */
-
-  if(price>b.middle){
-
-    longScore+=10;
-
-  }
-
-  else{
-
-    shortScore+=10;
-
-  }
-
-  /* 4H */
-
-  let d4 =
-
-    direction(data4h);
-
-  if(d4==="偏多"){
-
-    longScore+=15;
-
-  }
-
-  else if(d4==="偏空"){
-
-    shortScore+=15;
-
-  }
-
-  /* 15M */
-
-  let d15 =
-
-    direction(data15);
-
-  if(d15==="偏多"){
-
-    longScore+=5;
-
-  }
-
-  else if(d15==="偏空"){
-
-    shortScore+=5;
-
-  }
-
-  let total =
-
-    longScore+shortScore;
-
-  if(total<=0){
-
-    total=1;
-
-  }
-
-  let longPercent =
-
-    Math.round(
-
-      longScore/
-
-      total*
-
-      100
-
-    );
-
-  let shortPercent =
-
-    100-longPercent;
-
-  let signal;
-
-  if(longPercent>=62){
-
-    signal="🟢 偏多";
-
-  }
-
-  else if(shortPercent>=62){
-
-    signal="🔴 偏空";
-
-  }
-
-  else{
-
-    signal="🟡 觀望";
-
-  }
-
-  /* =====================================================
-
-     做多區
-
-     ===================================================== */
-
-  let longLow =
-
-    Math.min(
-
-      support,
-
-      b.lower
-
-    );
-
-  let longHigh =
-
-    Math.max(
-
-      support,
-
-      b.lower
-
-    );
-
-  /* BTC 專用緩衝 */
-
-  longLow =
-
-    longLow -
-
-    atrValue*0.10;
-
-  longHigh =
-
-    longHigh +
-
-    atrValue*0.10;
-
-  let longEntry =
-
-    (longLow+longHigh)/2;
-
-  let longSL =
-
-    support-
-
-    atrValue*0.70;
-
-  let longTP1 =
-
-    Math.min(
-
-      resistance,
-
-      b.middle
-
-    );
-
-  if(longTP1<=longEntry){
-
-    longTP1 =
-
-      longEntry+
-
-      atrValue*2;
-
-  }
-
-  let longTP2 =
-
-    resistance;
-
-  if(longTP2<=longTP1){
-
-    longTP2 =
-
-      longTP1+
-
-      atrValue*1.5;
-
-  }
-
-  let longRisk =
-
-    longEntry-longSL;
-
-  let longReward =
-
-    longTP1-longEntry;
-
-  let longRR =
-
-    longRisk>0
-
-    ? longReward/longRisk
-
-    : 0;
-
-  /* =====================================================
-
-     做空區
-
-     ===================================================== */
-
-  let shortLow =
-
-    Math.min(
-
-      resistance,
-
-      b.upper
-
-    );
-
-  let shortHigh =
-
-    Math.max(
-
-      resistance,
-
-      b.upper
-
-    );
-
-  shortLow =
-
-    shortLow -
-
-    atrValue*0.10;
-
-  shortHigh =
-
-    shortHigh +
-
-    atrValue*0.10;
-
-  let shortEntry =
-
-    (shortLow+shortHigh)/2;
-
-  let shortSL =
-
-    resistance+
-
-    atrValue*0.70;
-
-  let shortTP1 =
-
-    Math.max(
-
-      support,
-
-      b.middle
-
-    );
-
-  if(shortTP1>=shortEntry){
-
-    shortTP1 =
-
-      shortEntry-
-
-      atrValue*2;
-
-  }
-
-  let shortTP2 =
-
-    support;
-
-  if(shortTP2>=shortTP1){
-
-    shortTP2 =
-
-      shortTP1-
-
-      atrValue*1.5;
-
-  }
-
-  let shortRisk =
-
-    shortSL-shortEntry;
-
-  let shortReward =
-
-    shortEntry-shortTP1;
-
-  let shortRR =
-
-    shortRisk>0
-
-    ? shortReward/shortRisk
-
-    : 0;
-
-  /* =====================================================
-
-     做多評估
-
-     ===================================================== */
-
-  let nearSupport =
-
-    Math.abs(
-
-      price-support
-
-    )/price<=0.015;
-
-  let nearLower =
-
-    price<=
-
-    b.lower*1.015;
-
-  let rsiLong =
-
-    r>=38 &&
-
-    r<=58;
-
-  let longEval=0;
-
-  if(nearSupport)
-
-    longEval+=30;
-
-  if(nearLower)
-
-    longEval+=25;
-
-  if(rsiLong)
-
-    longEval+=20;
-
-  if(longPercent>=55)
-
-    longEval+=25;
-
-  let longStatus;
-
-  if(longEval>=75){
-
-    longStatus=
-
-      "🟢 強支撐做多評估";
-
-  }
-
-  else if(longEval>=50){
-
-    longStatus=
-
-      "🟡 支撐觀察區";
-
-  }
-
-  else{
-
-    longStatus=
-
-      "🔴 暫不建議接多";
-
-  }
-
-  /* =====================================================
-
-     做空評估
-
-     ===================================================== */
-
-  let nearResistance =
-
-    Math.abs(
-
-      price-resistance
-
-    )/price<=0.015;
-
-  let nearUpper =
-
-    price>=
-
-    b.upper*0.985;
-
-  let rsiShort =
-
-    r>=42 &&
-
-    r<=68;
-
-  let shortEval=0;
-
-  if(nearResistance)
-
-    shortEval+=30;
-
-  if(nearUpper)
-
-    shortEval+=25;
-
-  if(rsiShort)
-
-    shortEval+=20;
-
-  if(shortPercent>=55)
-
-    shortEval+=25;
-
-  let shortStatus;
-
-  if(shortEval>=75){
-
-    shortStatus=
-
-      "🔴 強壓力做空評估";
-
-  }
-
-  else if(shortEval>=50){
-
-    shortStatus=
-
-      "🟡 壓力觀察區";
-
-  }
-
-  else{
-
-    shortStatus=
-
-      "🟢 暫不建議接空";
-
-  }
-
-  return {
-
-    price,
-
-    boll:b,
-
-    ema12:e12,
-
-    ema26:e26,
-
-    macd:m,
-
-    rsi:r,
-
-    atr:atrValue,
-
-    support,
-
-    resistance,
-
-    longScore,
-
-    shortScore,
-
-    longPercent,
-
-    shortPercent,
-
-    signal,
-
-    reasons,
-
-    longLow,
-
-    longHigh,
-
-    longEntry,
-
-    longSL,
-
-    longTP1,
-
-    longTP2,
-
-    longRR,
-
-    longEval,
-
-    longStatus,
-
-    shortLow,
-
-    shortHigh,
-
-    shortEntry,
-
-    shortSL,
-
-    shortTP1,
-
-    shortTP2,
-
-    shortRR,
-
-    shortEval,
-
-    shortStatus
-
-  };
-
-}
-
-/* =========================================================
-
-   更新畫面
-
-   ========================================================= */
-
-function renderAnalysis(a){
-
-  document.getElementById(
-
-    "price"
-
-  ).textContent =
-
-    fmt(a.price);
-
-  document.getElementById(
-
-    "signal"
-
-  ).textContent =
-
-    a.signal;
-
-  document.getElementById(
-
-    "ratio"
-
-  ).textContent =
-
-    "做多："+a.longPercent+
-
-    "%　|　做空："+a.shortPercent+"%";
-
-  document.getElementById(
-
-    "ratioBar"
-
-  ).style.width =
-
-    a.longPercent+"%";
-
-  document.getElementById(
-
-    "reason"
-
-  ).textContent =
-
-    a.reasons.length
-
-    ? a.reasons.join("、")+"。"
-
-    : "等待更多條件共振。";
-
-  document.getElementById(
-
-    "longScore"
-
-  ).textContent =
-
-    a.longScore;
-
-  document.getElementById(
-
-    "shortScore"
-
-  ).textContent =
-
-    a.shortScore;
-
-  document.getElementById(
-
-    "rsi"
-
-  ).textContent =
-
-    a.rsi.toFixed(1);
-
-  document.getElementById(
-
-    "ema12"
-
-  ).textContent =
-
-    fmt(a.ema12);
-
-  document.getElementById(
-
-    "ema26"
-
-  ).textContent =
-
-    fmt(a.ema26);
-
-  document.getElementById(
-
-    "macd"
-
-  ).textContent =
-
-    a.macd.toFixed(2);
-
-  document.getElementById(
-
-    "support"
-
-  ).textContent =
-
-    fmt(a.support);
-
-  document.getElementById(
-
-    "resistance"
-
-  ).textContent =
-
-    fmt(a.resistance);
-
-  document.getElementById(
-
-    "lower"
-
-  ).textContent =
-
-    fmt(a.boll.lower);
-
-  document.getElementById(
-
-    "middle"
-
-  ).textContent =
-
-    fmt(a.boll.middle);
-
-  document.getElementById(
-
-    "upper"
-
-  ).textContent =
-
-    fmt(a.boll.upper);
-
-  document.getElementById(
-
-    "atr"
-
-  ).textContent =
-
-    fmt(a.atr);
-
-  /* 做多 */
-
-  document.getElementById(
-
-    "longStatus"
-
-  ).innerHTML =
-
-    `<strong>${a.longStatus}</strong>
-
-     <div class="small">
-
-       支撐：
-
-       ${fmt(a.support)}
-
-       ｜BOLL下軌：
-
-       ${fmt(a.boll.lower)}
-
-       ｜RSI：
-
-       ${a.rsi.toFixed(1)}
-
-       ｜條件：
-
-       ${a.longEval}/100
-
-     </div>`;
-
-  document.getElementById(
-
-    "longZone"
-
-  ).textContent =
-
-    fmt(a.longLow)+
-
-    " ～ "+
-
-    fmt(a.longHigh);
-
-  document.getElementById(
-
-    "longSL"
-
-  ).textContent =
-
-    fmt(a.longSL);
-
-  document.getElementById(
-
-    "longTP1"
-
-  ).textContent =
-
-    fmt(a.longTP1);
-
-  document.getElementById(
-
-    "longTP2"
-
-  ).textContent =
-
-    fmt(a.longTP2);
-
-  document.getElementById(
-
-    "longRR"
-
-  ).textContent =
-
-    a.longRR.toFixed(2)+" : 1";
-
-  /* 做空 */
-
-  document.getElementById(
-
-    "shortStatus"
-
-  ).innerHTML =
-
-    `<strong>${a.shortStatus}</strong>
-
-     <div class="small">
-
-       壓力：
-
-       ${fmt(a.resistance)}
-
-       ｜BOLL上軌：
-
-       ${fmt(a.boll.upper)}
-
-       ｜RSI：
-
-       ${a.rsi.toFixed(1)}
-
-       ｜條件：
-
-       ${a.shortEval}/100
-
-     </div>`;
-
-  document.getElementById(
-
-    "shortZone"
-
-  ).textContent =
-
-    fmt(a.shortLow)+
-
-    " ～ "+
-
-    fmt(a.shortHigh);
-
-  document.getElementById(
-
-    "shortSL"
-
-  ).textContent =
-
-    fmt(a.shortSL);
-
-  document.getElementById(
-
-    "shortTP1"
-
-  ).textContent =
-
-    fmt(a.shortTP1);
-
-  document.getElementById(
-
-    "shortTP2"
-
-  ).textContent =
-
-    fmt(a.shortTP2);
-
-  document.getElementById(
-
-    "shortRR"
-
-  ).textContent =
-
-    a.shortRR.toFixed(2)+" : 1";
-
-  /* 圖上區域 */
-
-  chartZones = {
-
-    longLow:a.longLow,
-
-    longHigh:a.longHigh,
-
-    shortLow:a.shortLow,
-
-    shortHigh:a.shortHigh,
-
-    current:a.price
-
-  };
-
-  updateZoneOverlay();
-
-}
-
-/* =========================================================
-
-   更新圖
-
-   ========================================================= */
-
-function renderChart(data){
-
-  let candles =
-
-    data.map(function(x){
-
-      return {
-
-        time:x[0]/1000,
-
-        open:Number(x[1]),
-
-        high:Number(x[2]),
-
-        low:Number(x[3]),
-
-        close:Number(x[4])
-
-      };
-
-    });
-
-  candleSeries.setData(
-
-    candles
-
-  );
-
-  buildVolume(data);
-
-  buildIndicators(data);
-
-  lastChartData=data;
-
-  chart.timeScale().fitContent();
-
-  setTimeout(
-
-    updateZoneOverlay,
-
-    100
-
-  );
-
-}
-
-/* =========================================================
-
-   更新
-
-   ========================================================= */
-
-async function refresh(){
-
-  try{
-
-    const [
-
-      data15,
-
-      data1h,
-
-      data4h
-
-    ] = await Promise.all([
-
-      getKlines("15m"),
-
-      getKlines("1h"),
-
-      getKlines("4h")
-
-    ]);
-
-    let analysis =
-
-      calculateAnalysis(
-
-        data15,
-
-        data1h,
-
-        data4h
-
-      );
-
-    let ticker =
-
-      await fetch(
-
-        API+
-
-        "/ticker/24hr?symbol=BTCUSDT",
-
-        {
-
-          cache:"no-store"
-
-        }
-
-      ).then(
-
-        r=>r.json()
-
-      );
-
-    let change =
-
-      Number(
-
-        ticker.priceChangePercent
-
-      );
-
-    document.getElementById(
-
-      "change"
-
-    ).textContent =
-
-      (change>=0?"+":"")+
-
-      change.toFixed(2)+
-
-      "% / 24H";
-
-    document.getElementById(
-
-      "change"
-
-    ).className =
-
-      "change "+
-
-      (change>=0
-
-        ?"green"
-
-        :"red");
-
-    document.getElementById(
-
-      "updated"
-
-    ).textContent =
-
-      "最後更新："+
-
-      new Date().toLocaleTimeString(
-
-        "zh-TW"
-
-      );
-
-    setDir(
-
-      "d15",
-
-      direction(data15)
-
-    );
-
-    setDir(
-
-      "d1h",
-
-      direction(data1h)
-
-    );
-
-    setDir(
-
-      "d4h",
-
-      direction(data4h)
-
-    );
-
-    renderAnalysis(
-
-      analysis
-
-    );
-
-    /* 目前圖表 */
-
-    let chartData;
-
-    if(currentTF==="15m"){
-
-      chartData=data15;
-
-    }
-
-    else if(currentTF==="4h"){
-
-      chartData=data4h;
-
-    }
-
-    else if(currentTF==="1d"){
-
-      chartData=
-
-        await getKlines("1d");
-
-    }
-
-    else{
-
-      chartData=data1h;
-
-    }
-
-    renderChart(
-
-      chartData
-
-    );
-
-    document.getElementById(
-
-      "chartInfo"
-
-    ).textContent =
-
-      "BTC/USDT · "+
-
-      currentTF+
-
-      " · 目前 "+
-
-      fmt(analysis.price)+
-
-      " · 做多區 "+
-
-      fmt(analysis.longLow)+
-
-      "～"+
-
-      fmt(analysis.longHigh)+
-
-      " · 做空區 "+
-
-      fmt(analysis.shortLow)+
-
-      "～"+
-
-      fmt(analysis.shortHigh);
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    document.getElementById(
-
-      "updated"
-
-    ).textContent =
-
-      "行情連線失敗";
-
-    document.getElementById(
-
-      "reason"
-
-    ).innerHTML =
-
-      '<span class="error">'+
-
-      '無法取得 BTC 即時資料。'+
-
-      '<br>'+
-
-      '請確認網路連線後重新整理。'+
-
-      '</span>';
-
-  }
-
-}
-
-/* =========================================================
-
-   切換時間週期
-
-   ========================================================= */
-
-function changeTF(tf){
-
-  currentTF=tf;
-
-  document
-
-    .querySelectorAll(
-
-      ".tfButtons button"
-
-    )
-
-    .forEach(function(btn){
-
-      btn.classList.remove(
-
-        "active"
-
-      );
-
-    });
-
-  let id;
-
-  if(tf==="15m"){
-
-    id="tf15";
-
-  }
-
-  else if(tf==="4h"){
-
-    id="tf4h";
-
-  }
-
-  else if(tf==="1d"){
-
-    id="tf1d";
-
-  }
-
-  else{
-
-    id="tf1h";
-
-  }
-
-  document
-
-    .getElementById(id)
-
-    .classList.add(
-
-      "active"
-
-    );
-
-  refresh();
-
-}
-
-/* =========================================================
-
-   喊單驗證
-
-   ========================================================= */
-
-function verify(){
-
-  let side =
-
-    document.getElementById(
-
-      "side"
-
-    ).value;
-
-  let callPrice =
-
-    Number(
-
-      document.getElementById(
-
-        "callPrice"
-
-      ).value
-
-    );
-
-  let current =
-
-    Number(
-
-      document.getElementById(
-
-        "price"
-
-      ).textContent
-
-      .replace(/[$,]/g,"")
-
-    );
-
-  if(
-
-    !callPrice ||
-
-    !current
-
-  ){
-
-    document.getElementById(
-
-      "verifyResult"
-
-    ).textContent =
-
-      "請輸入有效喊單價格。";
-
-    return;
-
-  }
-
-  let percentage;
-
-  if(side==="long"){
-
-    percentage =
-
-      (current-callPrice)/
-
-      callPrice*100;
-
-  }
-
-  else{
-
-    percentage =
-
-      (callPrice-current)/
-
-      callPrice*100;
-
-  }
-
-  let favorable =
-
-    percentage>=0;
-
-  document.getElementById(
-
-    "verifyResult"
-
-  ).innerHTML =
-
-    `<strong>
-
-      ${side==="long"
-
-        ?"🟢 做多"
-
-        :"🔴 做空"}
-
-    </strong>
-
-    ${fmt(callPrice)}
-
-    → 目前
-
-    ${fmt(current)}
-
-    <br><br>
-
-    <strong class="${
-
-      favorable
-
-      ?"green"
-
-      :"red"
-
-    }">
-
-      ${
-
-        favorable
-
-        ?"目前方向有利"
-
-        :"目前方向不利"
-
-      }
-
-      ${Math.abs(
-
-        percentage
-
-      ).toFixed(2)}%
-
-    </strong>`;
-
-}
-
-/* =========================================================
-
-   啟動
-
-   ========================================================= */
-
-createChart();
-
-refresh();
-
-/* 每60秒更新 */
-
-setInterval(
-
-  refresh,
-
-  60000
+)
 
 );
 
-/* 圖表拖曳、縮放時更新標記 */
+}
 
-if(chart){
-
-  chart.timeScale()
-
-    .subscribeVisibleLogicalRangeChange(
-
-      function(){
-
-        updateZoneOverlay();
-
-      }
-
-    );
+return sma(tr,n);
 
 }
+
+function boll(data,n,m){
+
+n=n||20;
+
+m=m||2;
+
+let middle=sma(data,n);
+
+let deviation=sd(data,n);
+
+return{
+
+middle:middle,
+
+upper:
+
+middle+m*deviation,
+
+lower:
+
+middle-m*deviation
+
+};
+
+}
+
+/* =====================================================
+
+   趨勢
+
+   ===================================================== */
+
+function direction(data){
+
+let c=closes(data);
+
+let e12=ema(c,12);
+
+let e26=ema(c,26);
+
+let r=rsi(c,14);
+
+if(e12>e26 && r>=50){
+
+return "偏多";
+
+}
+
+if(e12<e26 && r<50){
+
+return "偏空";
+
+}
+
+return "震盪";
+
+}
+
+/* =====================================================
+
+   取得資料
+
+   ===================================================== */
+
+async function get(tf){
+
+let response=
+
+await fetch(
+
+apiURL(tf),
+
+{
+
+cache:"no-store"
+
+}
+
+);
+
+if(!response.ok){
+
+throw new Error(
+
+"Binance HTTP "+response.status
+
+);
+
+}
+
+let raw=
+
+await response.json();
+
+if(
+
+!Array.isArray(raw) ||
+
+raw.length<50
+
+){
+
+throw new Error(
+
+"資料不足"
+
+);
+
+}
+
+let c=closes(raw);
+
+return{
+
+k:raw,
+
+a:c,
+
+boll:boll(c),
+
+r:rsi(c,14),
+
+atr:atr(raw,14),
+
+dir:direction(raw)
+
+};
+
+}
+
+/* =====================================================
+
+   格式
+
+   ===================================================== */
+
+function fmt(x){
+
+return "$"+
+
+Number(x).toLocaleString(
+
+undefined,
+
+{
+
+minimumFractionDigits:2,
+
+maximumFractionDigits:2
+
+}
+
+);
+
+}
+
+/* =====================================================
+
+   幣種切換
+
+   ===================================================== */
+
+function changeCoin(){
+
+let input=
+
+document.getElementById(
+
+"coinInput"
+
+).value
+
+.trim()
+
+.toUpperCase()
+
+.replace(/[^A-Z0-9]/g,"");
+
+if(!input){
+
+return;
+
+}
+
+COIN=input;
+
+document.getElementById(
+
+"coinTitle"
+
+).textContent=COIN;
+
+document.title=
+
+"🪙 "+COIN+" 多空分析 V1.0";
+
+refresh();
+
+}
+
+/* =====================================================
+
+   Enter
+
+   ===================================================== */
+
+document.getElementById(
+
+"coinInput"
+
+).addEventListener(
+
+"keydown",
+
+function(e){
+
+if(e.key==="Enter"){
+
+changeCoin();
+
+}
+
+}
+
+);
+
+/* =====================================================
+
+   方向顯示
+
+   ===================================================== */
+
+function setDir(id,d){
+
+let el=
+
+document.getElementById(id);
+
+el.textContent=d;
+
+el.className="";
+
+if(d==="偏多"){
+
+el.classList.add("bull");
+
+}
+
+else if(d==="偏空"){
+
+el.classList.add("bear");
+
+}
+
+else{
+
+el.classList.add("wait");
+
+}
+
+}
+
+/* =====================================================
+
+   主分析
+
+   ===================================================== */
+
+async function refresh(){
+
+try{
+
+document.getElementById(
+
+"updated"
+
+).textContent=
+
+"正在取得 "+COIN+" 行情…";
+
+let result=
+
+await Promise.all([
+
+get("15m"),
+
+get("1h"),
+
+get("4h")
+
+]);
+
+let m15=result[0];
+
+let h1=result[1];
+
+let h4=result[2];
+
+currentData={
+
+m15:m15,
+
+h1:h1,
+
+h4:h4
+
+};
+
+let price=
+
+h1.a[h1.a.length-1];
+
+let b=h1.boll;
+
+let e12=
+
+ema(h1.a,12);
+
+let e26=
+
+ema(h1.a,26);
+
+let m=
+
+macd(h1.a);
+
+let r=
+
+h1.r;
+
+/* =================================================
+
+   支撐壓力
+
+   ================================================= */
+
+let last50=
+
+h1.k.slice(-50);
+
+let highs=
+
+last50.map(function(x){
+
+return Number(x[2]);
+
+});
+
+let lows=
+
+last50.map(function(x){
+
+return Number(x[3]);
+
+});
+
+let support=
+
+Math.min.apply(null,lows);
+
+let resistance=
+
+Math.max.apply(null,highs);
+
+/* =================================================
+
+   多空評分
+
+   ================================================= */
+
+let longScore=0;
+
+let shortScore=0;
+
+let reasons=[];
+
+/* EMA */
+
+if(e12>e26){
+
+longScore+=20;
+
+reasons.push(
+
+"1H EMA 偏多"
+
+);
+
+}
+
+else{
+
+shortScore+=20;
+
+reasons.push(
+
+"1H EMA 偏空"
+
+);
+
+}
+
+/* RSI */
+
+if(r>=50){
+
+longScore+=15;
+
+}
+
+else{
+
+shortScore+=15;
+
+}
+
+/* MACD */
+
+if(m>0){
+
+longScore+=15;
+
+}
+
+else{
+
+shortScore+=15;
+
+}
+
+/* BOLL */
+
+if(
+
+price<=b.lower*1.012
+
+){
+
+longScore+=20;
+
+reasons.push(
+
+"價格接近 BOLL 下軌"
+
+);
+
+}
+
+if(
+
+price>=b.upper*0.988
+
+){
+
+shortScore+=20;
+
+reasons.push(
+
+"價格接近 BOLL 上軌"
+
+);
+
+}
+
+/* 中軌 */
+
+if(price>b.middle){
+
+longScore+=10;
+
+}
+
+else{
+
+shortScore+=10;
+
+}
+
+/* 4H */
+
+if(h4.dir==="偏多"){
+
+longScore+=15;
+
+}
+
+else if(h4.dir==="偏空"){
+
+shortScore+=15;
+
+}
+
+let total=
+
+longScore+shortScore;
+
+if(total<=0){
+
+total=1;
+
+}
+
+let longPercent=
+
+Math.round(
+
+longScore/total*100
+
+);
+
+let shortPercent=
+
+100-longPercent;
+
+/* =================================================
+
+   主訊號
+
+   ================================================= */
+
+let signal;
+
+if(longPercent>=62){
+
+signal="🟢 偏多";
+
+}
+
+else if(shortPercent>=62){
+
+signal="🔴 偏空";
+
+}
+
+else{
+
+signal="🟡 觀望";
+
+}
+
+/* =================================================
+
+   畫面
+
+   ================================================= */
+
+document.getElementById(
+
+"price"
+
+).textContent=
+
+fmt(price);
+
+document.getElementById(
+
+"updated"
+
+).textContent=
+
+"最後更新："+
+
+new Date().toLocaleTimeString(
+
+"zh-TW"
+
+);
+
+document.getElementById(
+
+"signal"
+
+).textContent=
+
+signal;
+
+document.getElementById(
+
+"ratio"
+
+).textContent=
+
+"做多："+longPercent+
+
+"%　|　做空："+shortPercent+
+
+"%";
+
+document.getElementById(
+
+"ratioBar"
+
+).style.width=
+
+longPercent+"%";
+
+document.getElementById(
+
+"reason"
+
+).textContent=
+
+reasons.length
+
+? reasons.join("、")+"。"
+
+: "等待更多條件共振。";
+
+setDir(
+
+"d15",
+
+m15.dir
+
+);
+
+setDir(
+
+"d1h",
+
+h1.dir
+
+);
+
+setDir(
+
+"d4h",
+
+h4.dir
+
+);
+
+/* 支撐 */
+
+document.getElementById(
+
+"support"
+
+).textContent=
+
+fmt(support);
+
+/* 壓力 */
+
+document.getElementById(
+
+"resistance"
+
+).textContent=
+
+fmt(resistance);
+
+/* BOLL */
+
+document.getElementById(
+
+"lower"
+
+).textContent=
+
+fmt(b.lower);
+
+document.getElementById(
+
+"middle"
+
+).textContent=
+
+fmt(b.middle);
+
+document.getElementById(
+
+"upper"
+
+).textContent=
+
+fmt(b.upper);
+
+/* =================================================
+
+   技術指標
+
+   ================================================= */
+
+let techData=[
+
+["多頭分數",longScore],
+
+["空頭分數",shortScore],
+
+["RSI 1H",r.toFixed(1)],
+
+[
+
+"EMA 12 / 26",
+
+fmt(e12)+" / "+fmt(e26)
+
+],
+
+[
+
+"MACD",
+
+m.toFixed(4)
+
+],
+
+[
+
+"ATR 1H",
+
+fmt(h1.atr)
+
+]
+
+];
+
+document.getElementById(
+
+"tech"
+
+).innerHTML=
+
+techData.map(
+
+function(item){
+
+return`
+
+<div class="row">
+
+<span>
+
+${item[0]}
+
+</span>
+
+<span class="val">
+
+${item[1]}
+
+</span>
+
+</div>
+
+`;
+
+}
+
+).join("");
+
+/* =================================================
+
+   交易區
+
+   ================================================= */
+
+buildLong(
+
+price,
+
+support,
+
+resistance,
+
+b,
+
+h1.atr,
+
+r,
+
+longPercent
+
+);
+
+buildShort(
+
+price,
+
+support,
+
+resistance,
+
+b,
+
+h1.atr,
+
+r,
+
+shortPercent
+
+);
+
+/* =================================================
+
+   K線
+
+   ================================================= */
+
+drawChart(
+
+h1.k.slice(-80),
+
+price,
+
+support,
+
+resistance,
+
+b
+
+);
+
+}
+
+catch(error){
+
+console.error(error);
+
+document.getElementById(
+
+"updated"
+
+).textContent=
+
+"行情連線失敗";
+
+document.getElementById(
+
+"reason"
+
+).innerHTML=
+
+'<span class="error">'+
+
+"無法取得 "+COIN+
+
+"USDT 即時資料。"+
+
+"<br>請確認 Binance 有這個交易對。"+
+
+"</span>";
+
+}
+
+}
+
+/* =====================================================
+
+   做多
+
+   ===================================================== */
+
+function buildLong(
+
+price,
+
+support,
+
+resistance,
+
+boll,
+
+atrValue,
+
+rsiValue,
+
+longPercent
+
+){
+
+let nearSupport=
+
+Math.abs(price-support)/price<=0.012;
+
+let nearLower=
+
+price<=boll.lower*1.012;
+
+let rsiOK=
+
+rsiValue>=38 &&
+
+rsiValue<=55;
+
+let score=0;
+
+if(nearSupport){
+
+score+=30;
+
+}
+
+if(nearLower){
+
+score+=30;
+
+}
+
+if(rsiOK){
+
+score+=20;
+
+}
+
+if(longPercent>=55){
+
+score+=20;
+
+}
+
+let status;
+
+if(score>=70){
+
+status=
+
+"🟢 強支撐做多評估";
+
+}
+
+else if(score>=45){
+
+status=
+
+"🟡 支撐觀察區";
+
+}
+
+else{
+
+status=
+
+"🔴 不建議現在接多";
+
+}
+
+/* 做多區 */
+
+let zoneLow=
+
+Math.min(
+
+support,
+
+boll.lower
+
+);
+
+let zoneHigh=
+
+Math.max(
+
+support,
+
+boll.lower
+
+);
+
+let entry=
+
+(zoneLow+zoneHigh)/2;
+
+/* SL */
+
+let stopLoss=
+
+support-
+
+atrValue*0.65;
+
+/* TP */
+
+let tp1=
+
+Math.min(
+
+resistance,
+
+boll.middle
+
+);
+
+let tp2=
+
+resistance;
+
+if(tp1<=entry){
+
+tp1=
+
+entry+
+
+atrValue*2;
+
+}
+
+if(tp2<=tp1){
+
+tp2=
+
+tp1+
+
+atrValue*1.5;
+
+}
+
+let risk=
+
+entry-stopLoss;
+
+let reward=
+
+tp1-entry;
+
+let rr=
+
+risk>0
+
+? reward/risk
+
+:0;
+
+document.getElementById(
+
+"longStatus"
+
+).innerHTML=
+
+`<strong>${status}</strong>
+
+<div class="small"
+
+style="margin-top:8px">
+
+近50根支撐：
+
+${fmt(support)}
+
+｜BOLL下軌：
+
+${fmt(boll.lower)}
+
+｜RSI：
+
+${rsiValue.toFixed(1)}
+
+｜做多條件：
+
+${score}/100
+
+</div>`;
+
+document.getElementById(
+
+"longZone"
+
+).textContent=
+
+fmt(zoneLow)+
+
+" ～ "+
+
+fmt(zoneHigh);
+
+document.getElementById(
+
+"longSL"
+
+).textContent=
+
+fmt(stopLoss);
+
+document.getElementById(
+
+"longTP1"
+
+).textContent=
+
+fmt(tp1);
+
+document.getElementById(
+
+"longTP2"
+
+).textContent=
+
+fmt(tp2);
+
+document.getElementById(
+
+"longRR"
+
+).textContent=
+
+rr.toFixed(2)+" : 1";
+
+}
+
+/* =====================================================
+
+   做空
+
+   ===================================================== */
+
+function buildShort(
+
+price,
+
+support,
+
+resistance,
+
+boll,
+
+atrValue,
+
+rsiValue,
+
+shortPercent
+
+){
+
+let nearResistance=
+
+Math.abs(price-resistance)/price<=0.012;
+
+let nearUpper=
+
+price>=boll.upper*0.988;
+
+let rsiOK=
+
+rsiValue>=45 &&
+
+rsiValue<=62;
+
+let score=0;
+
+if(nearResistance){
+
+score+=30;
+
+}
+
+if(nearUpper){
+
+score+=30;
+
+}
+
+if(rsiOK){
+
+score+=20;
+
+}
+
+if(shortPercent>=55){
+
+score+=20;
+
+}
+
+let status;
+
+if(score>=70){
+
+status=
+
+"🔴 強壓力做空評估";
+
+}
+
+else if(score>=45){
+
+status=
+
+"🟡 壓力觀察區";
+
+}
+
+else{
+
+status=
+
+"🟢 不建議現在追空";
+
+}
+
+/* 做空區 */
+
+let zoneLow=
+
+Math.min(
+
+resistance,
+
+boll.upper
+
+);
+
+let zoneHigh=
+
+Math.max(
+
+resistance,
+
+boll.upper
+
+);
+
+let entry=
+
+(zoneLow+zoneHigh)/2;
+
+/* SL */
+
+let stopLoss=
+
+resistance+
+
+atrValue*0.65;
+
+/* TP */
+
+let tp1=
+
+Math.max(
+
+support,
+
+boll.middle
+
+);
+
+let tp2=
+
+support;
+
+if(tp1>=entry){
+
+tp1=
+
+entry-
+
+atrValue*2;
+
+}
+
+if(tp2>=tp1){
+
+tp2=
+
+tp1-
+
+atrValue*1.5;
+
+}
+
+let risk=
+
+stopLoss-entry;
+
+let reward=
+
+entry-tp1;
+
+let rr=
+
+risk>0
+
+? reward/risk
+
+:0;
+
+document.getElementById(
+
+"shortStatus"
+
+).innerHTML=
+
+`<strong>${status}</strong>
+
+<div class="small"
+
+style="margin-top:8px">
+
+近50根壓力：
+
+${fmt(resistance)}
+
+｜BOLL上軌：
+
+${fmt(boll.upper)}
+
+｜RSI：
+
+${rsiValue.toFixed(1)}
+
+｜做空條件：
+
+${score}/100
+
+</div>`;
+
+document.getElementById(
+
+"shortZone"
+
+).textContent=
+
+fmt(zoneLow)+
+
+" ～ "+
+
+fmt(zoneHigh);
+
+document.getElementById(
+
+"shortSL"
+
+).textContent=
+
+fmt(stopLoss);
+
+document.getElementById(
+
+"shortTP1"
+
+).textContent=
+
+fmt(tp1);
+
+document.getElementById(
+
+"shortTP2"
+
+).textContent=
+
+fmt(tp2);
+
+document.getElementById(
+
+"shortRR"
+
+).textContent=
+
+rr.toFixed(2)+" : 1";
+
+}
+
+/* =====================================================
+
+   K線圖
+
+   ===================================================== */
+
+function drawChart(
+
+data,
+
+price,
+
+support,
+
+resistance,
+
+boll
+
+){
+
+let canvas=
+
+document.getElementById("chart");
+
+let ctx=
+
+canvas.getContext("2d");
+
+let dpr=
+
+window.devicePixelRatio||1;
+
+let rect=
+
+canvas.getBoundingClientRect();
+
+canvas.width=
+
+rect.width*dpr;
+
+canvas.height=
+
+rect.height*dpr;
+
+ctx.setTransform(
+
+dpr,0,0,dpr,0,0
+
+);
+
+let W=rect.width;
+
+let H=rect.height;
+
+ctx.clearRect(
+
+0,0,W,H
+
+);
+
+if(!data.length){
+
+return;
+
+}
+
+/* 高低 */
+
+let values=[];
+
+data.forEach(function(x){
+
+values.push(
+
+Number(x[2]),
+
+Number(x[3])
+
+);
+
+});
+
+values.push(
+
+support,
+
+resistance,
+
+boll.upper,
+
+boll.lower
+
+);
+
+let min=
+
+Math.min.apply(null,values);
+
+let max=
+
+Math.max.apply(null,values);
+
+let padding=
+
+(max-min)*0.08;
+
+min-=padding;
+
+max+=padding;
+
+function y(v){
+
+return H-
+
+((v-min)/(max-min))*H;
+
+}
+
+let candleWidth=
+
+W/data.length;
+
+let bodyWidth=
+
+Math.max(
+
+3,
+
+candleWidth*0.55
+
+);
+
+/* 背景 */
+
+ctx.fillStyle="#111";
+
+ctx.fillRect(
+
+0,0,W,H
+
+);
+
+/* 網格 */
+
+ctx.strokeStyle="#333";
+
+ctx.lineWidth=1;
+
+for(let i=1;i<5;i++){
+
+let yy=
+
+H*i/5;
+
+ctx.beginPath();
+
+ctx.moveTo(0,yy);
+
+ctx.lineTo(W,yy);
+
+ctx.stroke();
+
+}
+
+/* BOLL */
+
+function line(values,style){
+
+ctx.strokeStyle=style;
+
+ctx.lineWidth=1.5;
+
+ctx.beginPath();
+
+values.forEach(
+
+function(v,i){
+
+let xx=
+
+i*candleWidth+
+
+candleWidth/2;
+
+let yy=y(v);
+
+if(i===0){
+
+ctx.moveTo(xx,yy);
+
+}
+
+else{
+
+ctx.lineTo(xx,yy);
+
+}
+
+});
+
+ctx.stroke();
+
+}
+
+let middleArr=[];
+
+let upperArr=[];
+
+let lowerArr=[];
+
+let closesArr=
+
+data.map(function(x){
+
+return Number(x[4]);
+
+});
+
+for(
+
+let i=0;
+
+i<data.length;
+
+i++
+
+){
+
+let start=
+
+Math.max(
+
+0,
+
+i-19
+
+);
+
+let arr=
+
+closesArr.slice(
+
+start,
+
+i+1
+
+);
+
+let mid=
+
+arr.reduce(
+
+function(a,b){
+
+return a+b;
+
+},0
+
+)/arr.length;
+
+let sum=0;
+
+arr.forEach(
+
+function(v){
+
+sum+=Math.pow(v-mid,2);
+
+});
+
+let deviation=
+
+Math.sqrt(
+
+sum/arr.length
+
+);
+
+middleArr.push(mid);
+
+upperArr.push(
+
+mid+2*deviation
+
+);
+
+lowerArr.push(
+
+mid-2*deviation
+
+);
+
+}
+
+line(upperArr,"#777");
+
+line(middleArr,"#aaa");
+
+line(lowerArr,"#777");
+
+/* K線 */
+
+data.forEach(
+
+function(x,i){
+
+let open=
+
+Number(x[1]);
+
+let high=
+
+Number(x[2]);
+
+let low=
+
+Number(x[3]);
+
+let close=
+
+Number(x[4]);
+
+let xx=
+
+i*candleWidth+
+
+candleWidth/2;
+
+let color=
+
+close>=open
+
+? "#39d98a"
+
+: "#ff5c5c";
+
+ctx.strokeStyle=color;
+
+ctx.fillStyle=color;
+
+ctx.lineWidth=1;
+
+ctx.beginPath();
+
+ctx.moveTo(xx,y(high));
+
+ctx.lineTo(xx,y(low));
+
+ctx.stroke();
+
+let top=
+
+y(Math.max(open,close));
+
+let bottom=
+
+y(Math.min(open,close));
+
+let height=
+
+Math.max(
+
+1,
+
+bottom-top
+
+);
+
+ctx.fillRect(
+
+xx-bodyWidth/2,
+
+top,
+
+bodyWidth,
+
+height
+
+);
+
+});
+
+/* 水平線 */
+
+function horizontal(
+
+value,
+
+label,
+
+style
+
+){
+
+let yy=y(value);
+
+ctx.strokeStyle=style;
+
+ctx.lineWidth=1.5;
+
+ctx.setLineDash(
+
+[6,5]
+
+);
+
+ctx.beginPath();
+
+ctx.moveTo(0,yy);
+
+ctx.lineTo(W,yy);
+
+ctx.stroke();
+
+ctx.setLineDash([]);
+
+ctx.fillStyle=style;
+
+ctx.font=
+
+"12px -apple-system";
+
+ctx.fillText(
+
+label+" "+
+
+fmt(value),
+
+8,
+
+Math.max(
+
+14,
+
+yy-5
+
+)
+
+);
+
+}
+
+horizontal(
+
+support,
+
+"支撐",
+
+"#55aaff"
+
+);
+
+horizontal(
+
+resistance,
+
+"壓力",
+
+"#ff9f43"
+
+);
+
+/* 目前價格 */
+
+let py=y(price);
+
+ctx.strokeStyle="#fff";
+
+ctx.lineWidth=2;
+
+ctx.setLineDash(
+
+[4,4]
+
+);
+
+ctx.beginPath();
+
+ctx.moveTo(0,py);
+
+ctx.lineTo(W,py);
+
+ctx.stroke();
+
+ctx.setLineDash([]);
+
+ctx.fillStyle="#fff";
+
+ctx.font=
+
+"bold 13px -apple-system";
+
+ctx.fillText(
+
+"目前 "+fmt(price),
+
+8,
+
+Math.max(
+
+16,
+
+py-7
+
+)
+
+);
+
+}
+
+/* =====================================================
+
+   啟動
+
+   ===================================================== */
+
+refresh();
+
+/* 每60秒 */
+
+setInterval(
+
+refresh,
+
+60000
+
+);
+
+/* 視窗大小變化 */
+
+window.addEventListener(
+
+"resize",
+
+function(){
+
+if(
+
+currentData &&
+
+currentData.h1
+
+){
+
+let h1=
+
+currentData.h1;
+
+let price=
+
+h1.a[h1.a.length-1];
+
+let last50=
+
+h1.k.slice(-50);
+
+let highs=
+
+last50.map(
+
+function(x){
+
+return Number(x[2]);
+
+});
+
+let lows=
+
+last50.map(
+
+function(x){
+
+return Number(x[3]);
+
+});
+
+let support=
+
+Math.min.apply(
+
+null,
+
+lows
+
+);
+
+let resistance=
+
+Math.max.apply(
+
+null,
+
+highs
+
+);
+
+drawChart(
+
+h1.k.slice(-80),
+
+price,
+
+support,
+
+resistance,
+
+h1.boll
+
+);
+
+}
+
+});
 
 </script>
 
