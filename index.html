@@ -6,19 +6,13 @@
 
 <meta charset="utf-8">
 
-<meta name="viewport"
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 
-content="width=device-width,initial-scale=1,viewport-fit=cover">
-
-<title>🪙 多幣種多空分析 V2.0</title>
+<title>₿ 萬用幣種多空分析 V2.0</title>
 
 <style>
 
-*{
-
-  box-sizing:border-box;
-
-}
+*{box-sizing:border-box}
 
 body{
 
@@ -28,17 +22,9 @@ body{
 
   color:#202124;
 
-  font-family:
+  font-family:-apple-system,BlinkMacSystemFont,
 
-    -apple-system,
-
-    BlinkMacSystemFont,
-
-    "Segoe UI",
-
-    "Noto Sans TC",
-
-    sans-serif;
+  "Segoe UI","Noto Sans TC",sans-serif;
 
 }
 
@@ -48,13 +34,13 @@ body{
 
   margin:auto;
 
-  padding:22px 18px 60px;
+  padding:22px 18px 50px;
 
 }
 
 .title{
 
-  font-size:36px;
+  font-size:34px;
 
   font-weight:800;
 
@@ -64,11 +50,11 @@ body{
 
 .sub{
 
-  font-size:18px;
+  font-size:17px;
 
   color:#73777f;
 
-  margin-bottom:22px;
+  margin-bottom:20px;
 
   line-height:1.5;
 
@@ -76,13 +62,35 @@ body{
 
 .search{
 
+  background:#fff;
+
+  border-radius:24px;
+
+  padding:18px;
+
+  box-shadow:0 2px 14px #0000000b;
+
+  margin-bottom:16px;
+
+}
+
+.searchTitle{
+
+  font-size:20px;
+
+  font-weight:800;
+
+  margin-bottom:10px;
+
+}
+
+.searchRow{
+
   display:grid;
 
-  grid-template-columns:1fr 230px;
+  grid-template-columns:1fr 120px;
 
-  gap:12px;
-
-  margin-bottom:20px;
+  gap:10px;
 
 }
 
@@ -90,17 +98,15 @@ input{
 
   width:100%;
 
-  padding:18px;
+  padding:14px;
 
   border:1px solid #ddd;
 
-  border-radius:22px;
+  border-radius:14px;
 
-  font-size:20px;
+  font-size:18px;
 
   background:#fff;
-
-  outline:none;
 
 }
 
@@ -108,31 +114,35 @@ button{
 
   width:100%;
 
-  padding:18px;
+  padding:14px;
 
   border:0;
 
-  border-radius:22px;
+  border-radius:14px;
 
   background:#222;
 
   color:#fff;
 
-  font-size:19px;
+  font-size:17px;
 
   font-weight:700;
 
 }
 
-button:active{
+.market{
 
-  transform:scale(.98);
+  margin-top:12px;
+
+  font-size:15px;
+
+  color:#666;
 
 }
 
 .price{
 
-  font-size:48px;
+  font-size:46px;
 
   font-weight:800;
 
@@ -156,7 +166,7 @@ button:active{
 
   border-radius:28px;
 
-  padding:28px;
+  padding:26px;
 
   margin:16px 0;
 
@@ -172,17 +182,15 @@ button:active{
 
 .signal{
 
-  font-size:32px;
+  font-size:30px;
 
   font-weight:800;
 
 }
 
-.ratio{
+.muted{
 
-  font-size:22px;
-
-  margin-top:12px;
+  color:#73777f;
 
 }
 
@@ -207,12 +215,6 @@ button:active{
   height:100%;
 
   background:#333;
-
-}
-
-.muted{
-
-  color:#73777f;
 
 }
 
@@ -248,29 +250,17 @@ button:active{
 
 }
 
-.bull{
+.bull{color:#138a3d}
 
-  color:#138a3d;
+.bear{color:#c52d20}
 
-}
-
-.bear{
-
-  color:#c52d20;
-
-}
-
-.wait{
-
-  color:#8b8b00;
-
-}
+.wait{color:#8b8b00}
 
 h2{
 
-  font-size:28px;
+  font-size:27px;
 
-  margin:0 0 22px;
+  margin:0 0 20px;
 
 }
 
@@ -282,11 +272,11 @@ h2{
 
   gap:14px;
 
-  padding:15px 0;
+  padding:14px 0;
 
   border-bottom:1px solid #e5e5e5;
 
-  font-size:18px;
+  font-size:17px;
 
 }
 
@@ -318,7 +308,7 @@ h2{
 
 .zone strong{
 
-  font-size:25px;
+  font-size:24px;
 
 }
 
@@ -334,7 +324,7 @@ h2{
 
 .notice{
 
-  font-size:15px;
+  font-size:14px;
 
   color:#666;
 
@@ -370,15 +360,13 @@ h2{
 
   width:100%;
 
-  height:390px;
+  height:330px;
 
   background:#fafafa;
 
-  border-radius:22px;
+  border-radius:20px;
 
   overflow:hidden;
-
-  border:1px solid #eee;
 
 }
 
@@ -396,11 +384,11 @@ canvas{
 
   display:flex;
 
+  gap:15px;
+
   flex-wrap:wrap;
 
-  gap:10px;
-
-  margin-top:14px;
+  margin-top:12px;
 
   font-size:14px;
 
@@ -414,25 +402,13 @@ canvas{
 
   padding:7px 10px;
 
-  border-radius:12px;
+  border-radius:10px;
 
 }
 
-.source{
+.loading{
 
-  display:inline-block;
-
-  margin-top:8px;
-
-  padding:5px 9px;
-
-  border-radius:10px;
-
-  background:#e9e9e9;
-
-  color:#555;
-
-  font-size:13px;
+  opacity:.65;
 
 }
 
@@ -440,19 +416,13 @@ canvas{
 
   .title{
 
-    font-size:32px;
+    font-size:30px;
 
   }
 
   .price{
 
-    font-size:44px;
-
-  }
-
-  .search{
-
-    grid-template-columns:1fr 150px;
+    font-size:42px;
 
   }
 
@@ -474,15 +444,15 @@ canvas{
 
   }
 
-  .card{
+  .searchRow{
 
-    padding:24px;
+    grid-template-columns:1fr;
 
   }
 
-  .chartWrap{
+  .card{
 
-    height:330px;
+    padding:22px;
 
   }
 
@@ -498,17 +468,13 @@ canvas{
 
   <div class="title">
 
-    🪙 多幣種多空分析 V2.0
+    ₿ 萬用幣種多空分析 V2.0
 
   </div>
 
   <div class="sub">
 
-    多週期趨勢＋BOLL＋量能＋支撐壓力＋交易區域
-
-    <br>
-
-    15M / 1H / 4H
+    自動辨識 Binance / Gate｜15M / 1H / 4H｜BOLL＋量能＋支撐壓力
 
   </div>
 
@@ -516,23 +482,37 @@ canvas{
 
   <div class="search">
 
-    <input
+    <div class="searchTitle">
 
-      id="symbolInput"
+      🔎 輸入幣種
 
-      value="BTC"
+    </div>
 
-      placeholder="輸入幣種，例如 BTC / ETH / AKE">
+    <div class="searchRow">
 
-    <button onclick="startAnalysis()">
+      <input
 
-      開始分析
+        id="symbolInput"
 
-    </button>
+        value="BTC"
+
+        placeholder="例如 BTC、ETH、AKE、SOL">
+
+      <button onclick="startAnalysis()">
+
+        開始分析
+
+      </button>
+
+    </div>
+
+    <div id="marketInfo" class="market">
+
+      尚未搜尋交易市場
+
+    </div>
 
   </div>
-
-  <!-- 價格 -->
 
   <div id="price" class="price">
 
@@ -552,11 +532,13 @@ canvas{
 
     <div id="signal" class="signal">
 
-      🟡 等待分析
+      🟡 尚未分析
 
     </div>
 
-    <div id="ratio" class="ratio">
+    <div id="ratio"
+
+         style="font-size:21px;margin-top:12px">
 
       做多：—　|　做空：—
 
@@ -568,21 +550,13 @@ canvas{
 
     </div>
 
-    <div
+    <div id="reason"
 
-      id="reason"
+         class="muted"
 
-      class="muted"
-
-      style="font-size:17px;line-height:1.6">
+         style="font-size:17px;line-height:1.6">
 
       輸入幣種後開始分析。
-
-    </div>
-
-    <div id="source" class="source">
-
-      尚未取得行情
 
     </div>
 
@@ -592,11 +566,7 @@ canvas{
 
   <div class="card">
 
-    <h2>
-
-      多週期方向
-
-    </h2>
+    <h2>多週期方向</h2>
 
     <div class="grid">
 
@@ -632,11 +602,7 @@ canvas{
 
   <div class="card">
 
-    <h2>
-
-      📈 1H 行情線圖
-
-    </h2>
+    <h2>📈 1H 價格線圖</h2>
 
     <div class="chartWrap">
 
@@ -646,13 +612,13 @@ canvas{
 
     <div class="legend">
 
-      <span>— 價格</span>
+      <span>⚫ 價格</span>
 
       <span>🟢 做多觀察區</span>
 
       <span>🔴 做空觀察區</span>
 
-      <span>支撐 / 壓力</span>
+      <span>🟡 BOLL 中軌</span>
 
     </div>
 
@@ -662,11 +628,7 @@ canvas{
 
   <div class="card">
 
-    <h2>
-
-      技術指標
-
-    </h2>
+    <h2>技術指標</h2>
 
     <div id="tech"></div>
 
@@ -676,11 +638,7 @@ canvas{
 
   <div class="card">
 
-    <h2>
-
-      支撐 / 壓力
-
-    </h2>
+    <h2>支撐 / 壓力</h2>
 
     <div class="row">
 
@@ -728,19 +686,11 @@ canvas{
 
   <div class="card">
 
-    <h2>
-
-      🟢 支撐做多評估
-
-    </h2>
+    <h2>🟢 支撐做多評估</h2>
 
     <div id="longStatus" class="zone">
 
-      <strong>
-
-        等待分析…
-
-      </strong>
+      <strong>等待分析…</strong>
 
     </div>
 
@@ -778,7 +728,7 @@ canvas{
 
     <div class="row">
 
-      <span>預估 TP1 風險報酬</span>
+      <span>TP1 風險報酬</span>
 
       <span class="val" id="rr">—</span>
 
@@ -790,19 +740,11 @@ canvas{
 
   <div class="card">
 
-    <h2>
-
-      🔴 壓力做空評估
-
-    </h2>
+    <h2>🔴 壓力做空評估</h2>
 
     <div id="shortStatus" class="zone">
 
-      <strong>
-
-        等待分析…
-
-      </strong>
+      <strong>等待分析…</strong>
 
     </div>
 
@@ -838,17 +780,15 @@ canvas{
 
     </div>
 
-    <p class="notice">
-
-      ⚠️ 技術分析只作為交易參考。
-
-      到達支撐或壓力不代表一定反轉，
-
-      建議等待多項條件共振。
-
-    </p>
-
   </div>
+
+  <p class="notice">
+
+    ⚠️ 技術分析僅供參考。支撐或壓力被突破後，不代表價格一定反轉。
+
+    建議搭配成交量、K線結構及實際市場狀況判斷。
+
+  </p>
 
 </div>
 
@@ -856,87 +796,47 @@ canvas{
 
 /* =========================================================
 
-   多幣種分析 V2.0
+   萬用幣種分析器 V2.0
 
-   Binance → Gate 現貨 → Gate USDT 永續
-
-   ========================================================= */
-
-/* =========================================================
-
-   全域資料
+   Binance + Gate
 
    ========================================================= */
 
 let CURRENT_SYMBOL = "";
 
+let CURRENT_MARKET = null;
+
 let CURRENT_DATA = null;
 
 /* =========================================================
 
-   工具
+   格式化
 
    ========================================================= */
 
-function cleanSymbol(){
-
-  let s =
-
-    document.getElementById("symbolInput")
-
-      .value
-
-      .trim()
-
-      .toUpperCase();
-
-  s =
-
-    s.replace(/[^A-Z0-9]/g,"");
-
-  return s;
-
-}
-
 function fmt(x){
 
-  if(!Number.isFinite(Number(x))){
+  if(!isFinite(x)) return "—";
 
-    return "$—";
+  let digits = x >= 1000 ? 2 :
 
-  }
+               x >= 1 ? 4 :
 
-  let n = Number(x);
+               x >= 0.01 ? 6 : 8;
 
-  let digits = 2;
+  return "$" + Number(x).toLocaleString(
 
-  if(Math.abs(n)<1){
+    undefined,
 
-    digits = 6;
+    {
 
-  }
+      minimumFractionDigits:digits,
 
-  else if(Math.abs(n)<100){
+      maximumFractionDigits:digits
 
-    digits = 4;
+    }
 
-  }
-
-  return "$" +
-
-    n.toLocaleString(
-
-      undefined,
-
-      {
-
-        minimumFractionDigits:digits,
-
-        maximumFractionDigits:digits
-
-      }
-
-    );
+  );
 
 }
 
@@ -956,11 +856,7 @@ function ema(data,n){
 
   for(let i=1;i<data.length;i++){
 
-    e =
-
-      data[i]*k +
-
-      e*(1-k);
+    e=data[i]*k+e*(1-k);
 
   }
 
@@ -975,12 +871,6 @@ function ema(data,n){
    ========================================================= */
 
 function sma(data,n){
-
-  if(data.length<n){
-
-    n=data.length;
-
-  }
 
   let arr=data.slice(-n);
 
@@ -1004,45 +894,19 @@ function sma(data,n){
 
 function sd(data,n){
 
-  if(data.length<n){
-
-    n=data.length;
-
-  }
-
   let arr=data.slice(-n);
 
-  let mean =
-
-    arr.reduce(
-
-      (a,b)=>a+b,
-
-      0
-
-    )/arr.length;
+  let mean=sma(arr,n);
 
   let sum=0;
 
   arr.forEach(x=>{
 
-    sum +=
-
-      Math.pow(
-
-        x-mean,
-
-        2
-
-      );
+    sum+=Math.pow(x-mean,2);
 
   });
 
-  return Math.sqrt(
-
-    sum/arr.length
-
-  );
+  return Math.sqrt(sum/arr.length);
 
 }
 
@@ -1054,11 +918,7 @@ function sd(data,n){
 
 function rsi(data,n=14){
 
-  if(data.length<n+1){
-
-    return 50;
-
-  }
+  if(data.length<n+1) return 50;
 
   let gain=0;
 
@@ -1074,59 +934,19 @@ function rsi(data,n=14){
 
   ){
 
-    let d =
+    let d=data[i]-data[i-1];
 
-      data[i]-
+    if(d>0) gain+=d;
 
-      data[i-1];
-
-    if(d>0){
-
-      gain+=d;
-
-    }
-
-    else{
-
-      loss-=d;
-
-    }
+    else loss-=d;
 
   }
 
-  if(loss===0){
+  if(loss===0) return 100;
 
-    return 100;
+  let rs=(gain/n)/(loss/n);
 
-  }
-
-  let rs =
-
-    (gain/n)/
-
-    (loss/n);
-
-  return 100-
-
-    (100/(1+rs));
-
-}
-
-/* =========================================================
-
-   MACD
-
-   ========================================================= */
-
-function macd(data){
-
-  return (
-
-    ema(data,12)-
-
-    ema(data,26)
-
-  );
+  return 100-(100/(1+rs));
 
 }
 
@@ -1140,27 +960,13 @@ function atr(k,n=14){
 
   let tr=[];
 
-  for(
+  for(let i=1;i<k.length;i++){
 
-    let i=1;
+    let high=k[i].high;
 
-    i<k.length;
+    let low=k[i].low;
 
-    i++
-
-  ){
-
-    let high =
-
-      Number(k[i].high);
-
-    let low =
-
-      Number(k[i].low);
-
-    let prev =
-
-      Number(k[i-1].close);
+    let prev=k[i-1].close;
 
     tr.push(
 
@@ -1168,17 +974,9 @@ function atr(k,n=14){
 
         high-low,
 
-        Math.abs(
+        Math.abs(high-prev),
 
-          high-prev
-
-        ),
-
-        Math.abs(
-
-          low-prev
-
-        )
+        Math.abs(low-prev)
 
       )
 
@@ -1198,13 +996,9 @@ function atr(k,n=14){
 
 function boll(data,n=20,m=2){
 
-  let middle =
+  let middle=sma(data,n);
 
-    sma(data,n);
-
-  let deviation =
-
-    sd(data,n);
+  let deviation=sd(data,n);
 
   return {
 
@@ -1212,17 +1006,25 @@ function boll(data,n=20,m=2){
 
     upper:
 
-      middle+
-
-      m*deviation,
+      middle+m*deviation,
 
     lower:
 
-      middle-
-
-      m*deviation
+      middle-m*deviation
 
   };
+
+}
+
+/* =========================================================
+
+   MACD
+
+   ========================================================= */
+
+function macd(data){
+
+  return ema(data,12)-ema(data,26);
 
 }
 
@@ -1232,49 +1034,259 @@ function boll(data,n=20,m=2){
 
    ========================================================= */
 
-function direction(k){
+function direction(data){
 
-  let c =
+  let c=data.map(x=>x.close);
 
-    k.map(x=>Number(x.close));
+  let e12=ema(c,12);
 
-  let e12 =
+  let e26=ema(c,26);
 
-    ema(c,12);
+  let r=rsi(c,14);
 
-  let e26 =
-
-    ema(c,26);
-
-  let r =
-
-    rsi(c,14);
-
-  if(
-
-    e12>e26 &&
-
-    r>=50
-
-  ){
+  if(e12>e26 && r>=50)
 
     return "偏多";
 
-  }
-
-  if(
-
-    e12<e26 &&
-
-    r<50
-
-  ){
+  if(e12<e26 && r<50)
 
     return "偏空";
 
+  return "震盪";
+
+}
+
+/* =========================================================
+
+   Binance 找交易對
+
+   ========================================================= */
+
+async function findBinance(symbol){
+
+  let url=
+
+    "https://api.binance.com/api/v3/exchangeInfo";
+
+  let res=await fetch(
+
+    url,
+
+    {cache:"no-store"}
+
+  );
+
+  if(!res.ok)
+
+    throw new Error("Binance exchangeInfo");
+
+  let data=await res.json();
+
+  let target=
+
+    symbol.toUpperCase();
+
+  let found=data.symbols.find(
+
+    x=>
+
+      x.symbol===target+"USDT" &&
+
+      x.status==="TRADING"
+
+  );
+
+  if(!found)
+
+    return null;
+
+  return {
+
+    exchange:"Binance",
+
+    type:"現貨",
+
+    symbol:found.symbol,
+
+    pair:found.baseAsset+" / "+found.quoteAsset
+
+  };
+
+}
+
+/* =========================================================
+
+   Gate 找 USDT 永續
+
+   ========================================================= */
+
+async function findGateFutures(symbol){
+
+  let url=
+
+    "https://api.gateio.ws/api/v4/futures/usdt/contracts";
+
+  let res=await fetch(
+
+    url,
+
+    {cache:"no-store"}
+
+  );
+
+  if(!res.ok)
+
+    throw new Error("Gate futures");
+
+  let data=await res.json();
+
+  let target=
+
+    symbol.toUpperCase()+"_USDT";
+
+  let found=data.find(
+
+    x=>
+
+      x.name===target &&
+
+      x.in_delisting===false
+
+  );
+
+  if(!found)
+
+    return null;
+
+  return {
+
+    exchange:"Gate",
+
+    type:"USDT 永續",
+
+    symbol:found.name,
+
+    pair:found.name
+
+  };
+
+}
+
+/* =========================================================
+
+   Gate 找現貨
+
+   ========================================================= */
+
+async function findGateSpot(symbol){
+
+  let url=
+
+    "https://api.gateio.ws/api/v4/spot/currency_pairs";
+
+  let res=await fetch(
+
+    url,
+
+    {cache:"no-store"}
+
+  );
+
+  if(!res.ok)
+
+    throw new Error("Gate spot");
+
+  let data=await res.json();
+
+  let target=
+
+    symbol.toUpperCase()+"_USDT";
+
+  let found=data.find(
+
+    x=>
+
+      x.id===target &&
+
+      x.trade_status==="tradable"
+
+  );
+
+  if(!found){
+
+    found=data.find(
+
+      x=>
+
+        x.id===target
+
+    );
+
   }
 
-  return "震盪";
+  if(!found)
+
+    return null;
+
+  return {
+
+    exchange:"Gate",
+
+    type:"現貨",
+
+    symbol:found.id,
+
+    pair:found.id
+
+  };
+
+}
+
+/* =========================================================
+
+   自動尋找市場
+
+   優先：
+
+   Gate 永續
+
+   Binance 現貨
+
+   Gate 現貨
+
+   ========================================================= */
+
+async function findMarket(symbol){
+
+  let results=
+
+    await Promise.allSettled([
+
+      findGateFutures(symbol),
+
+      findBinance(symbol),
+
+      findGateSpot(symbol)
+
+    ]);
+
+  for(let r of results){
+
+    if(
+
+      r.status==="fulfilled" &&
+
+      r.value
+
+    ){
+
+      return r.value;
+
+    }
+
+  }
+
+  return null;
 
 }
 
@@ -1284,71 +1296,31 @@ function direction(k){
 
    ========================================================= */
 
-async function binance(tf,symbol){
+async function getBinance(tf,symbol){
 
-  let url =
+  let url=
 
-    "https://api.binance.com/api/v3/klines" +
+    "https://api.binance.com/api/v3/klines"+
 
-    "?symbol="+
+    "?symbol="+symbol+
 
-    encodeURIComponent(
-
-      symbol+"USDT"
-
-    )+
-
-    "&interval="+
-
-    tf+
+    "&interval="+tf+
 
     "&limit=200";
 
-  let response =
+  let res=await fetch(
 
-    await fetch(
+    url,
 
-      url,
+    {cache:"no-store"}
 
-      {
+  );
 
-        cache:"no-store"
+  if(!res.ok)
 
-      }
+    throw new Error("Binance K線");
 
-    );
-
-  if(!response.ok){
-
-    throw new Error(
-
-      "Binance HTTP "+
-
-      response.status
-
-    );
-
-  }
-
-  let raw =
-
-    await response.json();
-
-  if(
-
-    !Array.isArray(raw) ||
-
-    raw.length<50
-
-  ){
-
-    throw new Error(
-
-      "Binance 資料不足"
-
-    );
-
-  }
+  let raw=await res.json();
 
   return raw.map(x=>({
 
@@ -1370,77 +1342,65 @@ async function binance(tf,symbol){
 
 /* =========================================================
 
-   Gate 現貨交易對確認
+   Gate 永續 K線
 
    ========================================================= */
 
-async function gateSpotPair(symbol){
+async function getGateFutures(tf,symbol){
 
-  let pair =
+  let interval=tf==="15m"
 
-    symbol+"_USDT";
+    ?"15m"
 
-  let url =
+    :tf==="1h"
 
-    "https://api.gateio.ws/api/v4/spot/currency_pairs";
+      ?"1h"
 
-  let response =
+      :"4h";
 
-    await fetch(
+  let url=
 
-      url,
+    "https://api.gateio.ws/api/v4/futures/usdt/candlesticks"+
 
-      {
+    "?contract="+encodeURIComponent(symbol)+
 
-        cache:"no-store"
+    "&interval="+interval+
 
-      }
+    "&limit=200";
 
-    );
+  let res=await fetch(
 
-  if(!response.ok){
+    url,
 
-    throw new Error(
+    {cache:"no-store"}
 
-      "Gate pair HTTP "+
+  );
 
-      response.status
+  if(!res.ok)
 
-    );
+    throw new Error("Gate 永續 K線");
 
-  }
+  let raw=await res.json();
 
-  let list =
+  return raw.map(x=>({
 
-    await response.json();
+    time:Number(x.t)*1000,
 
-  let found =
+    volume:Number(x.v),
 
-    list.find(
+    close:Number(x.c),
 
-      x =>
+    high:Number(x.h),
 
-      String(x.id)
+    low:Number(x.l),
 
-        .toUpperCase()
+    open:Number(x.o)
 
-      ===
+  })).sort(
 
-      pair
+    (a,b)=>a.time-b.time
 
-    );
-
-  if(!found){
-
-    throw new Error(
-
-      "Gate 沒有現貨交易對"
-
-    );
-
-  }
-
-  return pair;
+  );
 
 }
 
@@ -1450,123 +1410,57 @@ async function gateSpotPair(symbol){
 
    ========================================================= */
 
-async function gateSpot(tf,symbol){
+async function getGateSpot(tf,symbol){
 
-  let pair =
+  let interval=tf==="15m"
 
-    await gateSpotPair(symbol);
+    ?"15m"
 
-  let url =
+    :tf==="1h"
+
+      ?"1h"
+
+      :"4h";
+
+  let url=
 
     "https://api.gateio.ws/api/v4/spot/candlesticks"+
 
-    "?currency_pair="+
+    "?currency_pair="+encodeURIComponent(symbol)+
 
-    encodeURIComponent(pair)+
-
-    "&interval="+
-
-    tf+
+    "&interval="+interval+
 
     "&limit=200";
 
-  let response =
+  let res=await fetch(
 
-    await fetch(
+    url,
 
-      url,
+    {cache:"no-store"}
 
-      {
+  );
 
-        cache:"no-store"
+  if(!res.ok)
 
-      }
+    throw new Error("Gate 現貨 K線");
 
-    );
-
-  if(!response.ok){
-
-    throw new Error(
-
-      "Gate Spot HTTP "+
-
-      response.status
-
-    );
-
-  }
-
-  let raw =
-
-    await response.json();
-
-  if(
-
-    !Array.isArray(raw) ||
-
-    raw.length<50
-
-  ){
-
-    throw new Error(
-
-      "Gate Spot 資料不足"
-
-    );
-
-  }
-
-  /*
-
-    Gate 格式：
-
-    0 timestamp
-
-    1 quote volume
-
-    2 close
-
-    3 high
-
-    4 low
-
-    5 open
-
-    6 base volume
-
-    7 closed
-
-  */
+  let raw=await res.json();
 
   return raw.map(x=>({
 
-    time:
+    time:Number(x[0])*1000,
 
-      Number(x[0])*1000,
+    volume:Number(x[6]||x[1]),
 
-    open:
+    close:Number(x[2]),
 
-      Number(x[5]),
+    high:Number(x[3]),
 
-    high:
+    low:Number(x[4]),
 
-      Number(x[3]),
+    open:Number(x[5])
 
-    low:
-
-      Number(x[4]),
-
-    close:
-
-      Number(x[2]),
-
-    volume:
-
-      Number(x[6])
-
-  }))
-
-  .sort(
+  })).sort(
 
     (a,b)=>a.time-b.time
 
@@ -1576,125 +1470,51 @@ async function gateSpot(tf,symbol){
 
 /* =========================================================
 
-   Gate USDT 永續
+   取得指定市場K線
 
    ========================================================= */
 
-async function gateFutures(tf,symbol){
-
-  let contract =
-
-    symbol+"_USDT";
-
-  let url =
-
-    "https://api.gateio.ws/api/v4/futures/usdt/candlesticks"+
-
-    "?contract="+
-
-    encodeURIComponent(contract)+
-
-    "&interval="+
-
-    tf+
-
-    "&limit=200";
-
-  let response =
-
-    await fetch(
-
-      url,
-
-      {
-
-        cache:"no-store"
-
-      }
-
-    );
-
-  if(!response.ok){
-
-    throw new Error(
-
-      "Gate Futures HTTP "+
-
-      response.status
-
-    );
-
-  }
-
-  let raw =
-
-    await response.json();
+async function getKlines(tf,market){
 
   if(
 
-    !Array.isArray(raw) ||
-
-    raw.length<50
+    market.exchange==="Binance"
 
   ){
 
-    throw new Error(
+    return getBinance(
 
-      "Gate Futures 資料不足"
+      tf,
+
+      market.symbol
 
     );
 
   }
 
-  /*
+  if(
 
-    Gate Futures K線
+    market.exchange==="Gate" &&
 
-    timestamp
+    market.type==="USDT 永續"
 
-    volume
+  ){
 
-    close
+    return getGateFutures(
 
-    high
+      tf,
 
-    low
+      market.symbol
 
-    open
+    );
 
-  */
+  }
 
-  return raw.map(x=>({
+  return getGateSpot(
 
-    time:
+    tf,
 
-      Number(x[0])*1000,
-
-    open:
-
-      Number(x[5]),
-
-    high:
-
-      Number(x[3]),
-
-    low:
-
-      Number(x[4]),
-
-    close:
-
-      Number(x[2]),
-
-    volume:
-
-      Number(x[1])
-
-  }))
-
-  .sort(
-
-    (a,b)=>a.time-b.time
+    market.symbol
 
   );
 
@@ -1702,369 +1522,507 @@ async function gateFutures(tf,symbol){
 
 /* =========================================================
 
-   自動找行情
-
-   ========================================================= */
-
-async function getMarket(tf,symbol){
-
-  let errors=[];
-
-  /* Binance */
-
-  try{
-
-    let data =
-
-      await binance(
-
-        tf,
-
-        symbol
-
-      );
-
-    return {
-
-      data:data,
-
-      source:
-
-        "Binance 現貨"
-
-    };
-
-  }
-
-  catch(e){
-
-    errors.push(
-
-      "Binance"
-
-    );
-
-  }
-
-  /* Gate 現貨 */
-
-  try{
-
-    let data =
-
-      await gateSpot(
-
-        tf,
-
-        symbol
-
-      );
-
-    return {
-
-      data:data,
-
-      source:
-
-        "Gate 現貨"
-
-    };
-
-  }
-
-  catch(e){
-
-    errors.push(
-
-      "Gate 現貨"
-
-    );
-
-  }
-
-  /* Gate 合約 */
-
-  try{
-
-    let data =
-
-      await gateFutures(
-
-        tf,
-
-        symbol
-
-      );
-
-    return {
-
-      data:data,
-
-      source:
-
-        "Gate USDT 永續"
-
-    };
-
-  }
-
-  catch(e){
-
-    errors.push(
-
-      "Gate 永續"
-
-    );
-
-  }
-
-  throw new Error(
-
-    "找不到 "+
-
-    symbol+
-
-    " 可用行情。"
-
-  );
-
-}
-
-/* =========================================================
-
-   分析單一週期
-
-   ========================================================= */
-
-function analyze(k){
-
-  let c =
-
-    k.map(
-
-      x=>Number(x.close)
-
-    );
-
-  return {
-
-    k:k,
-
-    a:c,
-
-    boll:
-
-      boll(c),
-
-    r:
-
-      rsi(c,14),
-
-    atr:
-
-      atr(k,14),
-
-    dir:
-
-      direction(k)
-
-  };
-
-}
-
-/* =========================================================
-
-   清除畫面
-
-   ========================================================= */
-
-function clearData(){
-
-  document.getElementById(
-
-    "price"
-
-  ).textContent="$—";
-
-  document.getElementById(
-
-    "updated"
-
-  ).textContent="分析中…";
-
-  document.getElementById(
-
-    "signal"
-
-  ).textContent="🟡 分析中";
-
-  document.getElementById(
-
-    "ratio"
-
-  ).textContent=
-
-    "做多：—　|　做空：—";
-
-  document.getElementById(
-
-    "ratioBar"
-
-  ).style.width="50%";
-
-  document.getElementById(
-
-    "reason"
-
-  ).textContent=
-
-    "正在取得行情與技術指標。";
-
-  document.getElementById(
-
-    "source"
-
-  ).textContent=
-
-    "連線中…";
-
-  [
-
-    "d15",
-
-    "d1h",
-
-    "d4h",
-
-    "support",
-
-    "resistance",
-
-    "lower",
-
-    "middle",
-
-    "upper",
-
-    "longZone",
-
-    "sl",
-
-    "tp1",
-
-    "tp2",
-
-    "rr",
-
-    "shortZone",
-
-    "shortSL",
-
-    "shortTP1",
-
-    "shortTP2"
-
-  ].forEach(id=>{
-
-    document.getElementById(
-
-      id
-
-    ).textContent="—";
-
-  });
-
-  document.getElementById(
-
-    "tech"
-
-  ).innerHTML="";
-
-  document.getElementById(
-
-    "longStatus"
-
-  ).innerHTML=
-
-    "<strong>分析中…</strong>";
-
-  document.getElementById(
-
-    "shortStatus"
-
-  ).innerHTML=
-
-    "<strong>分析中…</strong>";
-
-  let canvas =
-
-    document.getElementById(
-
-      "chart"
-
-    );
-
-  let ctx =
-
-    canvas.getContext("2d");
-
-  ctx.clearRect(
-
-    0,
-
-    0,
-
-    canvas.width,
-
-    canvas.height
-
-  );
-
-}
-
-/* =========================================================
-
-   方向顯示
+   更新方向
 
    ========================================================= */
 
 function setDir(id,d){
 
-  let el =
-
-    document.getElementById(id);
+  let el=document.getElementById(id);
 
   el.textContent=d;
 
   el.className="";
 
-  if(d==="偏多"){
+  if(d==="偏多")
 
-    el.classList.add(
+    el.classList.add("bull");
 
-      "bull"
+  else if(d==="偏空")
+
+    el.classList.add("bear");
+
+  else
+
+    el.classList.add("wait");
+
+}
+
+/* =========================================================
+
+   主分析
+
+   ========================================================= */
+
+async function refresh(){
+
+  let symbol=CURRENT_SYMBOL;
+
+  let market=CURRENT_MARKET;
+
+  try{
+
+    document.getElementById("updated")
+
+      .textContent="正在取得行情…";
+
+    const result=
+
+      await Promise.all([
+
+        getKlines("15m",market),
+
+        getKlines("1h",market),
+
+        getKlines("4h",market)
+
+      ]);
+
+    let m15=result[0];
+
+    let h1=result[1];
+
+    let h4=result[2];
+
+    if(
+
+      m15.length<50 ||
+
+      h1.length<50 ||
+
+      h4.length<50
+
+    ){
+
+      throw new Error("K線資料不足");
+
+    }
+
+    let price=
+
+      h1[h1.length-1].close;
+
+    let c=h1.map(x=>x.close);
+
+    let b=boll(c);
+
+    let e12=ema(c,12);
+
+    let e26=ema(c,26);
+
+    let m=macd(c);
+
+    let r=rsi(c);
+
+    let a=atr(h1);
+
+    /* =====================================================
+
+       支撐壓力
+
+       ===================================================== */
+
+    let last50=h1.slice(-50);
+
+    let support=
+
+      Math.min(
+
+        ...last50.map(x=>x.low)
+
+      );
+
+    let resistance=
+
+      Math.max(
+
+        ...last50.map(x=>x.high)
+
+      );
+
+    /* =====================================================
+
+       多空分數
+
+       ===================================================== */
+
+    let longScore=0;
+
+    let shortScore=0;
+
+    let reasons=[];
+
+    /* EMA */
+
+    if(e12>e26){
+
+      longScore+=20;
+
+      reasons.push("1H EMA 偏多");
+
+    }
+
+    else{
+
+      shortScore+=20;
+
+      reasons.push("1H EMA 偏空");
+
+    }
+
+    /* RSI */
+
+    if(r>=50)
+
+      longScore+=15;
+
+    else
+
+      shortScore+=15;
+
+    /* MACD */
+
+    if(m>0)
+
+      longScore+=15;
+
+    else
+
+      shortScore+=15;
+
+    /* BOLL */
+
+    if(
+
+      price<=b.lower*1.012
+
+    ){
+
+      longScore+=20;
+
+      reasons.push("價格接近 BOLL 下軌");
+
+    }
+
+    if(
+
+      price>=b.upper*0.988
+
+    ){
+
+      shortScore+=20;
+
+      reasons.push("價格接近 BOLL 上軌");
+
+    }
+
+    /* 中軌 */
+
+    if(price>b.middle)
+
+      longScore+=10;
+
+    else
+
+      shortScore+=10;
+
+    /* 4H */
+
+    let h4dir=direction(h4);
+
+    if(h4dir==="偏多")
+
+      longScore+=15;
+
+    else if(h4dir==="偏空")
+
+      shortScore+=15;
+
+    /* 15M */
+
+    let m15dir=direction(m15);
+
+    if(m15dir==="偏多")
+
+      longScore+=5;
+
+    else if(m15dir==="偏空")
+
+      shortScore+=5;
+
+    let total=
+
+      longScore+shortScore;
+
+    if(total<=0)
+
+      total=1;
+
+    let longPercent=
+
+      Math.round(
+
+        longScore/total*100
+
+      );
+
+    let shortPercent=
+
+      100-longPercent;
+
+    /* =====================================================
+
+       主訊號
+
+       ===================================================== */
+
+    let signal;
+
+    if(longPercent>=62)
+
+      signal="🟢 偏多";
+
+    else if(shortPercent>=62)
+
+      signal="🔴 偏空";
+
+    else
+
+      signal="🟡 觀望";
+
+    /* =====================================================
+
+       顯示
+
+       ===================================================== */
+
+    document.getElementById("price")
+
+      .textContent=fmt(price);
+
+    document.getElementById("updated")
+
+      .textContent=
+
+        "最後更新：" +
+
+        new Date().toLocaleTimeString("zh-TW");
+
+    document.getElementById("signal")
+
+      .textContent=signal;
+
+    document.getElementById("ratio")
+
+      .textContent=
+
+        "做多："+longPercent+
+
+        "%　|　做空："+shortPercent+"%";
+
+    document.getElementById("ratioBar")
+
+      .style.width=longPercent+"%";
+
+    document.getElementById("reason")
+
+      .textContent=
+
+        reasons.length
+
+        ? reasons.join("、")+"。"
+
+        : "等待更多條件共振。";
+
+    setDir("d15",m15dir);
+
+    setDir("d1h",direction(h1));
+
+    setDir("d4h",h4dir);
+
+    /* =====================================================
+
+       支撐壓力
+
+       ===================================================== */
+
+    document.getElementById("support")
+
+      .textContent=fmt(support);
+
+    document.getElementById("resistance")
+
+      .textContent=fmt(resistance);
+
+    document.getElementById("lower")
+
+      .textContent=fmt(b.lower);
+
+    document.getElementById("middle")
+
+      .textContent=fmt(b.middle);
+
+    document.getElementById("upper")
+
+      .textContent=fmt(b.upper);
+
+    /* =====================================================
+
+       技術指標
+
+       ===================================================== */
+
+    let tech=[
+
+      ["多頭分數",longScore],
+
+      ["空頭分數",shortScore],
+
+      ["RSI 1H",r.toFixed(1)],
+
+      [
+
+        "EMA 12 / 26",
+
+        fmt(e12)+" / "+fmt(e26)
+
+      ],
+
+      [
+
+        "MACD",
+
+        m.toFixed(6)
+
+      ],
+
+      [
+
+        "ATR 1H",
+
+        fmt(a)
+
+      ]
+
+    ];
+
+    document.getElementById("tech")
+
+      .innerHTML=
+
+        tech.map(item=>`
+
+          <div class="row">
+
+            <span>${item[0]}</span>
+
+            <span class="val">
+
+              ${item[1]}
+
+            </span>
+
+          </div>
+
+        `).join("");
+
+    /* =====================================================
+
+       做多
+
+       ===================================================== */
+
+    buildLong(
+
+      price,
+
+      support,
+
+      resistance,
+
+      b,
+
+      a,
+
+      r,
+
+      longPercent
 
     );
+
+    /* =====================================================
+
+       做空
+
+       ===================================================== */
+
+    buildShort(
+
+      price,
+
+      support,
+
+      resistance,
+
+      b,
+
+      a,
+
+      r,
+
+      shortPercent
+
+    );
+
+    /* =====================================================
+
+       線圖
+
+       ===================================================== */
+
+    CURRENT_DATA={
+
+      h1,
+
+      price,
+
+      support,
+
+      resistance,
+
+      boll:b,
+
+      longPercent,
+
+      shortPercent
+
+    };
+
+    drawChart(CURRENT_DATA);
 
   }
 
-  else if(d==="偏空"){
+  catch(error){
 
-    el.classList.add(
+    console.error(error);
 
-      "bear"
+    document.getElementById("updated")
 
-    );
+      .textContent="行情分析失敗";
 
-  }
+    document.getElementById("reason")
 
-  else{
+      .innerHTML=
 
-    el.classList.add(
+        `<span class="error">
 
-      "wait"
+        無法取得 ${symbol} 的完整行情資料。
 
-    );
+        <br><br>
+
+        請確認幣種代碼，例如 BTC、ETH、SOL、AKE。
+
+        </span>`;
 
   }
 
@@ -2072,7 +2030,7 @@ function setDir(id,d){
 
 /* =========================================================
 
-   建立做多區域
+   做多評估
 
    ========================================================= */
 
@@ -2084,7 +2042,7 @@ function buildLong(
 
   resistance,
 
-  b,
+  boll,
 
   atrValue,
 
@@ -2094,21 +2052,15 @@ function buildLong(
 
 ){
 
-  let nearSupport =
+  let nearSupport=
 
-    Math.abs(
+    Math.abs(price-support)/price<=0.012;
 
-      price-support
+  let nearLower=
 
-    )/price<=0.012;
+    price<=boll.lower*1.012;
 
-  let nearLower =
-
-    price<=
-
-    b.lower*1.012;
-
-  let rsiOK =
+  let rsiOK=
 
     rsiValue>=38 &&
 
@@ -2134,105 +2086,75 @@ function buildLong(
 
   let status;
 
-  if(score>=70){
+  if(score>=70)
 
-    status=
+    status="🟢 強支撐做多評估";
 
-      "🟢 強支撐做多評估";
+  else if(score>=45)
 
-  }
+    status="🟡 支撐觀察區";
 
-  else if(score>=45){
+  else
 
-    status=
+    status="🔴 不建議現在接多";
 
-      "🟡 支撐觀察區";
-
-  }
-
-  else{
-
-    status=
-
-      "🔴 不建議現在接多";
-
-  }
-
-  let zoneLow =
+  let zoneLow=
 
     Math.min(
 
       support,
 
-      b.lower
+      boll.lower
 
     );
 
-  let zoneHigh =
+  let zoneHigh=
 
     Math.max(
 
       support,
 
-      b.lower
+      boll.lower
 
     );
 
-  let entry =
+  let entry=
 
-    (zoneLow+
+    (zoneLow+zoneHigh)/2;
 
-     zoneHigh)/2;
+  let stopLoss=
 
-  let stopLoss =
+    support-atrValue*0.65;
 
-    support-
-
-    atrValue*0.65;
-
-  let tp1 =
+  let tp1=
 
     Math.min(
 
       resistance,
 
-      b.middle
+      boll.middle
 
     );
 
-  let tp2 =
+  let tp2=resistance;
 
-    resistance;
+  if(tp1<=entry)
 
-  if(tp1<=entry){
+    tp1=entry+atrValue*2;
 
-    tp1=
+  if(tp2<=tp1)
 
-      entry+
+    tp2=tp1+atrValue*1.5;
 
-      atrValue*2;
-
-  }
-
-  if(tp2<=tp1){
-
-    tp2=
-
-      tp1+
-
-      atrValue*1.5;
-
-  }
-
-  let risk =
+  let risk=
 
     entry-stopLoss;
 
-  let reward =
+  let reward=
 
     tp1-entry;
 
-  let rr =
+  let rr=
 
     risk>0
 
@@ -2240,87 +2162,61 @@ function buildLong(
 
     : 0;
 
-  document.getElementById(
+  document.getElementById("longStatus")
 
-    "longStatus"
+    .innerHTML=
 
-  ).innerHTML=
+      `<strong>${status}</strong>
 
-    `<strong>${status}</strong>
+      <div class="small"
 
-     <div class="small"
+           style="margin-top:8px">
 
-     style="margin-top:8px">
+      支撐：
 
-     支撐 ${fmt(support)}
+      ${fmt(support)}
 
-     ｜BOLL下軌 ${fmt(b.lower)}
+      ｜BOLL下軌：
 
-     ｜RSI ${rsiValue.toFixed(1)}
+      ${fmt(boll.lower)}
 
-     ｜做多條件 ${score}/100
+      ｜RSI：
 
-     </div>`;
+      ${rsiValue.toFixed(1)}
 
-  document.getElementById(
+      ｜做多條件：
 
-    "longZone"
+      ${score}/100
 
-  ).textContent=
+      </div>`;
 
-    fmt(zoneLow)+
+  document.getElementById("longZone")
 
-    " ～ "+
+    .textContent=
 
-    fmt(zoneHigh);
+      fmt(zoneLow)+" ～ "+fmt(zoneHigh);
 
-  document.getElementById(
+  document.getElementById("sl")
 
-    "sl"
+    .textContent=fmt(stopLoss);
 
-  ).textContent=
+  document.getElementById("tp1")
 
-    fmt(stopLoss);
+    .textContent=fmt(tp1);
 
-  document.getElementById(
+  document.getElementById("tp2")
 
-    "tp1"
+    .textContent=fmt(tp2);
 
-  ).textContent=
+  document.getElementById("rr")
 
-    fmt(tp1);
-
-  document.getElementById(
-
-    "tp2"
-
-  ).textContent=
-
-    fmt(tp2);
-
-  document.getElementById(
-
-    "rr"
-
-  ).textContent=
-
-    rr.toFixed(2)+
-
-    " : 1";
-
-  return {
-
-    low:zoneLow,
-
-    high:zoneHigh
-
-  };
+    .textContent=rr.toFixed(2)+" : 1";
 
 }
 
 /* =========================================================
 
-   建立做空區域
+   做空評估
 
    ========================================================= */
 
@@ -2332,7 +2228,7 @@ function buildShort(
 
   resistance,
 
-  b,
+  boll,
 
   atrValue,
 
@@ -2342,21 +2238,15 @@ function buildShort(
 
 ){
 
-  let nearResistance =
+  let nearResistance=
 
-    Math.abs(
+    Math.abs(price-resistance)/price<=0.012;
 
-      price-resistance
+  let nearUpper=
 
-    )/price<=0.012;
+    price>=boll.upper*0.988;
 
-  let nearUpper =
-
-    price>=
-
-    b.upper*0.988;
-
-  let rsiOK =
+  let rsiOK=
 
     rsiValue>=45 &&
 
@@ -2382,161 +2272,111 @@ function buildShort(
 
   let status;
 
-  if(score>=70){
+  if(score>=70)
 
-    status=
+    status="🔴 強壓力做空評估";
 
-      "🔴 強壓力做空評估";
+  else if(score>=45)
 
-  }
+    status="🟡 壓力觀察區";
 
-  else if(score>=45){
+  else
 
-    status=
+    status="🟢 不建議現在追空";
 
-      "🟡 壓力觀察區";
-
-  }
-
-  else{
-
-    status=
-
-      "🟢 不建議現在追空";
-
-  }
-
-  let zoneLow =
+  let zoneLow=
 
     Math.min(
 
       resistance,
 
-      b.upper
+      boll.upper
 
     );
 
-  let zoneHigh =
+  let zoneHigh=
 
     Math.max(
 
       resistance,
 
-      b.upper
+      boll.upper
 
     );
 
-  let entry =
+  let entry=
 
-    (zoneLow+
+    (zoneLow+zoneHigh)/2;
 
-     zoneHigh)/2;
+  let stopLoss=
 
-  let stopLoss =
+    resistance+atrValue*0.65;
 
-    resistance+
-
-    atrValue*0.65;
-
-  let tp1 =
+  let tp1=
 
     Math.max(
 
       support,
 
-      b.middle
+      boll.middle
 
     );
 
-  let tp2 =
+  let tp2=support;
 
-    support;
+  if(tp1>=entry)
 
-  if(tp1>=entry){
+    tp1=entry-atrValue*2;
 
-    tp1=
+  if(tp2>=tp1)
 
-      entry-
+    tp2=tp1-atrValue*1.5;
 
-      atrValue*2;
+  document.getElementById("shortStatus")
 
-  }
+    .innerHTML=
 
-  if(tp2>=tp1){
+      `<strong>${status}</strong>
 
-    tp2=
+      <div class="small"
 
-      tp1-
+           style="margin-top:8px">
 
-      atrValue*1.5;
+      壓力：
 
-  }
+      ${fmt(resistance)}
 
-  document.getElementById(
+      ｜BOLL上軌：
 
-    "shortStatus"
+      ${fmt(boll.upper)}
 
-  ).innerHTML=
+      ｜RSI：
 
-    `<strong>${status}</strong>
+      ${rsiValue.toFixed(1)}
 
-     <div class="small"
+      ｜做空條件：
 
-     style="margin-top:8px">
+      ${score}/100
 
-     壓力 ${fmt(resistance)}
+      </div>`;
 
-     ｜BOLL上軌 ${fmt(b.upper)}
+  document.getElementById("shortZone")
 
-     ｜RSI ${rsiValue.toFixed(1)}
+    .textContent=
 
-     ｜做空條件 ${score}/100
+      fmt(zoneLow)+" ～ "+fmt(zoneHigh);
 
-     </div>`;
+  document.getElementById("shortSL")
 
-  document.getElementById(
+    .textContent=fmt(stopLoss);
 
-    "shortZone"
+  document.getElementById("shortTP1")
 
-  ).textContent=
+    .textContent=fmt(tp1);
 
-    fmt(zoneLow)+
+  document.getElementById("shortTP2")
 
-    " ～ "+
-
-    fmt(zoneHigh);
-
-  document.getElementById(
-
-    "shortSL"
-
-  ).textContent=
-
-    fmt(stopLoss);
-
-  document.getElementById(
-
-    "shortTP1"
-
-  ).textContent=
-
-    fmt(tp1);
-
-  document.getElementById(
-
-    "shortTP2"
-
-  ).textContent=
-
-    fmt(tp2);
-
-  return {
-
-    low:zoneLow,
-
-    high:zoneHigh
-
-  };
+    .textContent=fmt(tp2);
 
 }
 
@@ -2546,129 +2386,35 @@ function buildShort(
 
    ========================================================= */
 
-function drawChart(
+function drawChart(data){
 
-  k,
+  let canvas=
 
-  support,
+    document.getElementById("chart");
 
-  resistance,
+  let box=
 
-  longZone,
+    canvas.parentElement;
 
-  shortZone
-
-){
-
-  let canvas =
-
-    document.getElementById(
-
-      "chart"
-
-    );
-
-  let rect =
-
-    canvas.getBoundingClientRect();
-
-  let dpr =
+  let dpr=
 
     window.devicePixelRatio||1;
 
-  canvas.width =
+  let width=box.clientWidth;
 
-    rect.width*dpr;
+  let height=box.clientHeight;
 
-  canvas.height =
+  canvas.width=width*dpr;
 
-    rect.height*dpr;
+  canvas.height=height*dpr;
 
-  let ctx =
+  canvas.style.width=width+"px";
 
-    canvas.getContext("2d");
+  canvas.style.height=height+"px";
+
+  let ctx=canvas.getContext("2d");
 
   ctx.scale(dpr,dpr);
-
-  let W=rect.width;
-
-  let H=rect.height;
-
-  let data =
-
-    k.slice(-80);
-
-  let prices =
-
-    data.map(
-
-      x=>Number(x.close)
-
-    );
-
-  let min =
-
-    Math.min(
-
-      ...prices,
-
-      support
-
-    );
-
-  let max =
-
-    Math.max(
-
-      ...prices,
-
-      resistance
-
-    );
-
-  let padding=35;
-
-  let range=max-min;
-
-  if(range===0)
-
-    range=1;
-
-  function y(v){
-
-    return H-
-
-      padding-
-
-      (
-
-        (v-min)/
-
-        range
-
-      )*
-
-      (H-padding*2);
-
-  }
-
-  function x(i){
-
-    return padding+
-
-      (
-
-        i/
-
-        (data.length-1)
-
-      )*
-
-      (W-padding*2);
-
-  }
-
-  /* 背景 */
 
   ctx.clearRect(
 
@@ -2676,67 +2422,81 @@ function drawChart(
 
     0,
 
-    W,
+    width,
 
-    H
-
-  );
-
-  ctx.fillStyle=
-
-    "#fafafa";
-
-  ctx.fillRect(
-
-    0,
-
-    0,
-
-    W,
-
-    H
+    height
 
   );
 
-  /* 網格 */
+  let arr=data.h1.slice(-80);
 
-  ctx.strokeStyle=
+  let values=
 
-    "#e7e7e7";
+    arr.map(x=>x.close);
+
+  let allValues=[
+
+    ...values,
+
+    data.support,
+
+    data.resistance,
+
+    data.boll.lower,
+
+    data.boll.middle,
+
+    data.boll.upper
+
+  ];
+
+  let min=
+
+    Math.min(...allValues);
+
+  let max=
+
+    Math.max(...allValues);
+
+  let range=max-min;
+
+  if(range<=0)
+
+    range=1;
+
+  let pad=20;
+
+  function y(v){
+
+    return height-pad-
+
+      ((v-min)/range)*
+
+      (height-pad*2);
+
+  }
+
+  /* 背景格線 */
+
+  ctx.strokeStyle="#e5e5e5";
 
   ctx.lineWidth=1;
 
   for(let i=1;i<5;i++){
 
-    let gy =
+    let yy=
 
-      padding+
+      pad+
 
-      (
+      (height-pad*2)*
 
-        i/5
-
-      )*
-
-      (H-padding*2);
+      i/5;
 
     ctx.beginPath();
 
-    ctx.moveTo(
+    ctx.moveTo(0,yy);
 
-      padding,
-
-      gy
-
-    );
-
-    ctx.lineTo(
-
-      W-padding,
-
-      gy
-
-    );
+    ctx.lineTo(width,yy);
 
     ctx.stroke();
 
@@ -2744,257 +2504,219 @@ function drawChart(
 
   /* 做多區域 */
 
-  if(longZone){
+  let longTop=
 
-    let top =
+    Math.max(
 
-      y(longZone.high);
+      data.support,
 
-    let bottom =
-
-      y(longZone.low);
-
-    ctx.fillStyle=
-
-      "rgba(19,138,61,.10)";
-
-    ctx.fillRect(
-
-      padding,
-
-      Math.min(
-
-        top,
-
-        bottom
-
-      ),
-
-      W-padding*2,
-
-      Math.abs(
-
-        bottom-top
-
-      )
+      data.boll.lower
 
     );
 
-  }
+  let longBottom=
+
+    Math.min(
+
+      data.support,
+
+      data.boll.lower
+
+    );
+
+  ctx.fillStyle="rgba(19,138,61,0.10)";
+
+  ctx.fillRect(
+
+    0,
+
+    y(longTop),
+
+    width,
+
+    Math.max(
+
+      1,
+
+      y(longBottom)-y(longTop)
+
+    )
+
+  );
 
   /* 做空區域 */
 
-  if(shortZone){
+  let shortTop=
 
-    let top =
+    Math.max(
 
-      y(shortZone.high);
+      data.resistance,
 
-    let bottom =
-
-      y(shortZone.low);
-
-    ctx.fillStyle=
-
-      "rgba(197,45,32,.10)";
-
-    ctx.fillRect(
-
-      padding,
-
-      Math.min(
-
-        top,
-
-        bottom
-
-      ),
-
-      W-padding*2,
-
-      Math.abs(
-
-        bottom-top
-
-      )
+      data.boll.upper
 
     );
 
-  }
+  let shortBottom=
 
-  /* 價格線 */
+    Math.min(
+
+      data.resistance,
+
+      data.boll.upper
+
+    );
+
+  ctx.fillStyle="rgba(197,45,32,0.10)";
+
+  ctx.fillRect(
+
+    0,
+
+    y(shortTop),
+
+    width,
+
+    Math.max(
+
+      1,
+
+      y(shortBottom)-y(shortTop)
+
+    )
+
+  );
+
+  /* BOLL 中軌 */
+
+  ctx.strokeStyle="#c9a227";
+
+  ctx.lineWidth=1.5;
+
+  ctx.setLineDash([5,5]);
 
   ctx.beginPath();
 
-  prices.forEach(
-
-    (price,i)=>{
-
-      if(i===0){
-
-        ctx.moveTo(
-
-          x(i),
-
-          y(price)
-
-        );
-
-      }
-
-      else{
-
-        ctx.lineTo(
-
-          x(i),
-
-          y(price)
-
-        );
-
-      }
-
-    }
-
-  );
-
-  ctx.strokeStyle=
-
-    "#222";
-
-  ctx.lineWidth=2.5;
-
-  ctx.stroke();
-
-  /* 支撐 */
-
-  drawHorizontal(
-
-    ctx,
-
-    y(support),
-
-    W,
-
-    padding,
-
-    "支撐 "+
-
-    fmt(support)
-
-  );
-
-  /* 壓力 */
-
-  drawHorizontal(
-
-    ctx,
-
-    y(resistance),
-
-    W,
-
-    padding,
-
-    "壓力 "+
-
-    fmt(resistance)
-
-  );
-
-  /* 最新價格 */
-
-  let last =
-
-    prices[prices.length-1];
-
-  ctx.fillStyle=
-
-    "#222";
-
-  ctx.font=
-
-    "bold 13px sans-serif";
-
-  ctx.fillText(
-
-    "目前 "+
-
-    fmt(last),
-
-    padding,
-
-    22
-
-  );
-
-}
-
-function drawHorizontal(
-
-  ctx,
-
-  yy,
-
-  W,
-
-  padding,
-
-  label
-
-){
-
-  ctx.save();
-
-  ctx.setLineDash([
-
-    6,5
-
-  ]);
-
-  ctx.strokeStyle=
-
-    "#888";
-
-  ctx.lineWidth=1;
-
-  ctx.beginPath();
-
-  ctx.moveTo(
-
-    padding,
-
-    yy
-
-  );
+  ctx.moveTo(0,y(data.boll.middle));
 
   ctx.lineTo(
 
-    W-padding,
+    width,
 
-    yy
+    y(data.boll.middle)
 
   );
 
   ctx.stroke();
 
-  ctx.restore();
+  ctx.setLineDash([]);
 
-  ctx.fillStyle=
+  /* 價格 */
 
-    "#666";
+  ctx.strokeStyle="#222";
 
-  ctx.font=
+  ctx.lineWidth=2;
 
-    "12px sans-serif";
+  ctx.beginPath();
+
+  arr.forEach((x,i)=>{
+
+    let xx=
+
+      i/(arr.length-1)*
+
+      width;
+
+    let yy=y(x.close);
+
+    if(i===0)
+
+      ctx.moveTo(xx,yy);
+
+    else
+
+      ctx.lineTo(xx,yy);
+
+  });
+
+  ctx.stroke();
+
+  /* 目前價格 */
+
+  let current=data.price;
+
+  let cy=y(current);
+
+  ctx.strokeStyle="#777";
+
+  ctx.lineWidth=1;
+
+  ctx.setLineDash([4,4]);
+
+  ctx.beginPath();
+
+  ctx.moveTo(0,cy);
+
+  ctx.lineTo(width,cy);
+
+  ctx.stroke();
+
+  ctx.setLineDash([]);
+
+  /* 目前價格文字 */
+
+  ctx.fillStyle="#222";
+
+  ctx.font="bold 13px sans-serif";
 
   ctx.fillText(
 
-    label,
+    "目前 "+fmt(current),
 
-    padding+5,
+    8,
 
-    yy-5
+    Math.max(15,cy-7)
+
+  );
+
+  /* 做多標記 */
+
+  ctx.fillStyle="#138a3d";
+
+  ctx.font="bold 13px sans-serif";
+
+  ctx.fillText(
+
+    "🟢 做多區",
+
+    8,
+
+    Math.min(
+
+      height-8,
+
+      y(longTop)-5
+
+    )
+
+  );
+
+  /* 做空標記 */
+
+  ctx.fillStyle="#c52d20";
+
+  ctx.fillText(
+
+    "🔴 做空區",
+
+    8,
+
+    Math.max(
+
+      15,
+
+      y(shortTop)-5
+
+    )
 
   );
 
@@ -3002,735 +2724,111 @@ function drawHorizontal(
 
 /* =========================================================
 
-   主分析
+   開始分析
 
    ========================================================= */
 
 async function startAnalysis(){
 
-  let symbol =
+  let input=
 
-    cleanSymbol();
+    document.getElementById("symbolInput")
 
-  if(!symbol){
+      .value
 
-    alert(
+      .trim()
 
-      "請輸入幣種，例如 BTC"
+      .toUpperCase();
 
-    );
+  if(!input){
+
+    alert("請輸入幣種，例如 BTC");
 
     return;
 
   }
 
-  CURRENT_SYMBOL=
+  /* 自動清除 USDT */
 
-    symbol;
+  input=
 
-  clearData();
+    input
 
-  document.getElementById(
+      .replace("/USDT","")
 
-    "updated"
+      .replace("-USDT","")
 
-  ).textContent=
+      .replace("_USDT","")
 
-    "正在尋找 "+
+      .replace("USDT","");
 
-    symbol+
+  CURRENT_SYMBOL=input;
 
-    " 行情…";
+  document.getElementById("signal")
+
+    .textContent="🟡 搜尋市場…";
+
+  document.getElementById("updated")
+
+    .textContent="正在尋找正確交易對…";
 
   try{
 
-    let result =
+    let market=
 
-      await Promise.all([
+      await findMarket(input);
 
-        getMarket(
+    if(!market){
 
-          "15m",
+      document.getElementById("marketInfo")
 
-          symbol
+        .innerHTML=
 
-        ),
+          `<span class="error">
 
-        getMarket(
+          ❌ 找不到 ${input}/USDT
 
-          "1h",
+          <br>
 
-          symbol
+          Binance 與 Gate 都沒有找到可分析的 USDT 市場。
 
-        ),
+          </span>`;
 
-        getMarket(
+      document.getElementById("signal")
 
-          "4h",
+        .textContent="⚪ 找不到交易對";
 
-          symbol
+      document.getElementById("updated")
 
-        )
+        .textContent="分析停止";
 
-      ]);
-
-    /*
-
-      三個週期可能使用
-
-      不同平台備援。
-
-      這是正常的。
-
-    */
-
-    let m15 =
-
-      analyze(
-
-        result[0].data
-
-      );
-
-    let h1 =
-
-      analyze(
-
-        result[1].data
-
-      );
-
-    let h4 =
-
-      analyze(
-
-        result[2].data
-
-      );
-
-    CURRENT_DATA={
-
-      m15:m15,
-
-      h1:h1,
-
-      h4:h4
-
-    };
-
-    let price =
-
-      h1.a[
-
-        h1.a.length-1
-
-      ];
-
-    let b =
-
-      h1.boll;
-
-    let e12 =
-
-      ema(
-
-        h1.a,
-
-        12
-
-      );
-
-    let e26 =
-
-      ema(
-
-        h1.a,
-
-        26
-
-      );
-
-    let m =
-
-      macd(
-
-        h1.a
-
-      );
-
-    let r =
-
-      h1.r;
-
-    /* =====================================================
-
-       近50根支撐壓力
-
-       ===================================================== */
-
-    let last50 =
-
-      h1.k.slice(-50);
-
-    let highs =
-
-      last50.map(
-
-        x=>Number(x.high)
-
-      );
-
-    let lows =
-
-      last50.map(
-
-        x=>Number(x.low)
-
-      );
-
-    let support =
-
-      Math.min(
-
-        ...lows
-
-      );
-
-    let resistance =
-
-      Math.max(
-
-        ...highs
-
-      );
-
-    /* =====================================================
-
-       多空評分
-
-       ===================================================== */
-
-    let longScore=0;
-
-    let shortScore=0;
-
-    let reasons=[];
-
-    /* EMA */
-
-    if(e12>e26){
-
-      longScore+=20;
-
-      reasons.push(
-
-        "1H EMA 偏多"
-
-      );
+      return;
 
     }
 
-    else{
+    CURRENT_MARKET=market;
 
-      shortScore+=20;
+    document.getElementById("marketInfo")
 
-      reasons.push(
+      .innerHTML=
 
-        "1H EMA 偏空"
+        `✅ 實際分析市場：
 
-      );
+        <strong>
 
-    }
+        ${market.exchange}
 
-    /* RSI */
+        ${market.type}
 
-    if(r>=50){
+        ${market.symbol}
 
-      longScore+=15;
+        </strong>`;
 
-    }
+    document.getElementById("signal")
 
-    else{
+      .textContent="🟡 取得行情…";
 
-      shortScore+=15;
-
-    }
-
-    /* MACD */
-
-    if(m>0){
-
-      longScore+=15;
-
-    }
-
-    else{
-
-      shortScore+=15;
-
-    }
-
-    /* BOLL */
-
-    if(
-
-      price<=
-
-      b.lower*1.012
-
-    ){
-
-      longScore+=20;
-
-      reasons.push(
-
-        "價格接近 BOLL 下軌"
-
-      );
-
-    }
-
-    if(
-
-      price>=
-
-      b.upper*0.988
-
-    ){
-
-      shortScore+=20;
-
-      reasons.push(
-
-        "價格接近 BOLL 上軌"
-
-      );
-
-    }
-
-    /* 中軌 */
-
-    if(price>b.middle){
-
-      longScore+=10;
-
-    }
-
-    else{
-
-      shortScore+=10;
-
-    }
-
-    /* 4H */
-
-    if(
-
-      h4.dir==="偏多"
-
-    ){
-
-      longScore+=15;
-
-    }
-
-    else if(
-
-      h4.dir==="偏空"
-
-    ){
-
-      shortScore+=15;
-
-    }
-
-    let total =
-
-      longScore+
-
-      shortScore;
-
-    if(total<=0)
-
-      total=1;
-
-    let longPercent =
-
-      Math.round(
-
-        longScore/
-
-        total*
-
-        100
-
-      );
-
-    let shortPercent =
-
-      100-longPercent;
-
-    /* =====================================================
-
-       主訊號
-
-       ===================================================== */
-
-    let signal;
-
-    if(longPercent>=62){
-
-      signal=
-
-        "🟢 偏多";
-
-    }
-
-    else if(
-
-      shortPercent>=62
-
-    ){
-
-      signal=
-
-        "🔴 偏空";
-
-    }
-
-    else{
-
-      signal=
-
-        "🟡 觀望";
-
-    }
-
-    /* =====================================================
-
-       更新
-
-       ===================================================== */
-
-    document.getElementById(
-
-      "price"
-
-    ).textContent=
-
-      fmt(price);
-
-    document.getElementById(
-
-      "updated"
-
-    ).textContent=
-
-      "最後更新："+
-
-      new Date()
-
-        .toLocaleTimeString(
-
-          "zh-TW"
-
-        );
-
-    document.getElementById(
-
-      "signal"
-
-    ).textContent=
-
-      signal;
-
-    document.getElementById(
-
-      "ratio"
-
-    ).textContent=
-
-      "做多："+
-
-      longPercent+
-
-      "%　|　做空："+
-
-      shortPercent+
-
-      "%";
-
-    document.getElementById(
-
-      "ratioBar"
-
-    ).style.width=
-
-      longPercent+
-
-      "%";
-
-    document.getElementById(
-
-      "reason"
-
-    ).textContent=
-
-      reasons.length
-
-      ? reasons.join("、")+
-
-        "。"
-
-      : "等待更多條件共振。";
-
-    document.getElementById(
-
-      "source"
-
-    ).textContent=
-
-      "15M："+result[0].source+
-
-      "｜1H："+result[1].source+
-
-      "｜4H："+result[2].source;
-
-    setDir(
-
-      "d15",
-
-      m15.dir
-
-    );
-
-    setDir(
-
-      "d1h",
-
-      h1.dir
-
-    );
-
-    setDir(
-
-      "d4h",
-
-      h4.dir
-
-    );
-
-    /* 支撐壓力 */
-
-    document.getElementById(
-
-      "support"
-
-    ).textContent=
-
-      fmt(support);
-
-    document.getElementById(
-
-      "resistance"
-
-    ).textContent=
-
-      fmt(resistance);
-
-    /* BOLL */
-
-    document.getElementById(
-
-      "lower"
-
-    ).textContent=
-
-      fmt(b.lower);
-
-    document.getElementById(
-
-      "middle"
-
-    ).textContent=
-
-      fmt(b.middle);
-
-    document.getElementById(
-
-      "upper"
-
-    ).textContent=
-
-      fmt(b.upper);
-
-    /* =====================================================
-
-       技術指標
-
-       ===================================================== */
-
-    let techData=[
-
-      [
-
-        "多頭分數",
-
-        longScore
-
-      ],
-
-      [
-
-        "空頭分數",
-
-        shortScore
-
-      ],
-
-      [
-
-        "RSI 1H",
-
-        r.toFixed(1)
-
-      ],
-
-      [
-
-        "EMA 12 / 26",
-
-        fmt(e12)+
-
-        " / "+
-
-        fmt(e26)
-
-      ],
-
-      [
-
-        "MACD",
-
-        m.toFixed(4)
-
-      ],
-
-      [
-
-        "ATR 1H",
-
-        fmt(h1.atr)
-
-      ]
-
-    ];
-
-    document.getElementById(
-
-      "tech"
-
-    ).innerHTML=
-
-      techData.map(
-
-        item=>`
-
-        <div class="row">
-
-          <span>
-
-            ${item[0]}
-
-          </span>
-
-          <span class="val">
-
-            ${item[1]}
-
-          </span>
-
-        </div>
-
-        `
-
-      ).join("");
-
-    /* =====================================================
-
-       做多 / 做空
-
-       ===================================================== */
-
-    let longZone =
-
-      buildLong(
-
-        price,
-
-        support,
-
-        resistance,
-
-        b,
-
-        h1.atr,
-
-        r,
-
-        longPercent
-
-      );
-
-    let shortZone =
-
-      buildShort(
-
-        price,
-
-        support,
-
-        resistance,
-
-        b,
-
-        h1.atr,
-
-        r,
-
-        shortPercent
-
-      );
-
-    /* =====================================================
-
-       畫圖
-
-       ===================================================== */
-
-    setTimeout(
-
-      function(){
-
-        drawChart(
-
-          h1.k,
-
-          support,
-
-          resistance,
-
-          longZone,
-
-          shortZone
-
-        );
-
-      },
-
-      50
-
-    );
+    await refresh();
 
   }
 
@@ -3738,55 +2836,19 @@ async function startAnalysis(){
 
     console.error(error);
 
-    clearData();
+    document.getElementById("marketInfo")
 
-    document.getElementById(
+      .innerHTML=
 
-      "updated"
+        `<span class="error">
 
-    ).textContent=
+        ❌ 市場搜尋失敗
 
-      "行情取得失敗";
+        </span>`;
 
-    document.getElementById(
+    document.getElementById("updated")
 
-      "signal"
-
-    ).textContent=
-
-      "🟡 無法分析";
-
-    document.getElementById(
-
-      "reason"
-
-    ).innerHTML=
-
-      `<span class="error">
-
-        找不到 ${symbol} 可用的即時行情。
-
-        <br><br>
-
-        已自動嘗試：
-
-        <br>
-
-        Binance → Gate 現貨 → Gate USDT 永續
-
-        <br><br>
-
-        請確認幣種代號是否正確。
-
-      </span>`;
-
-    document.getElementById(
-
-      "source"
-
-    ).textContent=
-
-      "未找到可用交易對";
+      .textContent="連線失敗";
 
   }
 
@@ -3794,17 +2856,11 @@ async function startAnalysis(){
 
 /* =========================================================
 
-   Enter 快速分析
+   Enter 開始分析
 
    ========================================================= */
 
-document
-
-  .getElementById(
-
-    "symbolInput"
-
-  )
+document.getElementById("symbolInput")
 
   .addEventListener(
 
@@ -3812,11 +2868,9 @@ document
 
     function(e){
 
-      if(e.key==="Enter"){
+      if(e.key==="Enter")
 
         startAnalysis();
-
-      }
 
     }
 
@@ -3824,37 +2878,7 @@ document
 
 /* =========================================================
 
-   自動更新
-
-   ========================================================= */
-
-setInterval(
-
-  function(){
-
-    if(CURRENT_SYMBOL){
-
-      startAnalysis();
-
-    }
-
-  },
-
-  60000
-
-);
-
-/* =========================================================
-
-   啟動
-
-   ========================================================= */
-
-startAnalysis();
-
-/* =========================================================
-
-   視窗尺寸改變時重新畫圖
+   視窗大小改變重新畫圖
 
    ========================================================= */
 
@@ -3864,123 +2888,39 @@ window.addEventListener(
 
   function(){
 
-    if(
+    if(CURRENT_DATA)
 
-      CURRENT_DATA &&
-
-      CURRENT_DATA.h1
-
-    ){
-
-      let h1 =
-
-        CURRENT_DATA.h1;
-
-      let prices =
-
-        h1.a;
-
-      let last =
-
-        prices[
-
-          prices.length-1
-
-        ];
-
-      let last50 =
-
-        h1.k.slice(-50);
-
-      let support =
-
-        Math.min(
-
-          ...last50.map(
-
-            x=>Number(x.low)
-
-          )
-
-        );
-
-      let resistance =
-
-        Math.max(
-
-          ...last50.map(
-
-            x=>Number(x.high)
-
-          )
-
-        );
-
-      let longZone={
-
-        low:
-
-          Math.min(
-
-            support,
-
-            h1.boll.lower
-
-          ),
-
-        high:
-
-          Math.max(
-
-            support,
-
-            h1.boll.lower
-
-          )
-
-      };
-
-      let shortZone={
-
-        low:
-
-          Math.min(
-
-            resistance,
-
-            h1.boll.upper
-
-          ),
-
-        high:
-
-          Math.max(
-
-            resistance,
-
-            h1.boll.upper
-
-          )
-
-      };
-
-      drawChart(
-
-        h1.k,
-
-        support,
-
-        resistance,
-
-        longZone,
-
-        shortZone
-
-      );
-
-    }
+      drawChart(CURRENT_DATA);
 
   }
+
+);
+
+/* =========================================================
+
+   預設 BTC
+
+   ========================================================= */
+
+startAnalysis();
+
+/* =========================================================
+
+   每60秒更新
+
+   ========================================================= */
+
+setInterval(
+
+  function(){
+
+    if(CURRENT_MARKET)
+
+      refresh();
+
+  },
+
+  60000
 
 );
 
