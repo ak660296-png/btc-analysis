@@ -6,13 +6,19 @@
 
 <meta charset="utf-8">
 
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport"
 
-<title>₿ 萬用幣種多空分析 V2.0</title>
+      content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<title>₿ 萬用幣種多空分析 V2.1</title>
 
 <style>
 
-*{box-sizing:border-box}
+*{
+
+  box-sizing:border-box
+
+}
 
 body{
 
@@ -250,11 +256,23 @@ button{
 
 }
 
-.bull{color:#138a3d}
+.bull{
 
-.bear{color:#c52d20}
+  color:#138a3d;
 
-.wait{color:#8b8b00}
+}
+
+.bear{
+
+  color:#c52d20;
+
+}
+
+.wait{
+
+  color:#8b8b00;
+
+}
 
 h2{
 
@@ -354,6 +372,14 @@ h2{
 
 }
 
+.warn{
+
+  color:#8b6500;
+
+  font-weight:700;
+
+}
+
 .chartWrap{
 
   position:relative;
@@ -409,6 +435,108 @@ canvas{
 .loading{
 
   opacity:.65;
+
+}
+
+.atrLow{
+
+  color:#138a3d;
+
+  font-weight:800;
+
+}
+
+.atrNormal{
+
+  color:#8b6500;
+
+  font-weight:800;
+
+}
+
+.atrHigh{
+
+  color:#c52d20;
+
+  font-weight:800;
+
+}
+
+.atrBox{
+
+  background:#f7f7f8;
+
+  border-radius:22px;
+
+  padding:18px;
+
+  margin-top:12px;
+
+}
+
+.atrTitle{
+
+  font-size:16px;
+
+  color:#73777f;
+
+}
+
+.atrMain{
+
+  font-size:27px;
+
+  font-weight:800;
+
+  margin-top:6px;
+
+}
+
+.warningBox{
+
+  border-radius:20px;
+
+  padding:16px;
+
+  margin-top:12px;
+
+  background:#fff5d9;
+
+  color:#795900;
+
+  line-height:1.6;
+
+}
+
+.goodBox{
+
+  border-radius:20px;
+
+  padding:16px;
+
+  margin-top:12px;
+
+  background:#edf8f0;
+
+  color:#176b36;
+
+  line-height:1.6;
+
+}
+
+.badBox{
+
+  border-radius:20px;
+
+  padding:16px;
+
+  margin-top:12px;
+
+  background:#fff0ef;
+
+  color:#a3231b;
+
+  line-height:1.6;
 
 }
 
@@ -468,17 +596,17 @@ canvas{
 
   <div class="title">
 
-    ₿ 萬用幣種多空分析 V2.0
+    ₿ 萬用幣種多空分析 V2.1
 
   </div>
 
   <div class="sub">
 
-    自動辨識 Binance / Gate｜15M / 1H / 4H｜BOLL＋量能＋支撐壓力
+    Binance / Gate｜15M / 1H / 4H｜
+
+    BOLL＋量能結構＋支撐壓力＋ATR動態風控
 
   </div>
-
-  <!-- 搜尋 -->
 
   <div class="search">
 
@@ -496,7 +624,7 @@ canvas{
 
         value="BTC"
 
-        placeholder="例如 BTC、ETH、AKE、SOL">
+        placeholder="例如 BTC、ETH、SOL、AKE">
 
       <button onclick="startAnalysis()">
 
@@ -595,6 +723,94 @@ canvas{
       </div>
 
     </div>
+
+  </div>
+
+  <!-- ATR -->
+
+  <div class="card">
+
+    <h2>🌡️ ATR 波動分析</h2>
+
+    <div class="atrBox">
+
+      <div class="atrTitle">
+
+        ATR 14（1H）
+
+      </div>
+
+      <div id="atrValue"
+
+           class="atrMain">
+
+        —
+
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <span>ATR 14</span>
+
+      <span class="val" id="atr14">
+
+        —
+
+      </span>
+
+    </div>
+
+    <div class="row">
+
+      <span>ATR 50</span>
+
+      <span class="val" id="atr50">
+
+        —
+
+      </span>
+
+    </div>
+
+    <div class="row">
+
+      <span>ATR 波動比</span>
+
+      <span class="val" id="atrRatio">
+
+        —
+
+      </span>
+
+    </div>
+
+    <div class="row">
+
+      <span>目前波動狀態</span>
+
+      <span class="val" id="atrState">
+
+        —
+
+      </span>
+
+    </div>
+
+    <div class="row">
+
+      <span>ATR 風控倍率</span>
+
+      <span class="val" id="atrMultiplier">
+
+        —
+
+      </span>
+
+    </div>
+
+    <div id="atrAdvice"></div>
 
   </div>
 
@@ -698,15 +914,23 @@ canvas{
 
       <span>建議做多區間</span>
 
-      <span class="val" id="longZone">—</span>
+      <span class="val" id="longZone">
+
+        —
+
+      </span>
 
     </div>
 
     <div class="row">
 
-      <span>參考止損</span>
+      <span>ATR 動態止損</span>
 
-      <span class="val" id="sl">—</span>
+      <span class="val" id="sl">
+
+        —
+
+      </span>
 
     </div>
 
@@ -714,7 +938,11 @@ canvas{
 
       <span>TP1</span>
 
-      <span class="val" id="tp1">—</span>
+      <span class="val" id="tp1">
+
+        —
+
+      </span>
 
     </div>
 
@@ -722,7 +950,11 @@ canvas{
 
       <span>TP2</span>
 
-      <span class="val" id="tp2">—</span>
+      <span class="val" id="tp2">
+
+        —
+
+      </span>
 
     </div>
 
@@ -730,7 +962,11 @@ canvas{
 
       <span>TP1 風險報酬</span>
 
-      <span class="val" id="rr">—</span>
+      <span class="val" id="rr">
+
+        —
+
+      </span>
 
     </div>
 
@@ -752,15 +988,23 @@ canvas{
 
       <span>建議做空區間</span>
 
-      <span class="val" id="shortZone">—</span>
+      <span class="val" id="shortZone">
+
+        —
+
+      </span>
 
     </div>
 
     <div class="row">
 
-      <span>參考止損</span>
+      <span>ATR 動態止損</span>
 
-      <span class="val" id="shortSL">—</span>
+      <span class="val" id="shortSL">
+
+        —
+
+      </span>
 
     </div>
 
@@ -768,7 +1012,11 @@ canvas{
 
       <span>TP1</span>
 
-      <span class="val" id="shortTP1">—</span>
+      <span class="val" id="shortTP1">
+
+        —
+
+      </span>
 
     </div>
 
@@ -776,7 +1024,11 @@ canvas{
 
       <span>TP2</span>
 
-      <span class="val" id="shortTP2">—</span>
+      <span class="val" id="shortTP2">
+
+        —
+
+      </span>
 
     </div>
 
@@ -784,9 +1036,13 @@ canvas{
 
   <p class="notice">
 
-    ⚠️ 技術分析僅供參考。支撐或壓力被突破後，不代表價格一定反轉。
+    ⚠️ 技術分析僅供參考。
 
-    建議搭配成交量、K線結構及實際市場狀況判斷。
+    ATR 是波動度指標，不代表價格一定反轉。
+
+    高 ATR 環境下止損需要留出更多空間，
+
+    不建議單純因為訊號偏多或偏空就追單。
 
   </p>
 
@@ -796,7 +1052,9 @@ canvas{
 
 /* =========================================================
 
-   萬用幣種分析器 V2.0
+   萬用幣種分析器 V2.1
+
+   ATR 強化版
 
    Binance + Gate
 
@@ -816,27 +1074,33 @@ let CURRENT_DATA = null;
 
 function fmt(x){
 
-  if(!isFinite(x)) return "—";
+  if(!isFinite(x))
 
-  let digits = x >= 1000 ? 2 :
+    return "—";
 
-               x >= 1 ? 4 :
+  let digits =
 
-               x >= 0.01 ? 6 : 8;
+    x >= 1000 ? 2 :
 
-  return "$" + Number(x).toLocaleString(
+    x >= 1 ? 4 :
 
-    undefined,
+    x >= 0.01 ? 6 : 8;
 
-    {
+  return "$" +
 
-      minimumFractionDigits:digits,
+    Number(x).toLocaleString(
 
-      maximumFractionDigits:digits
+      undefined,
 
-    }
+      {
 
-  );
+        minimumFractionDigits:digits,
+
+        maximumFractionDigits:digits
+
+      }
+
+    );
 
 }
 
@@ -848,7 +1112,9 @@ function fmt(x){
 
 function ema(data,n){
 
-  if(!data.length) return 0;
+  if(!data.length)
+
+    return 0;
 
   let k=2/(n+1);
 
@@ -874,7 +1140,9 @@ function sma(data,n){
 
   let arr=data.slice(-n);
 
-  if(!arr.length) return 0;
+  if(!arr.length)
+
+    return 0;
 
   return arr.reduce(
 
@@ -896,6 +1164,10 @@ function sd(data,n){
 
   let arr=data.slice(-n);
 
+  if(!arr.length)
+
+    return 0;
+
   let mean=sma(arr,n);
 
   let sum=0;
@@ -906,7 +1178,11 @@ function sd(data,n){
 
   });
 
-  return Math.sqrt(sum/arr.length);
+  return Math.sqrt(
+
+    sum/arr.length
+
+  );
 
 }
 
@@ -918,7 +1194,9 @@ function sd(data,n){
 
 function rsi(data,n=14){
 
-  if(data.length<n+1) return 50;
+  if(data.length<n+1)
+
+    return 50;
 
   let gain=0;
 
@@ -936,13 +1214,19 @@ function rsi(data,n=14){
 
     let d=data[i]-data[i-1];
 
-    if(d>0) gain+=d;
+    if(d>0)
 
-    else loss-=d;
+      gain+=d;
+
+    else
+
+      loss-=d;
 
   }
 
-  if(loss===0) return 100;
+  if(loss===0)
+
+    return 100;
 
   let rs=(gain/n)/(loss/n);
 
@@ -1044,15 +1328,185 @@ function direction(data){
 
   let r=rsi(c,14);
 
-  if(e12>e26 && r>=50)
+  if(
+
+    e12>e26 &&
+
+    r>=50
+
+  )
 
     return "偏多";
 
-  if(e12<e26 && r<50)
+  if(
+
+    e12<e26 &&
+
+    r<50
+
+  )
 
     return "偏空";
 
   return "震盪";
+
+}
+
+/* =========================================================
+
+   ATR 波動狀態
+
+   ========================================================= */
+
+function getATRState(currentATR,baseATR){
+
+  if(
+
+    !isFinite(currentATR) ||
+
+    !isFinite(baseATR) ||
+
+    baseATR<=0
+
+  ){
+
+    return {
+
+      ratio:1,
+
+      state:"正常",
+
+      className:"atrNormal"
+
+    };
+
+  }
+
+  let ratio=currentATR/baseATR;
+
+  if(ratio>=1.35){
+
+    return {
+
+      ratio:ratio,
+
+      state:"🔴 高波動",
+
+      className:"atrHigh"
+
+    };
+
+  }
+
+  if(ratio<=0.75){
+
+    return {
+
+      ratio:ratio,
+
+      state:"🟢 低波動",
+
+      className:"atrLow"
+
+    };
+
+  }
+
+  return {
+
+    ratio:ratio,
+
+    state:"🟡 正常",
+
+    className:"atrNormal"
+
+  };
+
+}
+
+/* =========================================================
+
+   ATR 基礎倍率
+
+   ========================================================= */
+
+function getBaseATRMultiplier(symbol){
+
+  symbol=symbol.toUpperCase();
+
+  if(symbol==="BTC")
+
+    return 0.65;
+
+  if(symbol==="ETH")
+
+    return 0.75;
+
+  const majorCoins=[
+
+    "BNB",
+
+    "SOL",
+
+    "XRP",
+
+    "ADA",
+
+    "DOGE",
+
+    "TRX",
+
+    "AVAX",
+
+    "LINK",
+
+    "LTC",
+
+    "BCH"
+
+  ];
+
+  if(majorCoins.includes(symbol))
+
+    return 0.85;
+
+  return 1.00;
+
+}
+
+/* =========================================================
+
+   動態 ATR 倍率
+
+   ========================================================= */
+
+function getDynamicATRMultiplier(
+
+  symbol,
+
+  atrState
+
+){
+
+  let base=
+
+    getBaseATRMultiplier(symbol);
+
+  if(atrState==="高波動")
+
+    base+=0.25;
+
+  else if(atrState==="低波動")
+
+    base-=0.10;
+
+  return Math.max(
+
+    0.55,
+
+    Math.min(base,1.35)
+
+  );
 
 }
 
@@ -1086,15 +1540,17 @@ async function findBinance(symbol){
 
     symbol.toUpperCase();
 
-  let found=data.symbols.find(
+  let found=
 
-    x=>
+    data.symbols.find(
 
-      x.symbol===target+"USDT" &&
+      x=>
 
-      x.status==="TRADING"
+        x.symbol===target+"USDT" &&
 
-  );
+        x.status==="TRADING"
+
+    );
 
   if(!found)
 
@@ -1108,7 +1564,13 @@ async function findBinance(symbol){
 
     symbol:found.symbol,
 
-    pair:found.baseAsset+" / "+found.quoteAsset
+    pair:
+
+      found.baseAsset+
+
+      " / "+
+
+      found.quoteAsset
 
   };
 
@@ -1142,17 +1604,21 @@ async function findGateFutures(symbol){
 
   let target=
 
-    symbol.toUpperCase()+"_USDT";
+    symbol.toUpperCase()+
 
-  let found=data.find(
+    "_USDT";
 
-    x=>
+  let found=
 
-      x.name===target &&
+    data.find(
 
-      x.in_delisting===false
+      x=>
 
-  );
+        x.name===target &&
+
+        x.in_delisting===false
+
+    );
 
   if(!found)
 
@@ -1200,27 +1666,31 @@ async function findGateSpot(symbol){
 
   let target=
 
-    symbol.toUpperCase()+"_USDT";
+    symbol.toUpperCase()+
 
-  let found=data.find(
+    "_USDT";
 
-    x=>
+  let found=
 
-      x.id===target &&
-
-      x.trade_status==="tradable"
-
-  );
-
-  if(!found){
-
-    found=data.find(
+    data.find(
 
       x=>
 
-        x.id===target
+        x.id===target &&
+
+        x.trade_status==="tradable"
 
     );
+
+  if(!found){
+
+    found=
+
+      data.find(
+
+        x=>x.id===target
+
+      );
 
   }
 
@@ -1245,14 +1715,6 @@ async function findGateSpot(symbol){
 /* =========================================================
 
    自動尋找市場
-
-   優先：
-
-   Gate 永續
-
-   Binance 現貨
-
-   Gate 現貨
 
    ========================================================= */
 
@@ -1348,23 +1810,29 @@ async function getBinance(tf,symbol){
 
 async function getGateFutures(tf,symbol){
 
-  let interval=tf==="15m"
+  let interval=
 
-    ?"15m"
+    tf==="15m"
 
-    :tf==="1h"
+      ?"15m"
 
-      ?"1h"
+      :tf==="1h"
 
-      :"4h";
+        ?"1h"
+
+        :"4h";
 
   let url=
 
     "https://api.gateio.ws/api/v4/futures/usdt/candlesticks"+
 
-    "?contract="+encodeURIComponent(symbol)+
+    "?contract="+
 
-    "&interval="+interval+
+    encodeURIComponent(symbol)+
+
+    "&interval="+
+
+    interval+
 
     "&limit=200";
 
@@ -1412,23 +1880,29 @@ async function getGateFutures(tf,symbol){
 
 async function getGateSpot(tf,symbol){
 
-  let interval=tf==="15m"
+  let interval=
 
-    ?"15m"
+    tf==="15m"
 
-    :tf==="1h"
+      ?"15m"
 
-      ?"1h"
+      :tf==="1h"
 
-      :"4h";
+        ?"1h"
+
+        :"4h";
 
   let url=
 
     "https://api.gateio.ws/api/v4/spot/candlesticks"+
 
-    "?currency_pair="+encodeURIComponent(symbol)+
+    "?currency_pair="+
 
-    "&interval="+interval+
+    encodeURIComponent(symbol)+
+
+    "&interval="+
+
+    interval+
 
     "&limit=200";
 
@@ -1528,7 +2002,9 @@ async function getKlines(tf,market){
 
 function setDir(id,d){
 
-  let el=document.getElementById(id);
+  let el=
+
+    document.getElementById(id);
 
   el.textContent=d;
 
@@ -1545,6 +2021,166 @@ function setDir(id,d){
   else
 
     el.classList.add("wait");
+
+}
+
+/* =========================================================
+
+   ATR 顯示
+
+   ========================================================= */
+
+function displayATR(
+
+  atr14Value,
+
+  atr50Value,
+
+  symbol
+
+){
+
+  let state=
+
+    getATRState(
+
+      atr14Value,
+
+      atr50Value
+
+    );
+
+  let stateSimple=
+
+    state.state
+
+      .replace("🔴 ","")
+
+      .replace("🟢 ","")
+
+      .replace("🟡 ","");
+
+  let multiplier=
+
+    getDynamicATRMultiplier(
+
+      symbol,
+
+      stateSimple
+
+    );
+
+  document.getElementById("atr14")
+
+    .textContent=fmt(atr14Value);
+
+  document.getElementById("atr50")
+
+    .textContent=fmt(atr50Value);
+
+  document.getElementById("atrRatio")
+
+    .textContent=
+
+      (state.ratio*100).toFixed(0)+"%";
+
+  let stateEl=
+
+    document.getElementById("atrState");
+
+  stateEl.textContent=
+
+    state.state;
+
+  stateEl.className=
+
+    "val "+
+
+    state.className;
+
+  document.getElementById("atrMultiplier")
+
+    .textContent=
+
+      "× "+multiplier.toFixed(2);
+
+  let advice=
+
+    document.getElementById("atrAdvice");
+
+  if(stateSimple==="高波動"){
+
+    advice.innerHTML=
+
+      `
+
+      <div class="warningBox">
+
+        🚨 <strong>目前波動偏高</strong><br>
+
+        ATR 14 明顯高於 ATR 50。
+
+        價格容易快速上下掃動，
+
+        建議不要追單，止損需要留出較大空間。
+
+      </div>
+
+      `;
+
+  }
+
+  else if(stateSimple==="低波動"){
+
+    advice.innerHTML=
+
+      `
+
+      <div class="goodBox">
+
+        🟢 <strong>目前波動偏低</strong><br>
+
+        市場波動低於近期平均，
+
+        適合等待支撐或壓力突破確認，
+
+        不建議在狹窄區間頻繁追單。
+
+      </div>
+
+      `;
+
+  }
+
+  else{
+
+    advice.innerHTML=
+
+      `
+
+      <div class="goodBox">
+
+        🟡 <strong>目前波動正常</strong><br>
+
+        ATR 處於近期正常範圍，
+
+        可以搭配支撐、壓力與多週期方向判斷。
+
+      </div>
+
+      `;
+
+  }
+
+  return {
+
+    state:stateSimple,
+
+    multiplier:multiplier,
+
+    ratio:state.ratio
+
+  };
 
 }
 
@@ -1570,11 +2206,29 @@ async function refresh(){
 
       await Promise.all([
 
-        getKlines("15m",market),
+        getKlines(
 
-        getKlines("1h",market),
+          "15m",
 
-        getKlines("4h",market)
+          market
+
+        ),
+
+        getKlines(
+
+          "1h",
+
+          market
+
+        ),
+
+        getKlines(
+
+          "4h",
+
+          market
+
+        )
 
       ]);
 
@@ -1594,7 +2248,11 @@ async function refresh(){
 
     ){
 
-      throw new Error("K線資料不足");
+      throw new Error(
+
+        "K線資料不足"
+
+      );
 
     }
 
@@ -1602,19 +2260,51 @@ async function refresh(){
 
       h1[h1.length-1].close;
 
-    let c=h1.map(x=>x.close);
+    let c=
 
-    let b=boll(c);
+      h1.map(x=>x.close);
 
-    let e12=ema(c,12);
+    let b=
 
-    let e26=ema(c,26);
+      boll(c);
 
-    let m=macd(c);
+    let e12=
 
-    let r=rsi(c);
+      ema(c,12);
 
-    let a=atr(h1);
+    let e26=
+
+      ema(c,26);
+
+    let m=
+
+      macd(c);
+
+    let r=
+
+      rsi(c);
+
+    /* ATR */
+
+    let atr14Value=
+
+      atr(h1,14);
+
+    let atr50Value=
+
+      atr(h1,50);
+
+    let atrInfo=
+
+      displayATR(
+
+        atr14Value,
+
+        atr50Value,
+
+        symbol
+
+      );
 
     /* =====================================================
 
@@ -1622,13 +2312,19 @@ async function refresh(){
 
        ===================================================== */
 
-    let last50=h1.slice(-50);
+    let last50=
+
+      h1.slice(-50);
 
     let support=
 
       Math.min(
 
-        ...last50.map(x=>x.low)
+        ...last50.map(
+
+          x=>x.low
+
+        )
 
       );
 
@@ -1636,7 +2332,11 @@ async function refresh(){
 
       Math.max(
 
-        ...last50.map(x=>x.high)
+        ...last50.map(
+
+          x=>x.high
+
+        )
 
       );
 
@@ -1658,7 +2358,11 @@ async function refresh(){
 
       longScore+=20;
 
-      reasons.push("1H EMA 偏多");
+      reasons.push(
+
+        "1H EMA 偏多"
+
+      );
 
     }
 
@@ -1666,7 +2370,11 @@ async function refresh(){
 
       shortScore+=20;
 
-      reasons.push("1H EMA 偏空");
+      reasons.push(
+
+        "1H EMA 偏空"
+
+      );
 
     }
 
@@ -1700,7 +2408,11 @@ async function refresh(){
 
       longScore+=20;
 
-      reasons.push("價格接近 BOLL 下軌");
+      reasons.push(
+
+        "價格接近 BOLL 下軌"
+
+      );
 
     }
 
@@ -1712,7 +2424,11 @@ async function refresh(){
 
       shortScore+=20;
 
-      reasons.push("價格接近 BOLL 上軌");
+      reasons.push(
+
+        "價格接近 BOLL 上軌"
+
+      );
 
     }
 
@@ -1728,7 +2444,9 @@ async function refresh(){
 
     /* 4H */
 
-    let h4dir=direction(h4);
+    let h4dir=
+
+      direction(h4);
 
     if(h4dir==="偏多")
 
@@ -1740,7 +2458,9 @@ async function refresh(){
 
     /* 15M */
 
-    let m15dir=direction(m15);
+    let m15dir=
+
+      direction(m15);
 
     if(m15dir==="偏多")
 
@@ -1749,6 +2469,68 @@ async function refresh(){
     else if(m15dir==="偏空")
 
       shortScore+=5;
+
+    /* =====================================================
+
+       ATR 納入多空評估
+
+       ===================================================== */
+
+    if(
+
+      atrInfo.state==="高波動"
+
+    ){
+
+      /*
+
+       高波動不直接判斷方向，
+
+       但降低追單權重。
+
+      */
+
+      if(longScore>shortScore)
+
+        longScore-=5;
+
+      else if(shortScore>longScore)
+
+        shortScore-=5;
+
+      reasons.push(
+
+        "ATR 高波動，避免追單"
+
+      );
+
+    }
+
+    /* =====================================================
+
+       分數整理
+
+       ===================================================== */
+
+    longScore=
+
+      Math.max(
+
+        0,
+
+        longScore
+
+      );
+
+    shortScore=
+
+      Math.max(
+
+        0,
+
+        shortScore
+
+      );
 
     let total=
 
@@ -1762,7 +2544,11 @@ async function refresh(){
 
       Math.round(
 
-        longScore/total*100
+        longScore/
+
+        total*
+
+        100
 
       );
 
@@ -1798,7 +2584,9 @@ async function refresh(){
 
     document.getElementById("price")
 
-      .textContent=fmt(price);
+      .textContent=
+
+        fmt(price);
 
     document.getElementById("updated")
 
@@ -1806,11 +2594,19 @@ async function refresh(){
 
         "最後更新：" +
 
-        new Date().toLocaleTimeString("zh-TW");
+        new Date()
+
+          .toLocaleTimeString(
+
+            "zh-TW"
+
+          );
 
     document.getElementById("signal")
 
-      .textContent=signal;
+      .textContent=
+
+        signal;
 
     document.getElementById("ratio")
 
@@ -1818,11 +2614,15 @@ async function refresh(){
 
         "做多："+longPercent+
 
-        "%　|　做空："+shortPercent+"%";
+        "%　|　做空："+shortPercent+
+
+        "%";
 
     document.getElementById("ratioBar")
 
-      .style.width=longPercent+"%";
+      .style.width=
+
+        longPercent+"%";
 
     document.getElementById("reason")
 
@@ -1834,11 +2634,29 @@ async function refresh(){
 
         : "等待更多條件共振。";
 
-    setDir("d15",m15dir);
+    setDir(
 
-    setDir("d1h",direction(h1));
+      "d15",
 
-    setDir("d4h",h4dir);
+      m15dir
+
+    );
+
+    setDir(
+
+      "d1h",
+
+      direction(h1)
+
+    );
+
+    setDir(
+
+      "d4h",
+
+      h4dir
+
+    );
 
     /* =====================================================
 
@@ -1848,23 +2666,33 @@ async function refresh(){
 
     document.getElementById("support")
 
-      .textContent=fmt(support);
+      .textContent=
+
+        fmt(support);
 
     document.getElementById("resistance")
 
-      .textContent=fmt(resistance);
+      .textContent=
+
+        fmt(resistance);
 
     document.getElementById("lower")
 
-      .textContent=fmt(b.lower);
+      .textContent=
+
+        fmt(b.lower);
 
     document.getElementById("middle")
 
-      .textContent=fmt(b.middle);
+      .textContent=
+
+        fmt(b.middle);
 
     document.getElementById("upper")
 
-      .textContent=fmt(b.upper);
+      .textContent=
+
+        fmt(b.upper);
 
     /* =====================================================
 
@@ -1874,17 +2702,39 @@ async function refresh(){
 
     let tech=[
 
-      ["多頭分數",longScore],
+      [
 
-      ["空頭分數",shortScore],
+        "多頭分數",
 
-      ["RSI 1H",r.toFixed(1)],
+        longScore
+
+      ],
+
+      [
+
+        "空頭分數",
+
+        shortScore
+
+      ],
+
+      [
+
+        "RSI 1H",
+
+        r.toFixed(1)
+
+      ],
 
       [
 
         "EMA 12 / 26",
 
-        fmt(e12)+" / "+fmt(e26)
+        fmt(e12)+
+
+        " / "+
+
+        fmt(e26)
 
       ],
 
@@ -1898,9 +2748,27 @@ async function refresh(){
 
       [
 
-        "ATR 1H",
+        "ATR 14",
 
-        fmt(a)
+        fmt(atr14Value)
+
+      ],
+
+      [
+
+        "ATR 50",
+
+        fmt(atr50Value)
+
+      ],
+
+      [
+
+        "ATR 波動比",
+
+        (atrInfo.ratio*100)
+
+          .toFixed(0)+"%"
 
       ]
 
@@ -1910,11 +2778,17 @@ async function refresh(){
 
       .innerHTML=
 
-        tech.map(item=>`
+        tech.map(
+
+          item=>`
 
           <div class="row">
 
-            <span>${item[0]}</span>
+            <span>
+
+              ${item[0]}
+
+            </span>
 
             <span class="val">
 
@@ -1924,7 +2798,9 @@ async function refresh(){
 
           </div>
 
-        `).join("");
+          `
+
+        ).join("");
 
     /* =====================================================
 
@@ -1942,11 +2818,15 @@ async function refresh(){
 
       b,
 
-      a,
+      atr14Value,
+
+      atrInfo.multiplier,
 
       r,
 
-      longPercent
+      longPercent,
+
+      atrInfo.state
 
     );
 
@@ -1966,11 +2846,15 @@ async function refresh(){
 
       b,
 
-      a,
+      atr14Value,
+
+      atrInfo.multiplier,
 
       r,
 
-      shortPercent
+      shortPercent,
+
+      atrInfo.state
 
     );
 
@@ -1998,7 +2882,11 @@ async function refresh(){
 
     };
 
-    drawChart(CURRENT_DATA);
+    drawChart(
+
+      CURRENT_DATA
+
+    );
 
   }
 
@@ -2008,7 +2896,9 @@ async function refresh(){
 
     document.getElementById("updated")
 
-      .textContent="行情分析失敗";
+      .textContent=
+
+        "行情分析失敗";
 
     document.getElementById("reason")
 
@@ -2046,19 +2936,29 @@ function buildLong(
 
   atrValue,
 
+  atrMultiplier,
+
   rsiValue,
 
-  longPercent
+  longPercent,
+
+  atrState
 
 ){
 
   let nearSupport=
 
-    Math.abs(price-support)/price<=0.012;
+    Math.abs(
+
+      price-support
+
+    )/price<=0.012;
 
   let nearLower=
 
-    price<=boll.lower*1.012;
+    price<=
+
+    boll.lower*1.012;
 
   let rsiOK=
 
@@ -2084,19 +2984,59 @@ function buildLong(
 
     score+=20;
 
+  /* ATR */
+
+  if(
+
+    atrState==="低波動"
+
+  )
+
+    score+=5;
+
+  if(
+
+    atrState==="高波動"
+
+  )
+
+    score-=10;
+
+  score=
+
+    Math.max(
+
+      0,
+
+      Math.min(
+
+        score,
+
+        100
+
+      )
+
+    );
+
   let status;
 
   if(score>=70)
 
-    status="🟢 強支撐做多評估";
+    status=
+
+      "🟢 強支撐做多評估";
 
   else if(score>=45)
 
-    status="🟡 支撐觀察區";
+    status=
+
+      "🟡 支撐觀察區";
 
   else
 
-    status="🔴 不建議現在接多";
+    status=
+
+      "🔴 不建議現在接多";
 
   let zoneLow=
 
@@ -2122,9 +3062,25 @@ function buildLong(
 
     (zoneLow+zoneHigh)/2;
 
+  /*
+
+    ATR 動態止損
+
+  */
+
   let stopLoss=
 
-    support-atrValue*0.65;
+    support-
+
+    atrValue*
+
+    atrMultiplier;
+
+  /*
+
+    ATR 動態 TP
+
+  */
 
   let tp1=
 
@@ -2136,15 +3092,29 @@ function buildLong(
 
     );
 
-  let tp2=resistance;
+  let tp2=
 
-  if(tp1<=entry)
+    resistance;
 
-    tp1=entry+atrValue*2;
+  if(tp1<=entry){
 
-  if(tp2<=tp1)
+    tp1=
 
-    tp2=tp1+atrValue*1.5;
+      entry+
+
+      atrValue*2;
+
+  }
+
+  if(tp2<=tp1){
+
+    tp2=
+
+      tp1+
+
+      atrValue*1.5;
+
+  }
 
   let risk=
 
@@ -2158,9 +3128,9 @@ function buildLong(
 
     risk>0
 
-    ? reward/risk
+      ? reward/risk
 
-    : 0;
+      : 0;
 
   document.getElementById("longStatus")
 
@@ -2184,6 +3154,14 @@ function buildLong(
 
       ${rsiValue.toFixed(1)}
 
+      ｜ATR：
+
+      ${fmt(atrValue)}
+
+      ｜ATR狀態：
+
+      ${atrState}
+
       ｜做多條件：
 
       ${score}/100
@@ -2194,23 +3172,35 @@ function buildLong(
 
     .textContent=
 
-      fmt(zoneLow)+" ～ "+fmt(zoneHigh);
+      fmt(zoneLow)+
+
+      " ～ "+
+
+      fmt(zoneHigh);
 
   document.getElementById("sl")
 
-    .textContent=fmt(stopLoss);
+    .textContent=
+
+      fmt(stopLoss);
 
   document.getElementById("tp1")
 
-    .textContent=fmt(tp1);
+    .textContent=
+
+      fmt(tp1);
 
   document.getElementById("tp2")
 
-    .textContent=fmt(tp2);
+    .textContent=
+
+      fmt(tp2);
 
   document.getElementById("rr")
 
-    .textContent=rr.toFixed(2)+" : 1";
+    .textContent=
+
+      rr.toFixed(2)+" : 1";
 
 }
 
@@ -2232,19 +3222,29 @@ function buildShort(
 
   atrValue,
 
+  atrMultiplier,
+
   rsiValue,
 
-  shortPercent
+  shortPercent,
+
+  atrState
 
 ){
 
   let nearResistance=
 
-    Math.abs(price-resistance)/price<=0.012;
+    Math.abs(
+
+      price-resistance
+
+    )/price<=0.012;
 
   let nearUpper=
 
-    price>=boll.upper*0.988;
+    price>=
+
+    boll.upper*0.988;
 
   let rsiOK=
 
@@ -2270,19 +3270,59 @@ function buildShort(
 
     score+=20;
 
+  /* ATR */
+
+  if(
+
+    atrState==="低波動"
+
+  )
+
+    score+=5;
+
+  if(
+
+    atrState==="高波動"
+
+  )
+
+    score-=10;
+
+  score=
+
+    Math.max(
+
+      0,
+
+      Math.min(
+
+        score,
+
+        100
+
+      )
+
+    );
+
   let status;
 
   if(score>=70)
 
-    status="🔴 強壓力做空評估";
+    status=
+
+      "🔴 強壓力做空評估";
 
   else if(score>=45)
 
-    status="🟡 壓力觀察區";
+    status=
+
+      "🟡 壓力觀察區";
 
   else
 
-    status="🟢 不建議現在追空";
+    status=
+
+      "🟢 不建議現在追空";
 
   let zoneLow=
 
@@ -2308,9 +3348,25 @@ function buildShort(
 
     (zoneLow+zoneHigh)/2;
 
+  /*
+
+    ATR 動態止損
+
+  */
+
   let stopLoss=
 
-    resistance+atrValue*0.65;
+    resistance+
+
+    atrValue*
+
+    atrMultiplier;
+
+  /*
+
+    TP
+
+  */
 
   let tp1=
 
@@ -2322,15 +3378,29 @@ function buildShort(
 
     );
 
-  let tp2=support;
+  let tp2=
 
-  if(tp1>=entry)
+    support;
 
-    tp1=entry-atrValue*2;
+  if(tp1>=entry){
 
-  if(tp2>=tp1)
+    tp1=
 
-    tp2=tp1-atrValue*1.5;
+      entry-
+
+      atrValue*2;
+
+  }
+
+  if(tp2>=tp1){
+
+    tp2=
+
+      tp1-
+
+      atrValue*1.5;
+
+  }
 
   document.getElementById("shortStatus")
 
@@ -2354,6 +3424,14 @@ function buildShort(
 
       ${rsiValue.toFixed(1)}
 
+      ｜ATR：
+
+      ${fmt(atrValue)}
+
+      ｜ATR狀態：
+
+      ${atrState}
+
       ｜做空條件：
 
       ${score}/100
@@ -2364,19 +3442,29 @@ function buildShort(
 
     .textContent=
 
-      fmt(zoneLow)+" ～ "+fmt(zoneHigh);
+      fmt(zoneLow)+
+
+      " ～ "+
+
+      fmt(zoneHigh);
 
   document.getElementById("shortSL")
 
-    .textContent=fmt(stopLoss);
+    .textContent=
+
+      fmt(stopLoss);
 
   document.getElementById("shortTP1")
 
-    .textContent=fmt(tp1);
+    .textContent=
+
+      fmt(tp1);
 
   document.getElementById("shortTP2")
 
-    .textContent=fmt(tp2);
+    .textContent=
+
+      fmt(tp2);
 
 }
 
@@ -2400,21 +3488,41 @@ function drawChart(data){
 
     window.devicePixelRatio||1;
 
-  let width=box.clientWidth;
+  let width=
 
-  let height=box.clientHeight;
+    box.clientWidth;
 
-  canvas.width=width*dpr;
+  let height=
 
-  canvas.height=height*dpr;
+    box.clientHeight;
 
-  canvas.style.width=width+"px";
+  canvas.width=
 
-  canvas.style.height=height+"px";
+    width*dpr;
 
-  let ctx=canvas.getContext("2d");
+  canvas.height=
 
-  ctx.scale(dpr,dpr);
+    height*dpr;
+
+  canvas.style.width=
+
+    width+"px";
+
+  canvas.style.height=
+
+    height+"px";
+
+  let ctx=
+
+    canvas.getContext("2d");
+
+  ctx.scale(
+
+    dpr,
+
+    dpr
+
+  );
 
   ctx.clearRect(
 
@@ -2428,11 +3536,17 @@ function drawChart(data){
 
   );
 
-  let arr=data.h1.slice(-80);
+  let arr=
+
+    data.h1.slice(-80);
 
   let values=
 
-    arr.map(x=>x.close);
+    arr.map(
+
+      x=>x.close
+
+    );
 
   let allValues=[
 
@@ -2452,13 +3566,23 @@ function drawChart(data){
 
   let min=
 
-    Math.min(...allValues);
+    Math.min(
+
+      ...allValues
+
+    );
 
   let max=
 
-    Math.max(...allValues);
+    Math.max(
 
-  let range=max-min;
+      ...allValues
+
+    );
+
+  let range=
+
+    max-min;
 
   if(range<=0)
 
@@ -2478,7 +3602,9 @@ function drawChart(data){
 
   /* 背景格線 */
 
-  ctx.strokeStyle="#e5e5e5";
+  ctx.strokeStyle=
+
+    "#e5e5e5";
 
   ctx.lineWidth=1;
 
@@ -2494,9 +3620,21 @@ function drawChart(data){
 
     ctx.beginPath();
 
-    ctx.moveTo(0,yy);
+    ctx.moveTo(
 
-    ctx.lineTo(width,yy);
+      0,
+
+      yy
+
+    );
+
+    ctx.lineTo(
+
+      width,
+
+      yy
+
+    );
 
     ctx.stroke();
 
@@ -2524,7 +3662,9 @@ function drawChart(data){
 
     );
 
-  ctx.fillStyle="rgba(19,138,61,0.10)";
+  ctx.fillStyle=
+
+    "rgba(19,138,61,0.10)";
 
   ctx.fillRect(
 
@@ -2538,7 +3678,9 @@ function drawChart(data){
 
       1,
 
-      y(longBottom)-y(longTop)
+      y(longBottom)-
+
+      y(longTop)
 
     )
 
@@ -2566,7 +3708,9 @@ function drawChart(data){
 
     );
 
-  ctx.fillStyle="rgba(197,45,32,0.10)";
+  ctx.fillStyle=
+
+    "rgba(197,45,32,0.10)";
 
   ctx.fillRect(
 
@@ -2580,7 +3724,9 @@ function drawChart(data){
 
       1,
 
-      y(shortBottom)-y(shortTop)
+      y(shortBottom)-
+
+      y(shortTop)
 
     )
 
@@ -2588,15 +3734,27 @@ function drawChart(data){
 
   /* BOLL 中軌 */
 
-  ctx.strokeStyle="#c9a227";
+  ctx.strokeStyle=
+
+    "#c9a227";
 
   ctx.lineWidth=1.5;
 
-  ctx.setLineDash([5,5]);
+  ctx.setLineDash(
+
+    [5,5]
+
+  );
 
   ctx.beginPath();
 
-  ctx.moveTo(0,y(data.boll.middle));
+  ctx.moveTo(
+
+    0,
+
+    y(data.boll.middle)
+
+  );
 
   ctx.lineTo(
 
@@ -2612,51 +3770,95 @@ function drawChart(data){
 
   /* 價格 */
 
-  ctx.strokeStyle="#222";
+  ctx.strokeStyle=
+
+    "#222";
 
   ctx.lineWidth=2;
 
   ctx.beginPath();
 
-  arr.forEach((x,i)=>{
+  arr.forEach(
 
-    let xx=
+    (x,i)=>{
 
-      i/(arr.length-1)*
+      let xx=
 
-      width;
+        i/
 
-    let yy=y(x.close);
+        (arr.length-1)*
 
-    if(i===0)
+        width;
 
-      ctx.moveTo(xx,yy);
+      let yy=
 
-    else
+        y(x.close);
 
-      ctx.lineTo(xx,yy);
+      if(i===0)
 
-  });
+        ctx.moveTo(
+
+          xx,
+
+          yy
+
+        );
+
+      else
+
+        ctx.lineTo(
+
+          xx,
+
+          yy
+
+        );
+
+    }
+
+  );
 
   ctx.stroke();
 
   /* 目前價格 */
 
-  let current=data.price;
+  let current=
 
-  let cy=y(current);
+    data.price;
 
-  ctx.strokeStyle="#777";
+  let cy=
+
+    y(current);
+
+  ctx.strokeStyle=
+
+    "#777";
 
   ctx.lineWidth=1;
 
-  ctx.setLineDash([4,4]);
+  ctx.setLineDash(
+
+    [4,4]
+
+  );
 
   ctx.beginPath();
 
-  ctx.moveTo(0,cy);
+  ctx.moveTo(
 
-  ctx.lineTo(width,cy);
+    0,
+
+    cy
+
+  );
+
+  ctx.lineTo(
+
+    width,
+
+    cy
+
+  );
 
   ctx.stroke();
 
@@ -2664,9 +3866,13 @@ function drawChart(data){
 
   /* 目前價格文字 */
 
-  ctx.fillStyle="#222";
+  ctx.fillStyle=
 
-  ctx.font="bold 13px sans-serif";
+    "#222";
+
+  ctx.font=
+
+    "bold 13px sans-serif";
 
   ctx.fillText(
 
@@ -2674,15 +3880,25 @@ function drawChart(data){
 
     8,
 
-    Math.max(15,cy-7)
+    Math.max(
+
+      15,
+
+      cy-7
+
+    )
 
   );
 
   /* 做多標記 */
 
-  ctx.fillStyle="#138a3d";
+  ctx.fillStyle=
 
-  ctx.font="bold 13px sans-serif";
+    "#138a3d";
+
+  ctx.font=
+
+    "bold 13px sans-serif";
 
   ctx.fillText(
 
@@ -2702,7 +3918,9 @@ function drawChart(data){
 
   /* 做空標記 */
 
-  ctx.fillStyle="#c52d20";
+  ctx.fillStyle=
+
+    "#c52d20";
 
   ctx.fillText(
 
@@ -2732,17 +3950,25 @@ async function startAnalysis(){
 
   let input=
 
-    document.getElementById("symbolInput")
+    document.getElementById(
 
-      .value
+      "symbolInput"
 
-      .trim()
+    )
 
-      .toUpperCase();
+    .value
+
+    .trim()
+
+    .toUpperCase();
 
   if(!input){
 
-    alert("請輸入幣種，例如 BTC");
+    alert(
+
+      "請輸入幣種，例如 BTC"
+
+    );
 
     return;
 
@@ -2754,79 +3980,127 @@ async function startAnalysis(){
 
     input
 
-      .replace("/USDT","")
+      .replace(
 
-      .replace("-USDT","")
+        "/USDT",
 
-      .replace("_USDT","")
+        ""
 
-      .replace("USDT","");
+      )
 
-  CURRENT_SYMBOL=input;
+      .replace(
+
+        "-USDT",
+
+        ""
+
+      )
+
+      .replace(
+
+        "_USDT",
+
+        ""
+
+      )
+
+      .replace(
+
+        "USDT",
+
+        "");
+
+  CURRENT_SYMBOL=
+
+    input;
 
   document.getElementById("signal")
 
-    .textContent="🟡 搜尋市場…";
+    .textContent=
+
+      "🟡 搜尋市場…";
 
   document.getElementById("updated")
 
-    .textContent="正在尋找正確交易對…";
+    .textContent=
+
+      "正在尋找正確交易對…";
 
   try{
 
     let market=
 
-      await findMarket(input);
+      await findMarket(
+
+        input
+
+      );
 
     if(!market){
 
-      document.getElementById("marketInfo")
+      document.getElementById(
 
-        .innerHTML=
+        "marketInfo"
 
-          `<span class="error">
+      )
 
-          ❌ 找不到 ${input}/USDT
+      .innerHTML=
 
-          <br>
+        `<span class="error">
 
-          Binance 與 Gate 都沒有找到可分析的 USDT 市場。
+        ❌ 找不到 ${input}/USDT
 
-          </span>`;
+        <br>
+
+        Binance 與 Gate 都沒有找到可分析的 USDT 市場。
+
+        </span>`;
 
       document.getElementById("signal")
 
-        .textContent="⚪ 找不到交易對";
+        .textContent=
+
+          "⚪ 找不到交易對";
 
       document.getElementById("updated")
 
-        .textContent="分析停止";
+        .textContent=
+
+          "分析停止";
 
       return;
 
     }
 
-    CURRENT_MARKET=market;
+    CURRENT_MARKET=
 
-    document.getElementById("marketInfo")
+      market;
 
-      .innerHTML=
+    document.getElementById(
 
-        `✅ 實際分析市場：
+      "marketInfo"
 
-        <strong>
+    )
 
-        ${market.exchange}
+    .innerHTML=
 
-        ${market.type}
+      `✅ 實際分析市場：
 
-        ${market.symbol}
+      <strong>
 
-        </strong>`;
+      ${market.exchange}
+
+      ${market.type}
+
+      ${market.symbol}
+
+      </strong>`;
 
     document.getElementById("signal")
 
-      .textContent="🟡 取得行情…";
+      .textContent=
+
+        "🟡 取得行情…";
 
     await refresh();
 
@@ -2836,19 +4110,25 @@ async function startAnalysis(){
 
     console.error(error);
 
-    document.getElementById("marketInfo")
+    document.getElementById(
 
-      .innerHTML=
+      "marketInfo"
 
-        `<span class="error">
+    )
 
-        ❌ 市場搜尋失敗
+    .innerHTML=
 
-        </span>`;
+      `<span class="error">
+
+      ❌ 市場搜尋失敗
+
+      </span>`;
 
     document.getElementById("updated")
 
-      .textContent="連線失敗";
+      .textContent=
+
+        "連線失敗";
 
   }
 
@@ -2860,21 +4140,25 @@ async function startAnalysis(){
 
    ========================================================= */
 
-document.getElementById("symbolInput")
+document.getElementById(
 
-  .addEventListener(
+  "symbolInput"
 
-    "keydown",
+)
 
-    function(e){
+.addEventListener(
 
-      if(e.key==="Enter")
+  "keydown",
 
-        startAnalysis();
+  function(e){
 
-    }
+    if(e.key==="Enter")
 
-  );
+      startAnalysis();
+
+  }
+
+);
 
 /* =========================================================
 
@@ -2890,7 +4174,11 @@ window.addEventListener(
 
     if(CURRENT_DATA)
 
-      drawChart(CURRENT_DATA);
+      drawChart(
+
+        CURRENT_DATA
+
+      );
 
   }
 
